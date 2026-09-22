@@ -1,0 +1,129 @@
+# Contributing
+
+Keep changes tied to a concrete requirement or defect in bounded agent-assisted
+work. Read [README.md](README.md) for the responsibility and source-status model
+and [PROVENANCE.md](PROVENANCE.md) for source ownership. These contributor
+instructions are repository-local implementation guidance, not external policy.
+
+Do not strengthen or weaken governing requirements, introduce organization-neutral
+review governance, or put live task instances into canonical artifacts. Evaluate
+changed handoff semantics against the actual governing source and consuming
+project impact. Keep each canonical artifact's Governing sources and visible
+workflow-local distinction intact. A wording or file-layout forecast is not an
+authority boundary unless the authorized contract deliberately makes it one.
+
+## Workflow
+
+Use a bounded branch named `<type>/<short-description>` and a matching
+`<type>: <description>` PR title, using feat, fix, docs, chore, or refactor as
+appropriate. Describe the outcome, applicable authority, source relationships,
+validation, consumer impact, and unresolved questions. Keep execution records in
+issues or PRs, and settled reusable behavior in canonical files.
+
+Independent review and Planning acceptance are required before merging the
+initial baseline; release authorization is separate. For subsequent changes,
+follow the actual project contract and required review gates. Validation never
+confers merge, release, or deployment authority.
+
+Follow the [setup instructions](README.md#run-checks), stage intended new files,
+and run:
+
+```sh
+.venv/bin/pre-commit run --all-files --show-diff-on-failure
+git diff --check
+```
+
+Hooks that fix files exit unsuccessfully until their changes are reviewed and
+included. Rerun after reviewing fixes. An installed commit hook checks staged
+files; the full command also catches effects on unchanged sources, such as
+links to a deleted target. Run the full command before opening a pull request.
+
+CI runs the same configuration on the checked-out commit. Required checks,
+review counts, merge strategy, and permissions belong to the repository's host
+settings and should be chosen for the project.
+
+## Changing validation
+
+`.pre-commit-config.yaml` owns tool selection and file scope. Markdown rules live
+in `.markdownlint-cli2.jsonc`; Python rules live in `ruff.toml`. Use the tools'
+native configuration when project requirements change. Make exclusions explicit
+and explain substantive coverage reductions in the pull request.
+
+Linkinator checks Markdown links offline, including fragments. It runs as a
+fresh process through `tools/check-links.mjs`, with exact dependencies in
+`package.json` and `package-lock.json`. A startup probe verifies that front matter
+is excluded by the renderer actually used by Linkinator; an ineffective hook
+stops validation before repository content is read. External HTTP/HTTPS links
+are skipped, including redirects leaving the local serving origin. There is no
+required remote-link check. Absolute website routes and generated destinations
+need a project-specific decision. Markdown parsing belongs to the
+maintained tools. The local `fenced-code-closed` authoring rule consumes
+markdownlint's micromark tokens to require explicit fence closure; it neither
+parses Markdown independently nor chooses a closing position automatically.
+Working symbolic links are allowed.
+
+Directory destinations use Linkinator's native directory listings and do not
+require an `index.html`. Missing directories still fail. If an `index.html` is
+present, Linkinator checks its fragments; generated listings do not expose an
+HTML fragment contract, so fragments on those listings are not validated.
+Use an explicit Markdown or HTML file link when a fragment must be checked.
+
+When changing a check or its scope, verify both that representative defects fail
+and that representative valid files pass in an isolated Git repository. Include
+new-file selection and the full CI command where relevant. The suite includes
+`tests/markdown-rules.test.cjs`, which exercises the local rule through the
+installed CLI and actual configuration in the same isolated hook environment.
+Keep embedded Markdown examples, container boundaries, opening-line locations,
+and no-autofix behavior covered when updating the rule or its parser dependency.
+Projects should add tests for the additional behavior they own.
+
+## Updating dependencies
+
+Hook repositories are pinned to immutable commits, with version comments.
+Review updates using:
+
+```sh
+.venv/bin/pre-commit autoupdate --freeze
+```
+
+Review the resulting versions and configuration compatibility, then run the
+full suite. `requirements-dev.txt` pins the runner. npm owns the link checker,
+its explicit Marked dependency, the maintained front-matter stack, and the
+Markdownlint dependency used by its regression tests. Use `npm ci --ignore-scripts`
+locally and in CI. The lock preserves the full dependency resolution;
+pre-commit `additional_dependencies` cannot provide that transitive lock.
+The startup probe is still required: correctness must not depend on hoisting.
+Update pins and lock together, then run the regression suite and ordinary checks.
+Keep the test Markdownlint version aligned with its existing pre-commit hook.
+
+Dependabot proposes GitHub Actions, Python requirements, and npm dependency
+updates monthly. Hook revisions remain covered by `pre-commit autoupdate`.
+Actions are pinned by commit as well; review version inputs when updating them.
+
+The durable link regression contract and test controls are documented in
+[tests/link-validation/README.md](tests/link-validation/README.md).
+
+## Local artifact checks
+
+Generic mechanics remain owned by repo-template. This repository's only local
+validator checks the required canonical artifact paths and obvious live task
+identifiers in roles, handoffs, and workflows. It intentionally does not parse
+workflow semantics or reimplement Markdown, links, syntax, or generic policy.
+
+```sh
+python3 scripts/validate_local.py
+python3 -m unittest discover -s tests
+npm audit
+```
+
+The same two Python commands are included in pre-commit and hosted CI. Tests
+exercise missing artifacts, valid placeholders, live issue/repository/SHA values,
+and newly added canonical files in temporary directories. Identifier detection
+is a narrow guard, not proof that all project-specific prose is absent.
+
+Manually review authority strength and applicability, finding dispositions,
+source-reference correctness, accessible consumer dependencies, and placeholder
+use. Compare every declared exact copy byte-for-byte with its recorded upstream
+revision. Reverify external governing references when changed. No repository tree
+snapshot, generic retained fork, workflow parser, or standards-domain tooling
+belongs here. Generic defects go to their owning upstream source.
