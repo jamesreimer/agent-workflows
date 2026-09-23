@@ -117,6 +117,20 @@ correspond to the original `b79d8d0f14b26a2c6414a016b9501853e68f4670` revision.
 Existing adapted artifacts retain their classification. Governing standards
 and consumer adoption authority are unchanged.
 
+## Release-title reconciliation
+
+The release-title convention is adapted from repo-template **v1.2.1**, immutable
+revision [`de0fd9206cf0448d50e0dd0f58f858eea46697ad`](https://github.com/jamesreimer/repo-template/tree/de0fd9206cf0448d50e0dd0f58f858eea46697ad).
+The naming change affects only upstream `MAINTAINING.md`: use the complete tag
+as the default GitHub Release title and verify that title after publication.
+The local release procedure, CLI example, and read-back checks incorporate it
+while preserving pre-1.0 semantics and release qualification safeguards.
+
+This selective adoption does not change the initial generic baseline, the prior
+release-maintenance adoption, exact-copy obligations, design sources, or workflow
+artifacts. The title convention is a display default, not external normative
+authority or a change to immutable tag identity.
+
 ## Design and governance sources
 
 Source: [jamesreimer/standards-templates](https://github.com/jamesreimer/standards-templates).
