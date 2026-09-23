@@ -43,7 +43,12 @@ links to a deleted target. Run the full command before opening a pull request.
 
 CI runs the same configuration on the checked-out commit. Required checks,
 review counts, merge strategy, and permissions belong to the repository's host
-settings and should be chosen for the project.
+settings and should be chosen for the project. The upstream
+[default-branch ruleset guidance](https://github.com/jamesreimer/repo-template/blob/de0fd9206cf0448d50e0dd0f58f858eea46697ad/rulesets/README.md)
+supplies a starting configuration and separate host verification procedure.
+When changing the required job's name, source, or triggers, reconcile the live
+required check with the workflow so every pull request targeting the protected
+branch can report it. Preserve this repository's exact-candidate checkout.
 
 ## Changing validation
 

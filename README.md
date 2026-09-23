@@ -82,8 +82,8 @@ are source records, not example task values.
 ## Versioning
 
 Repository-local release guidance: use pre-1.0 versions while the operational
-model is pressure-tested. The intended first release is `v0.1.0`, after review
-and separate release authorization. A Working candidate is not a release.
+model is pressure-tested. See the [latest published release](https://github.com/jamesreimer/agent-workflows/releases/latest)
+for the current distribution. A Working candidate is not a release.
 Before `v1.0.0`, obtain evidence from at least one structurally different workflow
 composition, alongside stable boundaries, authority interpretation, handoff
 semantics, and deliberate consumer updates. Repeating reviewed-change in more
