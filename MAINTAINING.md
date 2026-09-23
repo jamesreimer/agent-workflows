@@ -16,7 +16,7 @@ organization-neutral release policy.
 Use versions `MAJOR.MINOR.PATCH` and matching Git tags `vMAJOR.MINOR.PATCH`, with
 non-negative integer components and no leading zeroes. Review the actual changes
 and consumer impact when choosing the version. While the operational model is
-pressure-tested, use pre-1.0 versions: the intended first release is `v0.1.0`.
+pressure-tested, use pre-1.0 versions.
 Within `0.x`, increment MINOR for incompatible changes or compatible additions,
 and PATCH for compatible fixes or clarifications. Describe incompatibilities and
 adoption implications explicitly in the release notes.

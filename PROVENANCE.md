@@ -15,16 +15,15 @@ and release requires separate authorization.
 ## Generic foundation
 
 Source: [jamesreimer/repo-template](https://github.com/jamesreimer/repo-template).
-Initial consumed baseline: **v1.0.2**, immutable revision
-[`b79d8d0f14b26a2c6414a016b9501853e68f4670`](https://github.com/jamesreimer/repo-template/tree/b79d8d0f14b26a2c6414a016b9501853e68f4670).
-Files were exported directly from that Git object, without importing
-standards-templates tooling or transitional controls. The repository has a fresh
-history and an empty initial review-base commit, not a copied upstream history.
+Current reconciled baseline: **v1.2.1**, immutable revision
+[`de0fd9206cf0448d50e0dd0f58f858eea46697ad`](https://github.com/jamesreimer/repo-template/tree/de0fd9206cf0448d50e0dd0f58f858eea46697ad).
+The initial export used **v1.0.2**,
+[`b79d8d0f14b26a2c6414a016b9501853e68f4670`](https://github.com/jamesreimer/repo-template/tree/b79d8d0f14b26a2c6414a016b9501853e68f4670),
+without importing standards-templates tooling or transitional controls. The
+repository has a fresh history and an empty initial review-base commit, not a
+copied upstream history. The classifications below describe the current basis;
+initial export history does not substitute for current correspondence checks.
 
-The classifications below cover the tracked file set, including the later
-release-maintenance adoption described below. Except for that explicit later
-adoption, paths in the exact and adapted groups originate at the same paths in
-the initial source revision. The initial consumed baseline remains unchanged.
 Generic mechanics remain maintained at repo-template; this repository consumes
 that implementation rather than retaining a hidden generic fork. The private
 npm package name remains the upstream validation package identity, not the
@@ -95,79 +94,84 @@ The validator and tests implement only the local canonical artifact contract.
 
 ## Release-maintenance reconciliation
 
-A deliberate post-instantiation reconciliation adopted release-maintenance
-guidance from [repo-template revision
-`4f848f29e9021a9f9b19a81a3a83436113880d97`](https://github.com/jamesreimer/repo-template/tree/4f848f29e9021a9f9b19a81a3a83436113880d97).
-The reviewed upstream delta from the initial baseline is one commit, changing
-only `CONTRIBUTING.md`, `README.md`, and the new `MAINTAINING.md`.
+The reconciliation from the initial v1.0.2 export through v1.2.1 covers the
+three upstream commits introducing release guidance, restoring default-branch
+ruleset guidance, and standardizing release titles.
 
-- `MAINTAINING.md`: adopted as an **adapted copy**, with this repository's
-  identity, pre-1.0 policy, qualification commands, candidate/publication
-  distinction, and separate human release authority. Upstream tag history is
-  specific to repo-template and was not imported.
-- `CONTRIBUTING.md`: adopted the maintenance pointer as an addition to the
-  existing adapted contribution and validation guidance.
-- `README.md`: upstream template-instantiation wording is not directly
-  applicable. The downstream Versioning section instead links to the local
-  maintenance procedure; existing repository-specific content remains adapted.
+- `MAINTAINING.md`: adapted release guidance with this repository's identity,
+  pre-1.0 policy, qualification commands, candidate/publication distinction,
+  and separate human release authority. It includes remote annotated-tag
+  verification before and after release publication and complete-tag release
+  titles. Upstream repository-specific tag history is not imported.
+- `CONTRIBUTING.md`: includes the maintenance pointer and the requirement to
+  reconcile required-check identity, source, and triggers with live protection.
+- `README.md`: upstream template-instantiation instructions do not apply to this
+  operational library. Local usage, setup, versioning, and maintenance routing
+  remain adapted; current release discovery uses the releases page.
+- `rulesets/`: upstream host-configuration guidance is referenced rather than
+  copied into the library. Host protection is verified separately from file
+  correspondence; recording this basis does not change live settings.
+- All 21 exact-copy files match the current basis. Other adapted files retain
+  their documented local differences, including the two local artifact checks
+  and exact-candidate CI checkout. No generic validation implementation changes
+  are required by this source delta.
 
-This is a selective later adoption, not replacement of the initial consumed
-baseline or automatic synchronization. The 21 exact-copy artifacts still
-correspond to the original `b79d8d0f14b26a2c6414a016b9501853e68f4670` revision.
-Existing adapted artifacts retain their classification. Governing standards
-and consumer adoption authority are unchanged.
+The release procedure was initially adapted from upstream revision
+[`4f848f29e9021a9f9b19a81a3a83436113880d97`](https://github.com/jamesreimer/repo-template/tree/4f848f29e9021a9f9b19a81a3a83436113880d97).
+This history is retained separately from the current reconciled baseline.
 
 ## Release-title reconciliation
 
-The release-title convention is adapted from repo-template **v1.2.1**, immutable
-revision [`de0fd9206cf0448d50e0dd0f58f858eea46697ad`](https://github.com/jamesreimer/repo-template/tree/de0fd9206cf0448d50e0dd0f58f858eea46697ad).
-The naming change affects only upstream `MAINTAINING.md`: use the complete tag
-as the default GitHub Release title and verify that title after publication.
-The local release procedure, CLI example, and read-back checks incorporate it
-while preserving pre-1.0 semantics and release qualification safeguards.
-
-This selective adoption does not change the initial generic baseline, the prior
-release-maintenance adoption, exact-copy obligations, design sources, or workflow
-artifacts. The title convention is a display default, not external normative
-authority or a change to immutable tag identity.
+The current generic basis supplies the complete-tag display convention already
+incorporated into the local procedure and read-back checks. Semantic Versioning
+controls version numbers, not display titles. The convention does not change
+immutable tag identity, pre-1.0 semantics, or consumer authority.
 
 ## Design and governance sources
 
 Source: [jamesreimer/standards-templates](https://github.com/jamesreimer/standards-templates).
-Design/governance baseline: **v1.0.1**, immutable revision
-[`20cae71189ae84937b02817b475ee5032531262b`](https://github.com/jamesreimer/standards-templates/tree/20cae71189ae84937b02817b475ee5032531262b).
+Current reviewed design/governance baseline: **v1.1.1**, immutable revision
+[`df73ad31cdbb15210ad9670d669d3c567a79a1d3`](https://github.com/jamesreimer/standards-templates/tree/df73ad31cdbb15210ad9670d669d3c567a79a1d3).
 The creation authority directs their application within each subject. These are
 reference relationships, not exact/adapted copies of normative texts. No normative
 standard is copied wholesale or newly adopted on behalf of a consuming organization.
 
 Canonical artifacts reference these entries and identify relevant source sections.
-The exact revision links resolve the original source text; consumers map the
+The five referenced standards are all at **template edition 1.0**. Their
+`standard.md` text is byte-identical to the initial design baseline, **v1.0.1**
+([`20cae71189ae84937b02817b475ee5032531262b`](https://github.com/jamesreimer/standards-templates/tree/20cae71189ae84937b02817b475ee5032531262b)).
+The intervening template-edition metadata, repository actor-neutrality guidance,
+local naming validation, and release-maintenance changes do not require changes
+to this library's roles, handoffs, or workflow. The operational library continues
+to consume actor-neutral standards without redefining their requirements.
+
+The exact revision links resolve the reviewed source text; consumers map the
 relationship to their actual adopted/project authority rather than treating this
 source record as authority over them.
 
 ### Architectural Reasoning
 
-[Source standard](https://github.com/jamesreimer/standards-templates/blob/20cae71189ae84937b02817b475ee5032531262b/templates/architectural-reasoning/standard.md).
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/df73ad31cdbb15210ad9670d669d3c567a79a1d3/templates/architectural-reasoning/standard.md).
 Authority interpretation, responsibility, proportional architecture, dependencies, and architectural completion including material finding dispositions.
 
 ### Operational Execution Contract
 
-[Source standard](https://github.com/jamesreimer/standards-templates/blob/20cae71189ae84937b02817b475ee5032531262b/templates/operational-execution-contract/standard.md).
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/df73ad31cdbb15210ad9670d669d3c567a79a1d3/templates/operational-execution-contract/standard.md).
 Consequential execution scope, minimum contract content, established paths, protected boundaries, validation, recovery, and return reporting.
 
 ### Shared Asset Provenance
 
-[Source standard](https://github.com/jamesreimer/standards-templates/blob/20cae71189ae84937b02817b475ee5032531262b/templates/shared-asset-provenance/standard.md).
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/df73ad31cdbb15210ad9670d669d3c567a79a1d3/templates/shared-asset-provenance/standard.md).
 Source identity, immutable consumed state, content correspondence, relationship semantics, and required shared targets.
 
 ### Project Repository Responsibility
 
-[Source standard](https://github.com/jamesreimer/standards-templates/blob/20cae71189ae84937b02817b475ee5032531262b/templates/project-repository-model/standard.md).
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/df73ad31cdbb15210ad9670d669d3c567a79a1d3/templates/project-repository-model/standard.md).
 Placement of canonical artifacts, work records, planning state, and responsibility-based repository separation.
 
 ### Standards Adoption Model
 
-[Source standard](https://github.com/jamesreimer/standards-templates/blob/20cae71189ae84937b02817b475ee5032531262b/templates/standards-adoption-model/standard.md).
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/df73ad31cdbb15210ad9670d669d3c567a79a1d3/templates/standards-adoption-model/standard.md).
 Deliberate adoption, existing authority and conflicts, independent governance, provenance, and review of later upstream changes.
 
 ## Verification and later changes
