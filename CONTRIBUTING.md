@@ -12,6 +12,9 @@ project impact. Keep each canonical artifact's Governing sources and visible
 workflow-local distinction intact. A wording or file-layout forecast is not an
 authority boundary unless the authorized contract deliberately makes it one.
 
+Follow [MAINTAINING.md](MAINTAINING.md) for repository-local release preparation
+and publication. Contribution permission does not grant release authority.
+
 ## Workflow
 
 Use a bounded branch named `<type>/<short-description>` and a matching

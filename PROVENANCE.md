@@ -15,14 +15,16 @@ and release requires separate authorization.
 ## Generic foundation
 
 Source: [jamesreimer/repo-template](https://github.com/jamesreimer/repo-template).
-Consumed baseline: **v1.0.2**, immutable revision
+Initial consumed baseline: **v1.0.2**, immutable revision
 [`b79d8d0f14b26a2c6414a016b9501853e68f4670`](https://github.com/jamesreimer/repo-template/tree/b79d8d0f14b26a2c6414a016b9501853e68f4670).
 Files were exported directly from that Git object, without importing
 standards-templates tooling or transitional controls. The repository has a fresh
 history and an empty initial review-base commit, not a copied upstream history.
 
-The classifications below cover the complete initial tracked file set. Paths in
-the exact and adapted groups correspond to the same paths at that source revision.
+The classifications below cover the tracked file set, including the later
+release-maintenance adoption described below. Except for that explicit later
+adoption, paths in the exact and adapted groups originate at the same paths in
+the initial source revision. The initial consumed baseline remains unchanged.
 Generic mechanics remain maintained at repo-template; this repository consumes
 that implementation rather than retaining a hidden generic fork. The private
 npm package name remains the upstream validation package identity, not the
@@ -62,6 +64,8 @@ them automatically during an upstream update.
 
 - `README.md`: library purpose, usage, authority and release boundary; retains setup guidance.
 - `CONTRIBUTING.md`: local contribution and artifact contract alongside upstream validation guidance.
+- `MAINTAINING.md`: repository-local release procedure adapted from the later
+  revision recorded under [release-maintenance reconciliation](#release-maintenance-reconciliation).
 - `AGENTS.md`: repository-specific work routing and authorized implementation boundary.
 - `SECURITY.md`: actual issue-based contact route and revision-based reporting, with no runtime support claim.
 - `.pre-commit-config.yaml`: all upstream hooks unchanged, plus the two local artifact-check commands.
@@ -88,6 +92,30 @@ The validator and tests implement only the local canonical artifact contract.
 - `roles/planning.md`
 - `roles/publication.md`
 - `workflows/reviewed-change.md`
+
+## Release-maintenance reconciliation
+
+A deliberate post-instantiation reconciliation adopted release-maintenance
+guidance from [repo-template revision
+`4f848f29e9021a9f9b19a81a3a83436113880d97`](https://github.com/jamesreimer/repo-template/tree/4f848f29e9021a9f9b19a81a3a83436113880d97).
+The reviewed upstream delta from the initial baseline is one commit, changing
+only `CONTRIBUTING.md`, `README.md`, and the new `MAINTAINING.md`.
+
+- `MAINTAINING.md`: adopted as an **adapted copy**, with this repository's
+  identity, pre-1.0 policy, qualification commands, candidate/publication
+  distinction, and separate human release authority. Upstream tag history is
+  specific to repo-template and was not imported.
+- `CONTRIBUTING.md`: adopted the maintenance pointer as an addition to the
+  existing adapted contribution and validation guidance.
+- `README.md`: upstream template-instantiation wording is not directly
+  applicable. The downstream Versioning section instead links to the local
+  maintenance procedure; existing repository-specific content remains adapted.
+
+This is a selective later adoption, not replacement of the initial consumed
+baseline or automatic synchronization. The 21 exact-copy artifacts still
+correspond to the original `b79d8d0f14b26a2c6414a016b9501853e68f4670` revision.
+Existing adapted artifacts retain their classification. Governing standards
+and consumer adoption authority are unchanged.
 
 ## Design and governance sources
 

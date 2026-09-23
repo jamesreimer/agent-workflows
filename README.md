@@ -1,5 +1,8 @@
 # Agent Workflows
 
+[![Repository validation](https://github.com/jamesreimer/agent-workflows/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/jamesreimer/agent-workflows/actions/workflows/validate.yml?query=branch%3Amain)
+[![License: CC0-1.0](https://img.shields.io/badge/license-CC0--1.0-blue)](LICENSE)
+
 A library of reusable operational artifacts for bounded agent-assisted work.
 It preserves responsibility, authority, evidence, and return-of-control integrity
 across assisted execution. It is not an agent runtime, orchestration engine, or
@@ -86,6 +89,10 @@ composition, alongside stable boundaries, authority interpretation, handoff
 semantics, and deliberate consumer updates. Repeating reviewed-change in more
 projects alone does not meet that evidence need. No arbitrary adoption count
 is required.
+
+Follow [MAINTAINING.md](MAINTAINING.md) to prepare, qualify, and publish an
+authorized release. It defines the annotated-tag and publication verification
+procedure; passing validation does not authorize a release.
 
 ## Run checks
 
