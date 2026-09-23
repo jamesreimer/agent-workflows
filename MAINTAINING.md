@@ -28,6 +28,11 @@ Repeating reviewed-change use alone is insufficient; no arbitrary adoption count
 is required. After 1.0, increment MAJOR for incompatible changes, MINOR for
 compatible additions, and PATCH for compatible fixes or clarifications.
 
+Use the complete Git tag as the GitHub Release title, for example `v0.1.1`,
+following the upstream default display convention. Semantic Versioning governs
+version numbers, not release titles; the editable title does not replace the
+immutable tag or its verified target.
+
 Formal releases use **annotated Git tags**. A GitHub Release must correspond to
 the verified tag. Published release tags are immutable: do not move, replace,
 or delete/recreate them. A correction requiring different content or a different
@@ -173,7 +178,7 @@ Only after successful tag verification, create and inspect its GitHub Release:
 
 ```sh
 gh release create "$tag" --repo jamesreimer/agent-workflows --verify-tag \
-  --title "agent-workflows $tag" --notes-file "$notes_file" &&
+  --title "$tag" --notes-file "$notes_file" &&
   gh release view "$tag" --repo jamesreimer/agent-workflows \
     --json url,tagName,name,isDraft,isPrerelease,publishedAt,body &&
   verify_remote_tag
@@ -181,7 +186,7 @@ gh release create "$tag" --repo jamesreimer/agent-workflows --verify-tag \
 
 `--verify-tag` prevents implicit tag creation; it does not verify tag type or
 commit identity, which the earlier checks establish. Require successful commands
-and inspect the result: the tag and title must identify the intended release,
+and inspect the result: the tag and title must both equal the intended complete tag,
 notes must match the prepared text, `publishedAt` must be populated, and both
 `isDraft` and `isPrerelease` must be false. Pre-1.0 versioning alone does not mark
 a formal release as a GitHub prerelease. Confirm the returned release page and
