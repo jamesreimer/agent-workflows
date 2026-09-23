@@ -19,7 +19,7 @@ class ArtifactContractTests(unittest.TestCase):
 
     def test_valid_placeholders_and_source_reference_preserve_bytes(self):
         path = self.root / REQUIRED[0]
-        path.write_text("# Example\n\n[Source](../PROVENANCE.md#architectural-reasoning)\n")
+        path.write_text("# Example\n\n[Source](../GOVERNING-SOURCES.md#architectural-reasoning)\n")
         before = {p: p.read_bytes() for p in self.root.rglob("*.md")}
         self.assertEqual(validate(self.root), [])
         self.assertEqual(before, {p: p.read_bytes() for p in before})
@@ -45,11 +45,13 @@ class ArtifactContractTests(unittest.TestCase):
             with self.subTest(value=value):
                 path.write_text(f"# Example\n\n{value}\n")
                 before = path.read_bytes()
-                self.assertTrue(any("new.md:3:" in e for e in validate(self.root)))
+                errors = validate(self.root)
+                self.assertTrue(any("new.md:3:" in e for e in errors))
+                self.assertTrue(any("reference GOVERNING-SOURCES.md" in e for e in errors))
                 self.assertEqual(before, path.read_bytes())
 
     def test_source_records_are_outside_canonical_example_scope(self):
-        (self.root / "PROVENANCE.md").write_text("abcdef0123456789\n")
+        (self.root / "GOVERNING-SOURCES.md").write_text("abcdef0123456789\n")
         self.assertEqual(validate(self.root), [])
 
     def test_unreadable_encoding_fails(self):

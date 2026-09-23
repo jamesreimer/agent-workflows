@@ -2,13 +2,13 @@
 
 ## Governing sources
 
-- [Architectural Reasoning (AR)](../PROVENANCE.md#architectural-reasoning), §§4–12.
-- [Operational Execution Contract (OEC)](../PROVENANCE.md#operational-execution-contract), §§2, 4–15, 17.
-- [Shared Asset Provenance (SAP)](../PROVENANCE.md#shared-asset-provenance), §§5–8, 15.1.
-- [Project Repository Responsibility (PRR)](../PROVENANCE.md#project-repository-responsibility), §§5–9.
-- [Standards Adoption Model (SAM)](../PROVENANCE.md#standards-adoption-model), §§3–8.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–12.
+- [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–15, 17.
+- [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–8, 15.1.
+- [Project Repository Responsibility (PRR)](../GOVERNING-SOURCES.md#project-repository-model), §§5–9.
+- [Standards Adoption Model (SAM)](../GOVERNING-SOURCES.md#standards-adoption-model), §§3–8.
 
-These are design-source references, operationalized only where the consuming
+These are governing-source references, operationalized only where the consuming
 project's actual adopted or project authority makes them applicable. Record that
 authority and its scope in the project-local instance. Linking a source does not
 adopt it. Source-derived guidance retains the source's requirement strength;
@@ -20,7 +20,7 @@ or effect. See [authority and source status](../README.md#authority-and-source-s
 ## Source-derived guidance
 
 Applicable adopted/project authority governs throughout; merely selecting this
-composition does not adopt its design sources (SAM §§3–8). Establish the
+composition does not adopt its governing sources (SAM §§3–8). Establish the
 responsibility, authority, proportional architecture, and affected dependencies
 before treating the model as settled (AR §§4–12).
 
