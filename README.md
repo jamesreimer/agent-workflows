@@ -90,6 +90,10 @@ semantics, and deliberate consumer updates. Repeating reviewed-change in more
 projects alone does not meet that evidence need. No arbitrary adoption count
 is required.
 
+Follow [MAINTAINING.md](MAINTAINING.md) to prepare, qualify, and publish an
+authorized release. It defines the annotated-tag and publication verification
+procedure; passing validation does not authorize a release.
+
 ## Run checks
 
 Install Python 3.10 or later and Node.js 24.18.1 (including npm):
