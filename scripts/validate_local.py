@@ -16,7 +16,7 @@ REQUIRED = (
     "handoffs/return-of-control.md",
     "workflows/reviewed-change.md",
 )
-# Source identities live in PROVENANCE.md; canonical instructions link there.
+# Source identities live in GOVERNING-SOURCES.md; canonical instructions link there.
 LIVE_VALUE = re.compile(
     r"(?<![A-Za-z0-9])[0-9a-fA-F]{7,64}(?![A-Za-z0-9])"
     r"|(?<![\w])#\d+\b"
@@ -41,7 +41,7 @@ def validate(root: Path) -> list[str]:
                 if LIVE_VALUE.search(line):
                     errors.append(
                         f"{path.relative_to(root)}:{number}: live identifier shape; "
-                        "use a placeholder or reference PROVENANCE.md"
+                        "use a placeholder or reference GOVERNING-SOURCES.md"
                     )
     return errors
 

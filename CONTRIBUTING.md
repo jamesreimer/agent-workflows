@@ -2,8 +2,8 @@
 
 Keep changes tied to a concrete requirement or defect in bounded agent-assisted
 work. Read [README.md](README.md) for the responsibility and source-status model
-and [PROVENANCE.md](PROVENANCE.md) for source ownership. These contributor
-instructions are repository-local implementation guidance, not external policy.
+and [GOVERNING-SOURCES.md](GOVERNING-SOURCES.md) for pinned interpretive
+dependencies. These contributor instructions are repository-local implementation guidance, not external policy.
 
 Do not strengthen or weaken governing requirements, introduce organization-neutral
 review governance, or put live task instances into canonical artifacts. Evaluate
@@ -23,9 +23,8 @@ appropriate. Describe the outcome, applicable authority, source relationships,
 validation, consumer impact, and unresolved questions. Keep execution records in
 issues or PRs, and settled reusable behavior in canonical files.
 
-Independent review and Planning acceptance are required before merging the
-initial baseline; release authorization is separate. For subsequent changes,
-follow the actual project contract and required review gates. Validation never
+Follow the actual project contract and required review gates. Release
+authorization is separate. Validation never
 confers merge, release, or deployment authority.
 
 Follow the [setup instructions](README.md#run-checks), stage intended new files,
@@ -44,8 +43,10 @@ links to a deleted target. Run the full command before opening a pull request.
 CI runs the same configuration on the checked-out commit. Required checks,
 review counts, merge strategy, and permissions belong to the repository's host
 settings and should be chosen for the project. The upstream
-[default-branch ruleset guidance](https://github.com/jamesreimer/repo-template/blob/de0fd9206cf0448d50e0dd0f58f858eea46697ad/rulesets/README.md)
-supplies a starting configuration and separate host verification procedure.
+[default-branch ruleset guidance](https://github.com/jamesreimer/repo-template/blob/main/rulesets/README.md)
+is a discovery reference for a starting configuration and host verification.
+Bind any consumed procedure to the exact upstream target recorded in the
+[reconciliation PR](MAINTAINING.md#repo-template-reconciliation).
 When changing the required job's name, source, or triggers, reconcile the live
 required check with the workflow so every pull request targeting the protected
 branch can report it. Preserve this repository's exact-candidate checkout.
@@ -131,7 +132,8 @@ is a narrow guard, not proof that all project-specific prose is absent.
 
 Manually review authority strength and applicability, finding dispositions,
 source-reference correctness, accessible consumer dependencies, and placeholder
-use. Compare every declared exact copy byte-for-byte with its recorded upstream
-revision. Reverify external governing references when changed. No repository tree
-snapshot, generic retained fork, workflow parser, or standards-domain tooling
+use. Recheck affected guidance and citations when changing a governing-source
+entry. Reverify external governing references when changed. Retain repo-template
+correspondence evidence in its [reconciliation PR](MAINTAINING.md#repo-template-reconciliation).
+No repository tree snapshot, generic retained fork, workflow parser, or standards-domain tooling
 belongs here. Generic defects go to their owning upstream source.

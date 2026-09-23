@@ -2,14 +2,43 @@
 
 This repository-local procedure owns release preparation and publication for
 `jamesreimer/agent-workflows`. Ordinary changes follow
-[CONTRIBUTING.md](CONTRIBUTING.md); the source relationship is recorded in
-[PROVENANCE.md](PROVENANCE.md#release-maintenance-reconciliation).
+[CONTRIBUTING.md](CONTRIBUTING.md).
 Contribution permission, review approval, and passing validation do not grant
 merge or release authority. Obtain explicit human authorization for the intended
 publication action, version, and exact release commit before creating or pushing
 a tag or publishing a GitHub Release. A merge authorization is not a release
 authorization. This procedure supplies mechanics, not authority or an
 organization-neutral release policy.
+
+## Repo-template reconciliation
+
+Generic repository mechanics remain owned by
+[repo-template](https://github.com/jamesreimer/repo-template). Evaluate generic
+defects at that owner and deliberately review applicable upstream improvements
+against current downstream state, preserving legitimate local adaptations.
+Agent Workflows owns its licensing decision; matching license bytes do not
+authorize automatic adoption of upstream licensing changes.
+
+Retain reviewable evidence in each reconciliation PR of:
+
+1. the verified upstream repository and exact target commit SHA;
+2. dispositions of applicable upstream changes reviewed, including reasons for
+   adaptations, rejection, or deferral;
+3. correspondence evidence for inherited files and surfaces, comparing against
+   the target Git objects and identifying intentional differences and the
+   downstream candidate verified;
+4. applicable installed host-configuration verification, including effective
+   default-branch rules and required-check production where relevant. Read back
+   installed settings independently; copied configuration does not prove
+   enforcement. Explain non-applicability where appropriate.
+
+Run the complete validation composition and review consumer impact. Unresolved
+identity, correspondence, or applicable host-verification gaps prevent a successful
+reconciliation claim. Retain history in Git and PRs, without a permanent basis or
+alignment inventory in repository files. Reconciliation does not authorize
+automatic propagation, overwrite local adaptations, or grant publication or host
+mutation authority. It does not advance the independent
+[governing-source pins](GOVERNING-SOURCES.md).
 
 ## Release identifiers
 
@@ -93,7 +122,7 @@ or verification failure; do not continue to a later publication step.
    On Windows use the runner paths described in the README. Pre-commit includes
    the local artifact validator and its tests; the explicit Python commands
    also record their standalone results. Complete the manual source, authority,
-   and exact-copy checks in [CONTRIBUTING.md](CONTRIBUTING.md#local-artifact-checks)
+   and governing-source checks in [CONTRIBUTING.md](CONTRIBUTING.md#local-artifact-checks)
    for the release, retaining review evidence and its limits. If checks fix files
    or a defect needs correction, return through the contribution/review process;
    select and qualify the resulting published commit before proceeding. Never

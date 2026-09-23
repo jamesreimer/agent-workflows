@@ -31,8 +31,10 @@ checks. The consuming authority determines permitted role occupancy.
 ## Authority and source status
 
 Actual adopted standards and project authority control the instantiated workflow.
-The [design sources](PROVENANCE.md#design-and-governance-sources) explain this
-library's derivation; referencing them does not adopt them for a consumer.
+The [pinned governing sources](GOVERNING-SOURCES.md) define the interpretation
+of this library's source-derived guidance; referencing them does not adopt them
+for a consumer. Pins are immutable within an Agent Workflows release. Later
+Standards Templates releases do not automatically change those pins or that release.
 The Standards Adoption Model owns that distinction.
 
 Every canonical artifact contains `Governing sources`. Sourced operational
@@ -57,7 +59,7 @@ The following is workflow-local operational guidance for using this library:
    Review the actual project authority, overlap, and conflicts before choosing
    these artifacts as implementation authority; do not treat this step as
    organizational adoption of the referenced standards.
-2. Read the role and handoff with their linked sources. Map design-source
+2. Read the role and handoff with their linked sources. Map governing-source
    references to the project's actual governing versions and scope. Record
    material adaptations and conflicts; return unresolved authority questions to
    their legitimate owner before dependent execution.
@@ -76,7 +78,7 @@ The following is workflow-local operational guidance for using this library:
 Canonical examples use placeholders such as `<repository>`, `<issue>`,
 `<commit-sha>`, and `example-project`. Filled issue numbers, candidate SHAs,
 task prompts, findings, execution logs, and publication decisions remain
-project-local. Real immutable source identities in [PROVENANCE.md](PROVENANCE.md)
+project-local. Real immutable source identities in [GOVERNING-SOURCES.md](GOVERNING-SOURCES.md)
 are source records, not example task values.
 
 ## Versioning
@@ -114,5 +116,6 @@ required link checking is offline. Review hook fixes and rerun. Optional commit
 hooks use `.venv/bin/pre-commit install`; they do not replace all-files checks.
 
 The [contributor guide](CONTRIBUTING.md) explains validation ownership and its
-limits. [Provenance](PROVENANCE.md) records exact, adapted, and local material.
+limits. [Governing sources](GOVERNING-SOURCES.md) resolve the pinned dependencies
+of source-derived guidance.
 The library is dedicated under [CC0-1.0](LICENSE).

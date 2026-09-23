@@ -2,11 +2,11 @@
 
 ## Governing sources
 
-- [Operational Execution Contract (OEC)](../PROVENANCE.md#operational-execution-contract), §§8, 10–13, 17.
-- [Architectural Reasoning (AR)](../PROVENANCE.md#architectural-reasoning), §12.
-- [Project Repository Responsibility (PRR)](../PROVENANCE.md#project-repository-responsibility), §§5–9.
+- [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§8, 10–13, 17.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §12.
+- [Project Repository Responsibility (PRR)](../GOVERNING-SOURCES.md#project-repository-model), §§5–9.
 
-These are design-source references, operationalized only where the consuming
+These are governing-source references, operationalized only where the consuming
 project's actual adopted or project authority makes them applicable. Record that
 authority and its scope in the project-local instance. Linking a source does not
 adopt it. Source-derived guidance retains the source's requirement strength;
