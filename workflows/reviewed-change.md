@@ -2,6 +2,7 @@
 
 ## Governing sources
 
+- [Publication and Release Integrity (PRI)](../GOVERNING-SOURCES.md#publication-release-integrity), §§4–17.
 - [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–12.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–15, 17.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–8, 15.1.
@@ -42,6 +43,12 @@ and required targets where SAP §§5–8 and 15.1 apply. Keep project decisions 
 work state in their appropriate records (PRR §§5–9). Reporting completed or
 interrupted work belongs across roles (OEC §12.1), not exclusively to publication.
 
+For publication within PRI scope, apply its transition, correspondence, identity,
+and resulting-state verification requirements (§§4–9, 14), including its rules for
+identity stability, corrections, withdrawal, and partial exposure (§§10–13).
+Use applicable SAP provenance semantics rather than a separate correspondence
+model (PRI §15); preserve downstream authority and proportionality (§§16–17).
+
 ## Workflow-local operational guidance
 
 Select this composition when a change benefits from an explicit review boundary.
@@ -51,17 +58,33 @@ cannot be replaced by implementor checks. Four responsibilities need not mean
 four people or agents. The project can combine already-authorized boundaries
 without ceremonial reauthorization.
 
+The selected role remains active until project/user authority explicitly
+reassigns it or an instantiated handoff transfers responsibility within that
+authority. Generic `proceed`, `continue`, or equivalent language continues only
+within the current role, authority, and completion boundary; it neither transfers
+roles nor authorizes another role's actions. When the next required action belongs
+to another role, stop and return an instantiated, ready-to-use handoff for that
+role. Preparing that handoff does not itself authorize the sender to execute it.
+
 1. **Plan.** [Planning](../roles/planning.md) supplies
    [planning → implementation](../handoffs/planning-to-implementation.md).
    Set outcome, authority, ownership, protected behavior, and evidence expectations.
    Distinguish controlling constraints from predicted files and techniques.
+   Stop with the instantiated handoff; Planning does not implement.
 2. **Implement.** [Implementation](../roles/implementation.md) owns mechanics
-   within those constraints. Prepare an immutable candidate and actual evidence
-   through [implementation → review](../handoffs/implementation-to-review.md).
+   within those constraints. Before mutation, verify any supplied exact/approved
+   source against its declared authoritative state using applicable SAP semantics;
+   a candidate label alone is insufficient. Own required validation through a final
+   result. Only final success of all required checks for the immutable candidate
+   supports [implementation → review](../handoffs/implementation-to-review.md).
+   Pending, queued, in-progress, cancelled, unexpectedly skipped, unresolved, or
+   failed checks leave it incomplete; an open PR does not establish readiness.
+   Correct and revalidate within existing authority or return incomplete state.
 3. **Review.** [Independent review](../roles/independent-review.md) evaluates
    actual candidate state against authorized intent and evidence, rather than
    conformity to a nonbinding forecast. Carry every material finding's disposition
    and rationale; approval versus correction is not a complete findings record.
+   Do not mutate the candidate; return the appropriate instantiated handoff.
 4. **Correct when authorized.** Use
    [review → correction](../handoffs/review-to-correction.md) for bounded outcomes.
    Carry accepted, deferred, dismissed, and follow-up findings alongside corrections.
@@ -75,6 +98,9 @@ without ceremonial reauthorization.
    [publication](../roles/publication.md). Verify correspondence of the state about
    to be published to the reviewed state and satisfy publication conditions.
    Changed state returns to proportionate re-review, not silent substitution.
+   Publication does not redesign the candidate. See the applicable PRI guidance
+   under [Source-derived guidance](#source-derived-guidance) above.
+   Return corrections through the authorized role handoff.
 6. **Return from every boundary.** Use
    [return of control](../handoffs/return-of-control.md) on completion, interruption,
    missing authority, or a new material decision. Publication can be absent; all
