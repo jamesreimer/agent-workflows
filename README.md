@@ -1,6 +1,7 @@
 # Agent Workflows
 
 [![Repository validation](https://github.com/jamesreimer/agent-workflows/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/jamesreimer/agent-workflows/actions/workflows/validate.yml?query=branch%3Amain)
+[![Latest release](https://img.shields.io/github/v/release/jamesreimer/agent-workflows)](https://github.com/jamesreimer/agent-workflows/releases/latest)
 [![License: CC0-1.0](https://img.shields.io/badge/license-CC0--1.0-blue)](LICENSE)
 
 A library of reusable operational artifacts for bounded agent-assisted work.
