@@ -40,7 +40,11 @@ mutation authority. Preserve immutable-state correspondence (SAP §§5–8).
 
 Act as the [implementation role](../roles/implementation.md) for the authorized
 corrections below. Read the complete review and carry forward all material finding
-dispositions, including findings not selected for correction.
+dispositions, including findings not selected for correction. The reviewer returns
+this instantiated handoff without mutating the candidate. The receiving
+implementor verifies the supplied reviewed state before mutation and owns required
+validation through final success before returning a review-ready new candidate;
+see the [implementation role](../roles/implementation.md).
 
 | Input | Project-local value |
 | --- | --- |

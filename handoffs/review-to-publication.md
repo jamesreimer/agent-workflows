@@ -2,6 +2,7 @@
 
 ## Governing sources
 
+- [Publication and Release Integrity (PRI)](../GOVERNING-SOURCES.md#publication-release-integrity), §§4–17.
 - [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §12.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§5–14.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–8, 15.1.
@@ -36,6 +37,13 @@ Publication requires its actual execution authority; review success alone does
 not supply it (OEC §§6–7, 14). Verify the consumed object and required targets,
 not only the identity label (SAP §§5–8, 15.1).
 
+Where PRI applies, the publication inputs and resulting evidence must support
+its authorized-state correspondence, identity binding, and verification conditions
+(§§4–9, 14–15). Apply its identity-preservation and correction rules (§§10–12)
+and assess any observable partial or premature state before retry (§13).
+Publication claims remain limited by evidence and independent downstream authority
+(§§14–17); this handoff supplies no alternative provenance or authorization model.
+
 ## Workflow-local operational guidance
 
 Act as the [publication role](../roles/publication.md) only for the authorized
@@ -52,7 +60,11 @@ return control without performing that action.
 | Bounded follow-up | `<owner-record-and-trigger-for-retained-work-or-none>` |
 | Publication authority and contract | `<authorizer-and-permitted-action>`; `<objective-scope-protections-validation-completion-and-applicable-recovery>` |
 | Governing source applicability | `<actual-project-authority-and-versions>` |
-| Reviewed-to-publication correspondence | `<comparison-or-digest-evidence>` |
+| Authorized source state | `<precise-state-covered-by-publication-authority-and-relation-to-reviewed-state>` |
+| Publication identities and surfaces | `<identities-fixed-or-moving-meanings-material-layers-and-authoritative-surfaces>` |
+| Publication correspondence | `<reviewed-to-authorized-to-published-relationship-and-applicable-provenance-evidence>` |
+| Completion and verification | `<intended-completion-resulting-state-checks-and-evidence-limits>` |
+| Prior exposure and recovery | `<observable-state-assessment-and-authorized-retry-correction-or-withdrawal-or-inapplicability>` |
 | Required checks and conditions | `<validation-review-and-publication-gates-with-evidence>` |
 | Required shared targets | `<resolved-identities-and-correspondence-evidence>` |
 | Return destination | `<decision-owner-and-project-record>` |

@@ -2,6 +2,7 @@
 
 ## Governing sources
 
+- [Publication and Release Integrity (PRI)](../GOVERNING-SOURCES.md#publication-release-integrity), §§4–17.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§6–8, 10–15.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–8, 15.1, 20.
 - [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §12.
@@ -29,7 +30,25 @@ publication nor its validation authorizes live activation (OEC §14).
 Completion and interruption reporting applies across executors under OEC §12.1;
 it is not owned exclusively by publication.
 
+Where PRI applies, use §§4–9 and 14–15 for transition completion, authorized-source
+correspondence, identity binding, and verification of the resulting publication
+state. Evidence must support the claimed completion; an initiating operation's
+success alone is insufficient when the resulting state is observable (PRI §9).
+Apply §§7–12 to fixed and moving identities, identity layers, and proposed
+corrections or withdrawal. Assess possible observable exposure before retrying
+a failed, interrupted, or premature publication (PRI §§4, 13). Use SAP for
+applicable provenance semantics, and preserve separate downstream authority
+(PRI §§15–16). Apply proportionality without waiving required integrity (PRI §17).
+
 ## Workflow-local operational guidance
+
+The selected role remains active until project/user authority explicitly
+reassigns it or an instantiated handoff transfers responsibility within that
+authority. Generic `proceed`, `continue`, or equivalent language continues only
+within the current role, authority, and completion boundary; it neither transfers
+roles nor authorizes another role's actions. When the next required action belongs
+to another role, stop and return an instantiated, ready-to-use handoff for that
+role. Preparing that handoff does not itself authorize the sender to execute it.
 
 Read the [review → publication](../handoffs/review-to-publication.md) handoff,
 actual authorization, and reviewed candidate. Check that the state about to be

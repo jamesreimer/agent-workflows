@@ -42,6 +42,17 @@ Act as the [independent review role](../roles/independent-review.md). Inspect th
 candidate below and assess whether its actual behavior and evidence satisfy the
 authorized intent. Review does not authorize mutations or publication.
 
+Implementation owns required validation through its final result. Issue this
+handoff as review-ready only when all required local and hosted checks have
+reached final success for the exact candidate. Pending, queued, in-progress,
+cancelled, unexpectedly skipped, or otherwise unresolved checks do not qualify;
+an open PR is insufficient. Final non-success leaves the candidate incomplete:
+Implementation corrects and revalidates if already authorized, or returns control
+with the failure. An interruption report is not a review-ready handoff.
+
+The receiving reviewer does not mutate or correct the candidate. Route corrections
+to authorized Implementation through an instantiated correction handoff.
+
 | Input | Project-local value |
 | --- | --- |
 | Target and review request | `<repository>`, `<issue>`, `<bounded-review-question>` |
@@ -50,7 +61,7 @@ authorized intent. Review does not authorize mutations or publication.
 | Candidate and comparison base | `<commit-sha>`; `<base-commit-sha>` |
 | Content correspondence | `<clean-checkout-or-object-verification-evidence>` |
 | Actual change and affected consumers | `<change-summary-and-material-effects>` |
-| Validation | `<commands-results-and-exact-tested-state>` |
+| Validation | `<required-checks-commands-final-success-results-evidence-and-exact-tested-state>` |
 | Provenance and required targets | `<source-identity-correspondence-and-resolution-evidence>` |
 | Deviations, findings, and limitations | `<rationale-existing-dispositions-and-unresolved-conditions>` |
 | Review completion and return | `<review-deliverable-and-return-destination>` |
