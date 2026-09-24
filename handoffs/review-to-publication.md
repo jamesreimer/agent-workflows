@@ -40,7 +40,9 @@ not only the identity label (SAP §§5–8, 15.1).
 Where PRI applies, the publication inputs and resulting evidence must support
 its authorized-state correspondence, identity binding, and verification conditions
 (§§4–9, 14–15). Apply its identity-preservation and correction rules (§§10–12)
-and assess any observable partial or premature state before retry (§13).
+and account for observable publication state, including assessment of possible
+exposure from a failed, interrupted, or premature publication, before replacing,
+retrying, withdrawing, correcting, or claiming completion (§§4, 13).
 Publication claims remain limited by evidence and independent downstream authority
 (§§14–17); this handoff supplies no alternative provenance or authorization model.
 

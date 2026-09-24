@@ -35,8 +35,10 @@ correspondence, identity binding, and verification of the resulting publication
 state. Evidence must support the claimed completion; an initiating operation's
 success alone is insufficient when the resulting state is observable (PRI §9).
 Apply §§7–12 to fixed and moving identities, identity layers, and proposed
-corrections or withdrawal. Assess possible observable exposure before retrying
-a failed, interrupted, or premature publication (PRI §§4, 13). Use SAP for
+corrections or withdrawal. Account for observable publication state, including
+assessment of possible exposure from a failed, interrupted, or premature
+publication, before replacing, retrying, withdrawing, correcting, or claiming
+completion (PRI §§4, 13). Use SAP for
 applicable provenance semantics, and preserve separate downstream authority
 (PRI §§15–16). Apply proportionality without waiving required integrity (PRI §17).
 

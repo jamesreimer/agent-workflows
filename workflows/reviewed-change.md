@@ -98,10 +98,9 @@ role. Preparing that handoff does not itself authorize the sender to execute it.
    [publication](../roles/publication.md). Verify correspondence of the state about
    to be published to the reviewed state and satisfy publication conditions.
    Changed state returns to proportionate re-review, not silent substitution.
-   Publication does not redesign the candidate. Where PRI applies, verify the
-   resulting state against the authorized source and publication identities;
-   assess observable partial exposure before retry and bound completion claims
-   to the evidence. Return corrections through the authorized role handoff.
+   Publication does not redesign the candidate. See the applicable PRI guidance
+   under [Source-derived guidance](#source-derived-guidance) above.
+   Return corrections through the authorized role handoff.
 6. **Return from every boundary.** Use
    [return of control](../handoffs/return-of-control.md) on completion, interruption,
    missing authority, or a new material decision. Publication can be absent; all
