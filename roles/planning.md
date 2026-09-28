@@ -35,12 +35,23 @@ A workflow selection is not automatic standards adoption (SAM §§3–8).
 
 ## Workflow-local operational guidance
 
+The selected role remains active until project/user authority explicitly
+reassigns it or an instantiated handoff transfers responsibility within that
+authority. Generic `proceed`, `continue`, or equivalent language continues only
+within the current role, authority, and completion boundary; it neither transfers
+roles nor authorizes another role's actions. When the next required action belongs
+to another role, stop and return an instantiated, ready-to-use handoff for that
+role. Preparing that handoff does not itself authorize the sender to execute it.
+
 Use the actual project request, governing artifacts, present state, and known
 constraints as inputs. Produce [planning → implementation](../handoffs/planning-to-implementation.md)
 with evidence expectations and a return destination. Separate controlling outcomes,
 authority, protected effects, and justified constraints from forecast files or
 techniques. Mark deliberate exact-change restrictions and the consequence they
 protect. Implementation owns ordinary mechanics inside those boundaries.
+
+Planning does not implement, even when implementation is the next logical step.
+Return the instantiated planning handoff at that boundary.
 
 Return unresolved authority, ownership, protected-effect, or dependency decisions
 to the legitimate decision owner. Planning does not itself perform or authorize

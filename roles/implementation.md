@@ -34,12 +34,36 @@ content or successful checks confer no further authority.
 
 ## Workflow-local operational guidance
 
+The selected role remains active until project/user authority explicitly
+reassigns it or an instantiated handoff transfers responsibility within that
+authority. Generic `proceed`, `continue`, or equivalent language continues only
+within the current role, authority, and completion boundary; it neither transfers
+roles nor authorizes another role's actions. When the next required action belongs
+to another role, stop and return an instantiated, ready-to-use handoff for that
+role. Preparing that handoff does not itself authorize the sender to execute it.
+
 Read the [planning handoff](../handoffs/planning-to-implementation.md), governing
 inputs, and current worktree before changing anything. Own implementation
 mechanics within those constraints, including proportionate routing to established
 owners. Preserve unrelated work. Prepare an immutable candidate with its actual
 change summary, validation evidence, and limitations for
 [review](../handoffs/implementation-to-review.md).
+
+When the work depends on an exact approved artifact or candidate identity, verify
+before mutation that the supplied content corresponds to the declared authoritative
+state, including claimed accepted corrections. A label such as `Candidate 3` is
+not identity or correspondence evidence. Use applicable SAP semantics and retain
+the verification evidence; resolve a mismatch before dependent mutation.
+
+Own all required validation, including applicable local and hosted checks, through
+a final result. A review-ready handoff exists only after every required check
+reaches final success for the candidate being handed off. Pending, queued,
+in-progress, cancelled, unexpectedly skipped, or otherwise unresolved required
+validation is not successful validation. An open PR does not establish readiness.
+If required validation ends in non-success, the candidate remains incomplete:
+correct and revalidate when already authorized, otherwise return control with
+the result and needed decision. Interruption returns incomplete state, not a
+review-ready claim. Bind evidence to the resulting immutable candidate.
 
 Do not merge or publish unless that action is explicitly within the project
 contract and its conditions are met. On completion, interruption, or an unresolved

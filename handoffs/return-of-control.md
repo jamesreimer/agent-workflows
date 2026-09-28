@@ -32,6 +32,14 @@ Use this handoff from any role on completion, interruption, or a decision that
 requires another owner. Fill the information needed for the next decision, refer
 to settled authoritative results, and avoid replaying all prior reasoning.
 
+When another role must act next, include its instantiated, ready-to-use handoff
+with the target role, actual authority, inputs, bounded action, completion
+condition, and return destination. Identify missing authority as an unresolved
+condition, not an executable grant. Generic `proceed` or `continue` retains the
+current role and boundary; a stop report or prepared handoff alone does not
+reassign its sender. Transfer requires explicit project/user reassignment or an
+instantiated handoff under the actual authority.
+
 | Result | Project-local value |
 | --- | --- |
 | Target, role, and invoked authority | `<repository>`, `<issue>`, `<role-and-contract>` |
@@ -40,6 +48,7 @@ to settled authoritative results, and avoid replaying all prior reasoning.
 | Validation and recovery | `<checks-results-limitations-and-recovery-performed>` |
 | Protected state and partial effects | `<preserved-interests-and-any-incomplete-effects>` |
 | Findings and unresolved conditions | `<material-dispositions-rationale-and-remaining-consequence>` |
+| Next-role instruction | `<instantiated-handoff-or-none-with-reason>` |
 | Follow-up | `<necessary-action-owner-and-trigger-or-none>` |
 | Return destination and requested decision | `<responsible-owner-project-record-and-bounded-question>` |
 

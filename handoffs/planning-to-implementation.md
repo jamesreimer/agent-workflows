@@ -38,6 +38,11 @@ Choose mechanics within controlling constraints; a forecast is not an exact-chan
 restriction unless deliberately identified as one. Do not proceed into an
 unauthorized merge, publication, deployment, or adjacent project.
 
+Before mutation, verify supplied exact/approved inputs against the declared
+authoritative state, including claimed corrections, using applicable SAP
+semantics. A label such as `Candidate 3` is insufficient. Resolve correspondence
+gaps before dependent work; retain the evidence in the project record.
+
 | Input | Project-local value |
 | --- | --- |
 | Target and source of truth | `<repository>`, `<issue>`, `<canonical-records>` |

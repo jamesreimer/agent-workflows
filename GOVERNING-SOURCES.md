@@ -41,3 +41,9 @@ Project Repository Responsibility Standard. Template edition: `1.0`.
 Organizational Standards Adoption and Ownership Policy. Template edition: `1.0`.
 
 [Source standard](https://github.com/jamesreimer/standards-templates/blob/df73ad31cdbb15210ad9670d669d3c567a79a1d3/templates/standards-adoption-model/standard.md).
+
+## publication-release-integrity
+
+Publication and Release Integrity Standard. Template edition: `1.0`.
+
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/debd50926ea45c371a7b10237ef9aba1b3b04304/templates/publication-release-integrity/standard.md).

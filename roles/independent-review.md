@@ -34,11 +34,23 @@ Verify actual consumed candidate state and required shared inputs where SAP
 
 ## Workflow-local operational guidance
 
+The selected role remains active until project/user authority explicitly
+reassigns it or an instantiated handoff transfers responsibility within that
+authority. Generic `proceed`, `continue`, or equivalent language continues only
+within the current role, authority, and completion boundary; it neither transfers
+roles nor authorizes another role's actions. When the next required action belongs
+to another role, stop and return an instantiated, ready-to-use handoff for that
+role. Preparing that handoff does not itself authorize the sender to execute it.
+
 Use the [implementation handoff](../handoffs/implementation-to-review.md) and
 inspect its immutable candidate and evidence. The project determines whether
 independence is required and who may supply it; when required, implementor
 self-checks do not substitute. Review supplies findings and a supported conclusion,
 not permission to implement, merge, or publish.
+
+Do not mutate or correct the candidate during review, even when a fix is obvious.
+Return an instantiated correction handoff to an authorized implementor; findings
+do not transfer the reviewer into implementation.
 
 Carry all material finding dispositions into either
 [correction](../handoffs/review-to-correction.md) or
