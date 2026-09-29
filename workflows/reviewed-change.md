@@ -101,6 +101,11 @@ role. Preparing that handoff does not itself authorize the sender to execute it.
    Publication does not redesign the candidate. See the applicable PRI guidance
    under [Source-derived guidance](#source-derived-guidance) above.
    Return corrections through the authorized role handoff.
+   Where GitHub issue-closing semantics apply, host closing state must match the
+   handoff's declared project completion intent. Follow the
+   [issue-closure safety rule](../roles/publication.md#github-issue-closure) in PR
+   prose; Publication verifies actual closing relationships immediately before
+   merge and resulting issue state afterward.
 6. **Return from every boundary.** Use
    [return of control](../handoffs/return-of-control.md) on completion, interruption,
    missing authority, or a new material decision. Publication can be absent; all

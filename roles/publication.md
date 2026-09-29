@@ -63,3 +63,59 @@ Perform only the authorized action. Return resulting object identities,
 verification evidence, recovery performed, remaining conditions, and next owner
 through [return of control](../handoffs/return-of-control.md). Publication is an
 optional authorized boundary, not a prerequisite for reporting completed work.
+
+### GitHub issue closure
+
+When GitHub is the relevant host, its closing keywords before issue references
+are commands, not ordinary prose. Use `close` / `closes` / `closed`,
+`fix` / `fixes` / `fixed`, or `resolve` / `resolves` / `resolved` before an issue
+reference only when closure on merge is intentionally authorized. Never use
+those forms inside negative or prohibitive prose: `do not close #N` is unsafe;
+use `#N remains open` or `leave issue #N open`. Ordinary issue references remain
+permitted. Apply this rule to generated handoffs and PR prose.
+
+Where the publication action uses GitHub issue-closing semantics, follow this
+manual procedure. It applies whether repository auto-close is enabled or disabled
+and requires no repository-setting change.
+
+1. Read the handoff's **Issue closure on merge** declaration: `none` or the exact
+   authorized issue set, each identified as `owner/repository#number`, with the
+   authority/source where material. Do not assume issues belong to the PR's
+   repository. Identify issues covered by the publication action, including
+   those intended to remain open, and record their pre-merge state for comparison.
+2. After ordinary candidate correspondence and required validation checks, inspect
+   the PR's actual closing issue relationships as the **last host-state
+   verification immediately before merge**:
+
+   ```sh
+   gh pr view <PR> --json closingIssuesReferences
+   ```
+
+   Compare the actual and declared sets exactly, using both repository identity
+   and issue number (resolve full identities from the returned issue URLs).
+   Include cross-repository relationships. For `none`, the actual set must be
+   empty across all repositories. An unexpected or missing relationship, or an
+   inability to verify the complete set, blocks merge. Correct the PR description
+   or relationship source within authority and recheck. A passing result is
+   evidence of host state, not authorization. If the PR description or linked-issue
+   relationships change afterward, invalidate the result and rerun this final
+   check before the authorized merge; an earlier review/handoff snapshot is
+   insufficient.
+3. After the authorized merge, verify actual issue state against the declaration
+   using full identities, including cross-repository issues. For `none`, compare
+   the covered issues' states and host history with the pre-merge record to verify
+   the merge did not unexpectedly close an issue. For an authorized set, verify
+   every declared issue reached the intended closed state, and check for
+   unexpected closures among the covered issues. Retain resulting-state evidence
+   and report any verification limits.
+4. If an authorized issue remains open because GitHub did not close it
+   automatically, that alone is not publication failure. Route explicit closure
+   to the role/owner holding issue-closure authority, or perform it only if that
+   authority is already held. If an issue closes unexpectedly, preserve evidence
+   of the observed state, report it, and route correction/reopening through proper
+   project authority; do not silently restore state. Carry unresolved conditions,
+   follow-up, and the next owner through return of control.
+
+Publication authority does not imply issue-closure authority. Publication is not
+general project closeout: merge need not complete the work item, and issues may
+legitimately remain open afterward.
