@@ -94,21 +94,26 @@ of repository auto-close configuration; no setting change is required.
    gh pr view <PR> --json commits
    ```
 
-   Require the complete PR relationship set to equal the declaration exactly,
-   including repository identity. Inspect commit messages only when they can
+   Resolve each surface's targets to full identities and require each set to be
+   a subset of the declaration; any undeclared target blocks merge. Inspect
+   commit messages only when they can
    contribute closing semantics to the default-branch landing; every such target
    must be declared. Intermediate messages are non-controlling for squash when an
    explicitly supplied final subject/body prevents their inclusion; merge/rebase
    methods must account for messages they land. Establish and check the exact
-   final merge/squash subject and body, requiring their closing targets to match
-   the declaration. For methods without a synthesized message, verify the messages
+   final merge/squash subject and body under the same subset rule.
+   For methods without a synthesized message, verify the messages
    that actually land instead. Do not rely on unchecked future host defaults.
 
-   Aggregate all controlling relationships and commands, resolve full identities,
-   and require that set to equal the declaration. For `none`, relationships must
-   be empty and controlling messages must contain no closing command. Unexpected
+   Take the union of all applicable controlling surfaces' resolved target sets:
+   this aggregate closure-command set must equal the declared closures expected
+   from the merge action. Targets need not appear on every surface. For `none`,
+   every surface and the aggregate must be empty. Unexpected
    or missing targets, unresolved identities, or incomplete/unverifiable state
-   block merge. Correct within authority and recheck. The relevant issue scope is
+   block merge. For a missing declared target, correct an authorized surface and
+   rerun the gate, or correct the handoff within authority if explicit post-merge
+   closure is intended instead of closure on merge. Do not silently reinterpret
+   the declaration or add a second one. The relevant issue scope is
    the union of declared identities and targets reachable through PR relationships,
    controlling commit commands, and final landing commands; record their pre-merge
    states for comparison, without inspecting unrelated issues.
