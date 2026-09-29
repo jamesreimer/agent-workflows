@@ -103,9 +103,10 @@ role. Preparing that handoff does not itself authorize the sender to execute it.
    Return corrections through the authorized role handoff.
    Where GitHub issue-closing semantics apply, host closing state must match the
    handoff's declared project completion intent. Follow the
-   [issue-closure safety rule](../roles/publication.md#github-issue-closure) in PR
-   prose; Publication verifies actual closing relationships immediately before
-   merge and resulting issue state afterward.
+   [issue-closure safety rule](../roles/publication.md#github-issue-closure) across
+   PR, commit, and landing-message surfaces; Publication verifies applicable
+   GitHub issue-closing state immediately before merge and resulting issue state
+   afterward.
 6. **Return from every boundary.** Use
    [return of control](../handoffs/return-of-control.md) on completion, interruption,
    missing authority, or a new material decision. Publication can be absent; all

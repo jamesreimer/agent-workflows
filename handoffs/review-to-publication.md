@@ -76,8 +76,11 @@ For applicable GitHub publication, declare every issue by full
 `owner/repository#number` identity, including issues in other repositories;
 `none` means no closing relationship in any repository. Follow the
 [GitHub issue-closure safety rule and verification](../roles/publication.md#github-issue-closure)
-when preparing PR prose and performing publication. This field does not require
-other consumers to use GitHub or issues.
+for all applicable closure-bearing surfaces: PR relationships, controlling commit
+messages, and final landing messages, plus resulting issue state after merge.
+Source references may use supported local or URL forms; resolve them to full
+identities for comparison. This field does not require other consumers to use
+GitHub or issues.
 
 Check that the proposed publication state is the state reviewed. If it differs,
 return it for proportionate re-review under the workflow-local reviewed-change

@@ -66,56 +66,86 @@ optional authorized boundary, not a prerequisite for reporting completed work.
 
 ### GitHub issue closure
 
-When GitHub is the relevant host, its closing keywords before issue references
-are commands, not ordinary prose. Use `close` / `closes` / `closed`,
-`fix` / `fixes` / `fixed`, or `resolve` / `resolves` / `resolved` before an issue
-reference only when closure on merge is intentionally authorized. Never use
-those forms inside negative or prohibitive prose: `do not close #N` is unsafe;
-use `#N remains open` or `leave issue #N open`. Ordinary issue references remain
-permitted. Apply this rule to generated handoffs and PR prose.
+When GitHub is the relevant host, closing keywords before issue references are
+commands, not ordinary prose. Use `close` / `closes` / `closed`, `fix` / `fixes` /
+`fixed`, or `resolve` / `resolves` / `resolved` before an issue reference only when
+closure is authorized. Never use those forms in negative or prohibitive prose:
+`do not close #N` is unsafe; use `#N remains open` or `leave issue #N open`.
+Ordinary references remain permitted. This rule covers generated handoffs, PR
+descriptions, commit messages, and merge/squash subjects and bodies.
 
-Where the publication action uses GitHub issue-closing semantics, follow this
-manual procedure. It applies whether repository auto-close is enabled or disabled
-and requires no repository-setting change.
+Where GitHub issue-closing semantics apply, use this manual procedure regardless
+of repository auto-close configuration; no setting change is required.
 
-1. Read the handoff's **Issue closure on merge** declaration: `none` or the exact
-   authorized issue set, each identified as `owner/repository#number`, with the
-   authority/source where material. Do not assume issues belong to the PR's
-   repository. Identify issues covered by the publication action, including
-   those intended to remain open, and record their pre-merge state for comparison.
-2. After ordinary candidate correspondence and required validation checks, inspect
-   the PR's actual closing issue relationships as the **last host-state
-   verification immediately before merge**:
+1. **Prepare the final gate.** After candidate correspondence and required
+   validation, establish the exact PR head SHA (`<verified-head-sha>`) and the
+   permitted landing method. The handoff's **Issue closure on merge** remains
+   the single declaration: `none` or authorized `owner/repository#number`
+   identities, with authority/source where material. Resolve every discovered
+   closing reference to that canonical identity before comparison. Source text
+   may use supported local, qualified, or GitHub issue URL forms without rewriting;
+   in commit messages, local `#N` resolves against the repository whose default
+   branch the commit will land in.
+2. **Verify all controlling surfaces for that head.** Inspect actual PR closing
+   relationships and applicable commit messages using:
 
    ```sh
    gh pr view <PR> --json closingIssuesReferences
+   gh pr view <PR> --json commits
    ```
 
-   Compare the actual and declared sets exactly, using both repository identity
-   and issue number (resolve full identities from the returned issue URLs).
-   Include cross-repository relationships. For `none`, the actual set must be
-   empty across all repositories. An unexpected or missing relationship, or an
-   inability to verify the complete set, blocks merge. Correct the PR description
-   or relationship source within authority and recheck. A passing result is
-   evidence of host state, not authorization. If the PR description or linked-issue
-   relationships change afterward, invalidate the result and rerun this final
-   check before the authorized merge; an earlier review/handoff snapshot is
-   insufficient.
-3. After the authorized merge, verify actual issue state against the declaration
-   using full identities, including cross-repository issues. For `none`, compare
-   the covered issues' states and host history with the pre-merge record to verify
-   the merge did not unexpectedly close an issue. For an authorized set, verify
-   every declared issue reached the intended closed state, and check for
-   unexpected closures among the covered issues. Retain resulting-state evidence
-   and report any verification limits.
-4. If an authorized issue remains open because GitHub did not close it
-   automatically, that alone is not publication failure. Route explicit closure
-   to the role/owner holding issue-closure authority, or perform it only if that
-   authority is already held. If an issue closes unexpectedly, preserve evidence
-   of the observed state, report it, and route correction/reopening through proper
-   project authority; do not silently restore state. Carry unresolved conditions,
-   follow-up, and the next owner through return of control.
+   Require the complete PR relationship set to equal the declaration exactly,
+   including repository identity. Inspect commit messages only when they can
+   contribute closing semantics to the default-branch landing; every such target
+   must be declared. Intermediate messages are non-controlling for squash when an
+   explicitly supplied final subject/body prevents their inclusion; merge/rebase
+   methods must account for messages they land. Establish and check the exact
+   final merge/squash subject and body, requiring their closing targets to match
+   the declaration. For methods without a synthesized message, verify the messages
+   that actually land instead. Do not rely on unchecked future host defaults.
 
-Publication authority does not imply issue-closure authority. Publication is not
-general project closeout: merge need not complete the work item, and issues may
-legitimately remain open afterward.
+   Aggregate all controlling relationships and commands, resolve full identities,
+   and require that set to equal the declaration. For `none`, relationships must
+   be empty and controlling messages must contain no closing command. Unexpected
+   or missing targets, unresolved identities, or incomplete/unverifiable state
+   block merge. Correct within authority and recheck. The relevant issue scope is
+   the union of declared identities and targets reachable through PR relationships,
+   controlling commit commands, and final landing commands; record their pre-merge
+   states for comparison, without inspecting unrelated issues.
+
+   This combined gate is the **last host-state verification immediately before
+   merge**, not an earlier review/handoff snapshot or authorization. Any change to
+   the head (including a required branch update), PR description, linked issues,
+   controlling messages, final subject/body, or declaration invalidates it; rerun
+   affected checks and all comparisons against the current head before merging.
+3. **Bind the authorized merge to verified inputs.** For squash, use:
+
+   ```sh
+   gh pr merge <PR> --squash --match-head-commit <verified-head-sha> \
+     --subject "<verified-subject>" --body "<verified-body>"
+   ```
+
+   Adapt to the permitted method while retaining a fail-closed head-match guard
+   and binding actual landing messages to checked text. Explicitly supply verified
+   merge/squash text; never fall back silently to a generated message. Confirm the
+   CLI/API preserves an intended empty body before relying on `--body ""`;
+   otherwise use a non-empty verified body. If the method cannot bind these inputs,
+   stop and return the unresolved condition rather than claim the gate passed.
+4. **Verify the result.** Identify the actual landed commit(s), establish their
+   correspondence to the expected publication action, and inspect their subjects
+   and bodies against the verified messages. Resolve landed closing references to
+   full identities and extend the relevant issue set with any newly observed
+   targets. Verify every declared issue reached the intended closed state and
+   check issue states/history for unexpected closure through all three surfaces.
+   For `none`, verify no relevant issue was unexpectedly closed. Retain landed
+   identities, message correspondence, resulting-state evidence, and verification
+   limits; report and route any mismatch for disposition.
+
+An authorized issue remaining open because host auto-close differs is not alone
+publication failure. Explicit closure requires the actual issue-closure owner or
+that authority already held by the executor. Preserve and report unexpected
+observed closure; route correction/reopening under project authority without
+silently restoring state. Return unresolved conditions, follow-up, and next owner
+through return of control. Publication authority does not imply issue-closure
+authority or general project closeout: merge need not complete the work item,
+and issues may legitimately remain open afterward.
