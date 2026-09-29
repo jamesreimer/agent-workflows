@@ -66,10 +66,21 @@ return control without performing that action.
 | Publication identities and surfaces | `<identities-fixed-or-moving-meanings-material-layers-and-authoritative-surfaces>` |
 | Publication correspondence | `<reviewed-to-authorized-to-published-relationship-and-applicable-provenance-evidence>` |
 | Completion and verification | `<intended-completion-resulting-state-checks-and-evidence-limits>` |
+| Issue closure on merge (when GitHub issue-closing semantics apply) | `none` or `<authorized-owner/repository#number-identities>`; `<closure-authority-or-source-where-material>` |
 | Prior exposure and recovery | `<observable-state-assessment-and-authorized-retry-correction-or-withdrawal-or-inapplicability>` |
 | Required checks and conditions | `<validation-review-and-publication-gates-with-evidence>` |
 | Required shared targets | `<resolved-identities-and-correspondence-evidence>` |
 | Return destination | `<decision-owner-and-project-record>` |
+
+For applicable GitHub publication, declare every issue by full
+`owner/repository#number` identity, including issues in other repositories;
+`none` means no closing relationship in any repository. Follow the
+[GitHub issue-closure safety rule and verification](../roles/publication.md#github-issue-closure)
+for all applicable closure-bearing surfaces: PR relationships, controlling commit
+messages, and final landing messages, plus resulting issue state after merge.
+Source references may use supported local or URL forms; resolve them to full
+identities for comparison. This field does not require other consumers to use
+GitHub or issues.
 
 Check that the proposed publication state is the state reviewed. If it differs,
 return it for proportionate re-review under the workflow-local reviewed-change

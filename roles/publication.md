@@ -63,3 +63,94 @@ Perform only the authorized action. Return resulting object identities,
 verification evidence, recovery performed, remaining conditions, and next owner
 through [return of control](../handoffs/return-of-control.md). Publication is an
 optional authorized boundary, not a prerequisite for reporting completed work.
+
+### GitHub issue closure
+
+When GitHub is the relevant host, closing keywords before issue references are
+commands, not ordinary prose. Use `close` / `closes` / `closed`, `fix` / `fixes` /
+`fixed`, or `resolve` / `resolves` / `resolved` before an issue reference only when
+closure is authorized. Never use those forms in negative or prohibitive prose:
+`do not close #N` is unsafe; use `#N remains open` or `leave issue #N open`.
+Ordinary references remain permitted. This rule covers generated handoffs, PR
+descriptions, commit messages, and merge/squash subjects and bodies.
+
+Where GitHub issue-closing semantics apply, use this manual procedure regardless
+of repository auto-close configuration; no setting change is required.
+
+1. **Prepare the final gate.** After candidate correspondence and required
+   validation, establish the exact PR head SHA (`<verified-head-sha>`) and the
+   permitted landing method. The handoff's **Issue closure on merge** remains
+   the single declaration: `none` or authorized `owner/repository#number`
+   identities, with authority/source where material. Resolve every discovered
+   closing reference to that canonical identity before comparison. Source text
+   may use supported local, qualified, or GitHub issue URL forms without rewriting;
+   in commit messages, local `#N` resolves against the repository whose default
+   branch the commit will land in.
+2. **Verify all controlling surfaces for that head.** Inspect actual PR closing
+   relationships and applicable commit messages using:
+
+   ```sh
+   gh pr view <PR> --json closingIssuesReferences
+   gh pr view <PR> --json commits
+   ```
+
+   Resolve each surface's targets to full identities and require each set to be
+   a subset of the declaration; any undeclared target blocks merge. Inspect
+   commit messages only when they can
+   contribute closing semantics to the default-branch landing; every such target
+   must be declared. Intermediate messages are non-controlling for squash when an
+   explicitly supplied final subject/body prevents their inclusion; merge/rebase
+   methods must account for messages they land. Establish and check the exact
+   final merge/squash subject and body under the same subset rule.
+   For methods without a synthesized message, verify the messages
+   that actually land instead. Do not rely on unchecked future host defaults.
+
+   Take the union of all applicable controlling surfaces' resolved target sets:
+   this aggregate closure-command set must equal the declared closures expected
+   from the merge action. Targets need not appear on every surface. For `none`,
+   every surface and the aggregate must be empty. Unexpected
+   or missing targets, unresolved identities, or incomplete/unverifiable state
+   block merge. For a missing declared target, correct an authorized surface and
+   rerun the gate, or correct the handoff within authority if explicit post-merge
+   closure is intended instead of closure on merge. Do not silently reinterpret
+   the declaration or add a second one. The relevant issue scope is
+   the union of declared identities and targets reachable through PR relationships,
+   controlling commit commands, and final landing commands; record their pre-merge
+   states for comparison, without inspecting unrelated issues.
+
+   This combined gate is the **last host-state verification immediately before
+   merge**, not an earlier review/handoff snapshot or authorization. Any change to
+   the head (including a required branch update), PR description, linked issues,
+   controlling messages, final subject/body, or declaration invalidates it; rerun
+   affected checks and all comparisons against the current head before merging.
+3. **Bind the authorized merge to verified inputs.** For squash, use:
+
+   ```sh
+   gh pr merge <PR> --squash --match-head-commit <verified-head-sha> \
+     --subject "<verified-subject>" --body "<verified-body>"
+   ```
+
+   Adapt to the permitted method while retaining a fail-closed head-match guard
+   and binding actual landing messages to checked text. Explicitly supply verified
+   merge/squash text; never fall back silently to a generated message. Confirm the
+   CLI/API preserves an intended empty body before relying on `--body ""`;
+   otherwise use a non-empty verified body. If the method cannot bind these inputs,
+   stop and return the unresolved condition rather than claim the gate passed.
+4. **Verify the result.** Identify the actual landed commit(s), establish their
+   correspondence to the expected publication action, and inspect their subjects
+   and bodies against the verified messages. Resolve landed closing references to
+   full identities and extend the relevant issue set with any newly observed
+   targets. Verify every declared issue reached the intended closed state and
+   check issue states/history for unexpected closure through all three surfaces.
+   For `none`, verify no relevant issue was unexpectedly closed. Retain landed
+   identities, message correspondence, resulting-state evidence, and verification
+   limits; report and route any mismatch for disposition.
+
+An authorized issue remaining open because host auto-close differs is not alone
+publication failure. Explicit closure requires the actual issue-closure owner or
+that authority already held by the executor. Preserve and report unexpected
+observed closure; route correction/reopening under project authority without
+silently restoring state. Return unresolved conditions, follow-up, and next owner
+through return of control. Publication authority does not imply issue-closure
+authority or general project closeout: merge need not complete the work item,
+and issues may legitimately remain open afterward.
