@@ -51,6 +51,45 @@ When changing the required job's name, source, or triggers, reconcile the live
 required check with the workflow so every pull request targeting the protected
 branch can report it. Preserve this repository's exact-candidate checkout.
 
+## Changelog
+
+[CHANGELOG.md](CHANGELOG.md) follows [Common Changelog](https://common-changelog.org/)
+for format only. It summarizes notable repository releases. Canonical roles,
+handoffs, and workflows define reusable behavior; instantiated handoffs and
+execution evidence remain with the consuming project. [GOVERNING-SOURCES.md](GOVERNING-SOURCES.md)
+owns exact source pins and applicability. Git owns exact history, PRs and issues
+retain decisions and implementation evidence, and GitHub Releases record
+publication and release-specific notes. The changelog replaces none of these
+or the actual publication authorization evidence.
+
+For each PR, retain a concise proposed changelog summary with supporting
+references, or explain why the change is not notable. Distinguish reusable
+workflow semantics, role/handoff behavior, repository maintenance, source-pin
+changes, and publication mechanics where useful. Capture compatibility and
+consumer implications. Reviewers verify that the summary reflects the final
+candidate; not every PR warrants a release entry.
+
+Keep pending summaries in retained PR descriptions until a real release version
+and date are selected. Do not create an `Unreleased` section, invent a version,
+or attribute new work to an already published release. During release preparation,
+update the prepared section alongside further notable changes included in that
+release. Follow [release preparation](MAINTAINING.md#prepare-the-release) to
+curate summaries, including carried-forward work, against the entire delta.
+Use safe issue references under the [GitHub issue-closure guidance](roles/publication.md#github-issue-closure).
+
+The initial history from `v0.1.0` through `v0.2.0` is a retrospective backfill
+supported by retained GitHub Release notes and UTC `publishedAt` dates, verified
+tags, release commits, diffs, and merged PRs. It was not written contemporaneously.
+It preserves the releases' pre-1.0 semantics, including maintenance-only patches
+and compatible workflow additions.
+
+Consumers update deliberately under their own project authority and preserve
+legitimate local adaptations. Copied workflows and instantiated handoffs do not
+update automatically. A repository release neither adopts standards for consumers,
+advances their source pins, transfers roles, nor grants execution or publication
+authority. Repository governing-source pins advance only through actual reviewed
+changes to their canonical entries.
+
 ## Changing validation
 
 `.pre-commit-config.yaml` owns tool selection and file scope. Markdown rules live
