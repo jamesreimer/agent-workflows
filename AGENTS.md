@@ -21,6 +21,11 @@ to source-derived guidance, without exporting repository authorization as consum
 adoption. No new organization-neutral standard is authored or adopted here.
 A reference or available credential is not execution permission.
 
+[Common Changelog](https://common-changelog.org/) governs changelog format only.
+Repository-local contribution and release mechanics live in
+[CONTRIBUTING.md](CONTRIBUTING.md#changelog) and
+[MAINTAINING.md](MAINTAINING.md#prepare-the-release).
+
 ## Working practices
 
 - Inspect branch and worktree state; preserve unrelated changes.

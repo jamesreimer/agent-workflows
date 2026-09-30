@@ -83,11 +83,40 @@ or verification failure; do not continue to a later publication step.
      test -z "$(git status --porcelain)"
    ```
 
-2. Select reviewed, merged work on `main` under the actual project contract,
+2. Choose an unused version under the release identifiers above, checking local
+   and remote tags and GitHub Releases. Prepare the real `CHANGELOG.md` section
+   through ordinary reviewed work before selecting the final release candidate.
+   Review retained [PR summaries](CONTRIBUTING.md#changelog) since the previous
+   release, including carried-forward summaries. Compare them against the entire
+   release delta; resolve missing or unclear interpretation from retained evidence
+   and the responsible authors. Include all notable changes without treating
+   every PR as an entry.
+
+   Follow [Common Changelog](https://common-changelog.org/): use
+   `## [MAJOR.MINOR.PATCH] - YYYY-MM-DD`, a version without `v`, the intended UTC
+   publication date, and a link to the corresponding GitHub Release. Order
+   releases newest first by semantic version and applicable groups as `Changed`,
+   `Added`, `Removed`, `Fixed`. Use concise imperative entries with relevant
+   commit/PR references and mark breaking changes. Preserve this library's
+   pre-1.0 version rules and distinguish consumer-impacting workflow changes
+   from maintenance and source-pin changes.
+
+   This procedure publishes a verified annotated tag and its GitHub Release;
+   use the UTC calendar date of actual GitHub Release `publishedAt` as the
+   changelog date. Tagger time or later tag existence is not publication-time
+   evidence. Retain date evidence in the existing release work record. No
+   tag-only completion procedure is introduced here. If publication is delayed
+   or scope changes before tagging, correct the date, version, entries, and
+   links through reviewed work and qualify the resulting candidate again.
+   Preparing a section supplies no publication authority.
+
+3. Select reviewed, merged work on `main` under the actual project contract,
    including required independent review and human publication authorization.
    Record the reviewed PR-head SHA and the resulting published SHA with their
    content correspondence evidence. A merge or squash can produce a different
    SHA; release the qualified published commit, not an unmerged PR head.
+   Verify the changelog covers the notable complete delta and its version, date,
+   and release links match the planned publication.
    Confirm the required hosted `Repository validation` check passed for that
    published commit, and check out that exact commit for local qualification:
 
@@ -106,7 +135,7 @@ or verification failure; do not continue to a later publication step.
    and logs: it must be completed successfully and checkout must resolve the
    intended release commit. Missing or failed CI stops release preparation.
 
-3. Follow the [setup instructions](README.md#run-checks), then run the complete
+4. Follow the [setup instructions](README.md#run-checks), then run the complete
    qualification against this exact checked-out commit:
 
    ```sh
@@ -128,8 +157,8 @@ or verification failure; do not continue to a later publication step.
    select and qualify the resulting published commit before proceeding. Never
    release uncommitted fixes or treat CI as publication permission.
 
-4. Check local tags, remote tags, and existing GitHub Releases to select an unused
-   identifier. Inspect all results and paginate the release list if necessary:
+5. Recheck local tags, remote tags, and existing GitHub Releases to confirm the
+   selected identifier is still unused. Inspect all results and paginate the release list if necessary:
 
    ```sh
    git tag --list
@@ -139,7 +168,8 @@ or verification failure; do not continue to a later publication step.
 
    A tag or release already using the intended identifier stops new creation;
    do not overwrite it. Review changes since the previous release, or the full
-   baseline for the first release. Prepare notes describing the actual changes,
+   baseline for the first release. Prepare notes from the changelog and detailed
+   Git/PR/issue evidence, keeping notable changes consistent and describing
    consumer impact, incompatibilities, and deliberate adoption steps. Keep the
    notes outside the checkout so it remains clean. Confirm GitHub's detected
    license remains CC0-1.0 and retain the exact SHA, checks, and release decision
@@ -221,6 +251,11 @@ notes must match the prepared text, `publishedAt` must be populated, and both
 a formal release as a GitHub prerelease. Confirm the returned release page and
 its source ZIP and tar archives are available. Reverify the remote tag object
 and peeled commit after publication as above.
+
+Verify the UTC calendar date of actual `publishedAt` against the changelog heading
+and retain that timestamp in the existing release work record. If the date differs,
+record the discrepancy and correct the changelog through a reviewed successor PR.
+Preserve the published tag and tree; any successor release needs its own authority.
 
 If publication fails after the tag push, inspect the actual remote tag and
 release state before any retry; preserve the published tag. Return failures or
