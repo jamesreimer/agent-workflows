@@ -50,6 +50,17 @@ authority, protected effects, and justified constraints from forecast files or
 techniques. Mark deliberate exact-change restrictions and the consequence they
 protect. Implementation owns ordinary mechanics inside those boundaries.
 
+When issue completion is part of the project contract, Planning/project authority
+establishes the substantive completion boundary and whether merge is intended to
+satisfy it. Distinguish material completion conditions from routine housekeeping.
+Local synchronization, branch deletion, workspace cleanup, and similar mechanics
+do not extend that boundary merely because they follow merge; the project contract
+determines whether any such task is substantive. Identify any required downstream
+action, approval, substantive verification, or other material condition that
+remains after merge, with an owner for explicit completion at the later boundary.
+Required publication verification does not automatically extend the issue boundary;
+the contract determines whether a particular result is a substantive condition.
+
 Planning does not implement, even when implementation is the next logical step.
 Return the instantiated planning handoff at that boundary.
 

@@ -101,8 +101,15 @@ role. Preparing that handoff does not itself authorize the sender to execute it.
    Publication does not redesign the candidate. See the applicable PRI guidance
    under [Source-derived guidance](#source-derived-guidance) above.
    Return corrections through the authorized role handoff.
-   Where GitHub issue-closing semantics apply, host closing state must match the
-   handoff's declared project completion intent. Follow the
+   Where GitHub issue-closing semantics apply, derive the handoff's **Issue closure
+   on merge** from the substantive completion boundary established by
+   [Planning/project authority](../roles/planning.md#workflow-local-operational-guidance)
+   and issue-closure authority. Include an authorized issue when merge satisfies
+   all its substantive completion conditions. Merge need not complete every work
+   item: exclude an issue with material governed obligations remaining after merge
+   and retain ownership of its explicit later completion. Neither closure nor
+   `none` is a universal default. Actual closing relationships must express this
+   per-issue intent regardless of repository auto-close configuration. Follow the
    [issue-closure safety rule](../roles/publication.md#github-issue-closure) across
    PR, commit, and landing-message surfaces; Publication verifies applicable
    GitHub issue-closing state immediately before merge and resulting issue state

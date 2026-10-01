@@ -72,6 +72,12 @@ return control without performing that action.
 | Required shared targets | `<resolved-identities-and-correspondence-evidence>` |
 | Return destination | `<decision-owner-and-project-record>` |
 
+Populate **Issue closure on merge** from the already-established substantive
+completion boundary, issue-closure authority, and intended merge consequence
+under the [reviewed-change composition](../workflows/reviewed-change.md#workflow-local-operational-guidance).
+Publication consumes and enforces this result; the field is not an independent
+policy choice for Publication.
+
 For applicable GitHub publication, declare every issue by full
 `owner/repository#number` identity, including issues in other repositories;
 `none` means no closing relationship in any repository. Follow the
