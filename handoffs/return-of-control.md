@@ -52,6 +52,12 @@ instantiated handoff under the actual authority.
 | Follow-up | `<necessary-action-owner-and-trigger-or-none>` |
 | Return destination and requested decision | `<responsible-owner-project-record-and-bounded-question>` |
 
+For a completion return, use **Follow-up** to preserve the disposition of material
+consequences outside the completed scope: the responsible owner and durable
+work-record identity when deferred, or supporting rationale when inapplicable.
+Apply [Planning's consequence guidance](../roles/planning.md#workflow-local-operational-guidance)
+proportionately; vague future intent does not establish ownership.
+
 Report only the state evidence supports. Distinguish completed authorized work
 from unresolved architectural or operational completion. Preserve useful partial
 work safely; do not use a stop report as permission to erase it, change scope, or

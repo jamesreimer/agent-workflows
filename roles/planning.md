@@ -50,6 +50,21 @@ authority, protected effects, and justified constraints from forecast files or
 techniques. Mark deliberate exact-change restrictions and the consequence they
 protect. Implementation owns ordinary mechanics inside those boundaries.
 
+Before claiming governed work complete, Planning asks: what material consequences
+did this decision or change actually create, and where is each one owned?
+Disposition each as handled in the current work, explicitly inapplicable with
+supporting evidence or rationale, or durably owned elsewhere. Keep this check
+proportionate: speculative, unsupported, or immaterial possibilities require
+neither disposition records nor follow-up work.
+
+Bounded scope separation is valid when ownership is retained. For a deferred
+material consequence, preserve the actual responsible owner and durable work-record
+identity. An existing issue, project record, roadmap item, or instantiated handoff
+can suffice; no new issue or GitHub use is required. Labels such as `later`,
+`separate work`, or `out of scope` alone do not establish ownership. A deferred
+material consequence without a durable owner means completion is premature;
+the current work need not absorb it.
+
 When issue completion is part of the project contract, Planning/project authority
 establishes the substantive completion boundary and whether merge is intended to
 satisfy it. Distinguish material completion conditions from routine housekeeping.
