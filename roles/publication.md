@@ -77,6 +77,15 @@ descriptions, commit messages, and merge/squash subjects and bodies.
 Where GitHub issue-closing semantics apply, use this manual procedure regardless
 of repository auto-close configuration; no setting change is required.
 
+Enforce the declared closure set derived from the
+[established completion boundary](../workflows/reviewed-change.md#workflow-local-operational-guidance);
+Publication does not redefine it. Post-merge checks of landed identity, tree
+correspondence, messages, issue state, or hosted validation remain required where
+applicable, but their timing and routine cleanup do not independently force
+`Issue closure on merge: none`. A material condition that the project contract
+includes in the issue's boundary still requires that issue to remain open until
+the condition is satisfied.
+
 1. **Prepare the final gate.** After candidate correspondence and required
    validation, establish the exact PR head SHA (`<verified-head-sha>`) and the
    permitted landing method. The handoff's **Issue closure on merge** remains
