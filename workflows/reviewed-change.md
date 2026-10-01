@@ -118,6 +118,9 @@ role. Preparing that handoff does not itself authorize the sender to execute it.
    [return of control](../handoffs/return-of-control.md) on completion, interruption,
    missing authority, or a new material decision. Publication can be absent; all
    roles still return useful state, evidence, unresolved conditions, and follow-up.
+   Governed completion requires material consequences actually created by the work
+   to be handled, explicitly inapplicable, or durably owned, under
+   [Planning's consequence guidance](../roles/planning.md#workflow-local-operational-guidance).
 
 Instantiated contracts, candidates, findings, and execution records remain with
 the consuming project. This file supplies a reusable composition, not task state,
