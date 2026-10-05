@@ -92,6 +92,29 @@ or verification failure; do not continue to a later publication step.
    and the responsible authors. Include all notable changes without treating
    every PR as an entry.
 
+   The release section may be prepared in the same PR as a release-bearing change
+   when the intended release version, release scope, and intended UTC publication
+   date are established. In that path, complete this step's release-delta accounting
+   before the release-bearing PR merges: account for every applicable change since
+   the previous release, incorporate retained proposed summaries, and verify that
+   the prepared section accurately represents the whole intended release delta.
+   Earlier already-canonical changes may cite canonical commits while the current
+   same-PR change cites its PR. Mixed reference forms are acceptable when they
+   accurately reflect the changes' publication states.
+
+   Use a separate reviewed changelog-preparation PR when the intended version,
+   release scope, or intended UTC publication date is not established for the
+   substantive PR, when that PR has already merged without the release section,
+   or when correction is required after merge. Establish the release facts before
+   preparing the section in that later PR. Aggregating several previously merged
+   changes does not by itself require a separate changelog PR.
+
+   Apply the [durable-reference guidance](CONTRIBUTING.md#changelog) to the effective
+   squash-landing protection: squash creates a new canonical commit, so a same-PR
+   entry uses the PR unless it refers to an earlier already-canonical change.
+   This changes preparation timing and reference selection, not publication
+   authority or the required independent review and correspondence evidence.
+
    Follow [Common Changelog](https://common-changelog.org/): use
    `## [MAJOR.MINOR.PATCH] - YYYY-MM-DD`, a version without `v`, the intended UTC
    publication date, and a link to the corresponding GitHub Release. Order
@@ -105,10 +128,26 @@ or verification failure; do not continue to a later publication step.
    use the UTC calendar date of actual GitHub Release `publishedAt` as the
    changelog date. Tagger time or later tag existence is not publication-time
    evidence. Retain date evidence in the existing release work record. No
-   tag-only completion procedure is introduced here. If publication is delayed
-   or scope changes before tagging, correct the date, version, entries, and
-   links through reviewed work and qualify the resulting candidate again.
-   Preparing a section supplies no publication authority.
+   tag-only completion procedure is introduced here. Preparing a section supplies
+   no publication authority. Apply corrections according to the actual state:
+
+   - Before merge, if the intended version, scope, date, or entries change, correct
+     the section and its links in the same PR. This includes crossing UTC midnight
+     when the intended publication day changes. Perform proportionate ordinary
+     re-review and qualify the revised exact candidate before relying on it.
+   - After merge but before tagging/publication, correct through a new reviewed
+     PR. Identify the resulting new canonical `main` commit, re-establish the
+     required reviewed-state / published-state correspondence, and fully qualify
+     that intended release commit before tagging. Do not rewrite already-merged
+     history to preserve the original planned candidate.
+   - After publication, use the reviewed successor-correction path below. Preserve
+     the published tag and tree without rewriting published history; any successor
+     release requires its own authority. Never move, delete, replace, or recreate
+     the published tag as a correction mechanism.
+
+   If a tag has already been pushed and GitHub Release publication is incomplete,
+   use the [partial-publication stop-and-inspect procedure](#publish-and-verify)
+   below, not the ordinary after-merge/pre-tag correction path.
 
 3. Select reviewed, merged work on `main` under the actual project contract,
    including required independent review and human publication authorization.
