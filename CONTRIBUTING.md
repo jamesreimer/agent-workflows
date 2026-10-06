@@ -69,6 +69,26 @@ changes, and publication mechanics where useful. Capture compatibility and
 consumer implications. Reviewers verify that the summary reflects the final
 candidate; not every PR warrants a release entry.
 
+Common Changelog states that changes must reference relevant commits, while its
+own examples also show pull-request references. Agent Workflows interprets those
+examples as permitting a pull request to serve as the durable change reference
+when the eventual canonical published-history commit for that same PR does not
+yet exist.
+
+When an appropriate canonical published-history commit already exists, cite it
+and include the associated PR where useful. A PR selected as the durable reference
+for a same-PR change is final; do not later supplement or replace it merely because
+the eventual squash commit becomes available. Do not cite a pre-squash PR-head
+commit that will not exist in canonical `main` history. Effective default-branch
+protection permits squash landing; [release preparation](MAINTAINING.md#prepare-the-release)
+applies that condition to same-PR entries.
+
+Changelog commit/PR references are historical and navigation references. They do
+not replace the reviewed immutable PR-head candidate, resulting canonical
+published commit, or reviewed-to-published correspondence evidence required for
+publication. A final PR reference leaves those publication-integrity identities
+and checks intact.
+
 Keep pending summaries in retained PR descriptions until a real release version
 and date are selected. Do not create an `Unreleased` section, invent a version,
 or attribute new work to an already published release. During release preparation,
