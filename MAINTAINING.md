@@ -3,11 +3,13 @@
 This repository-local procedure owns release preparation and publication for
 `jamesreimer/agent-workflows`. Ordinary changes follow
 [CONTRIBUTING.md](CONTRIBUTING.md).
-Contribution permission, review approval, and passing validation do not grant
-merge or release authority. Obtain explicit human authorization for the intended
-publication action, version, and exact release commit before creating or pushing
-a tag or publishing a GitHub Release. A merge authorization is not a release
-authorization. This procedure supplies mechanics, not authority or an
+Merge authority comes from the actual project contract or other established
+project authority. Contribution permission, review approval, and passing
+validation do not independently grant merge authority. Release authorization is
+separate: explicit human authorization must cover the selected version, exact
+release commit, and intended release actions before creating or pushing the
+release tag or publishing a GitHub Release. Merge authorization does not imply
+release authorization. This procedure supplies mechanics, not authority or an
 organization-neutral release policy.
 
 ## Repo-template reconciliation
