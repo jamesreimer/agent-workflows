@@ -18,8 +18,13 @@ or effect. See [authority and source status](../README.md#authority-and-source-s
 
 ## Source-derived guidance
 
-Establish authority for the particular publication action and its consequences;
-implementation and review success are not that authorization (OEC §§6–7, 14).
+Authority for the particular publication action and its consequences must exist
+and be explicit enough for the executor to determine permitted actions and where
+execution must stop (OEC §6).
+One deliberate, unambiguous project authorization may already cover several
+authority boundaries (OEC §6). Implementation, review, validation, available
+capability, or successful intermediate state do not themselves supply missing
+authority (OEC §§6–7, 11, 14–15).
 Verify the actual input's correspondence to its immutable identity and all
 required shared targets where authoritative consumption applies (SAP §§5–8,
 15.1). Dispositions cannot hide unmet completion conditions (AR §12).
@@ -53,9 +58,16 @@ to another role, stop and return an instantiated, ready-to-use handoff for that
 role. Preparing that handoff does not itself authorize the sender to execute it.
 
 Read the [review → publication](../handoffs/review-to-publication.md) handoff,
-actual authorization, and reviewed candidate. Check that the state about to be
-published is the reviewed state and that the project's publication conditions
-are satisfied. If the candidate changed, route it through the composition's
+actual authorization, and reviewed candidate. Confirm whether the actual project
+contract, instantiated handoff, or other applicable project authority already
+covers the proposed action and its consequences. When authority clearly exists,
+proceed within it without requesting redundant authorization. When authority is
+absent or unclear, stop and return control; implementation, review, or validation
+success and available capability do not supply missing authority.
+
+Check that the state about to be published is the reviewed state and that the
+project's publication conditions are satisfied. If the candidate changed, route
+it through the composition's
 proportionate re-review before relying on the review; do not silently substitute
 bytes or conduct an unrequested redesign at publication time.
 
