@@ -152,7 +152,7 @@ or verification failure; do not continue to a later publication step.
    below, not the ordinary after-merge/pre-tag correction path.
 
 3. Select reviewed, merged work on `main` under the actual project contract,
-   including required independent review and human publication authorization.
+   including required independent review and merge authority.
    Record the reviewed PR-head SHA and the resulting published SHA with their
    content correspondence evidence. A merge or squash can produce a different
    SHA; release the qualified published commit, not an unmerged PR head.

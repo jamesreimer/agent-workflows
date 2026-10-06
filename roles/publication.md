@@ -18,7 +18,9 @@ or effect. See [authority and source status](../README.md#authority-and-source-s
 
 ## Source-derived guidance
 
-Authority for the particular publication action and its consequences must exist.
+Authority for the particular publication action and its consequences must exist
+and be explicit enough for the executor to determine permitted actions and where
+execution must stop (OEC §6).
 One deliberate, unambiguous project authorization may already cover several
 authority boundaries (OEC §6). Implementation, review, validation, available
 capability, or successful intermediate state do not themselves supply missing
