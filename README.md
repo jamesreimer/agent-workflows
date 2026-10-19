@@ -18,11 +18,11 @@ roles, execution or publication authority, or a consuming project's work state.
 The library has an independent lifecycle so operational practice can evolve
 without silently revising governing standards.
 
-| Class | Canonical artifacts |
-| --- | --- |
-| Role profiles | [Planning](roles/planning.md), [Implementation](roles/implementation.md), [Independent review](roles/independent-review.md), [Publication](roles/publication.md) |
-| Handoff templates | [Planning → implementation](handoffs/planning-to-implementation.md), [Implementation → review](handoffs/implementation-to-review.md), [Review → correction](handoffs/review-to-correction.md), [Review → publication](handoffs/review-to-publication.md), [Return of control](handoffs/return-of-control.md) |
-| Workflow compositions | [Reviewed change](workflows/reviewed-change.md) |
+| Class                 | Canonical artifacts                                                                                                                                                                                                                                                                                          |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Role profiles         | [Planning](roles/planning.md), [Implementation](roles/implementation.md), [Independent review](roles/independent-review.md), [Publication](roles/publication.md)                                                                                                                                             |
+| Handoff templates     | [Planning → implementation](handoffs/planning-to-implementation.md), [Implementation → review](handoffs/implementation-to-review.md), [Review → correction](handoffs/review-to-correction.md), [Review → publication](handoffs/review-to-publication.md), [Return of control](handoffs/return-of-control.md) |
+| Workflow compositions | [Reviewed change](workflows/reviewed-change.md)                                                                                                                                                                                                                                                              |
 
 The first composition does not define the permanent lifecycle of every workflow.
 Roles identify responsibilities; they do not require four separate actors.
@@ -103,7 +103,9 @@ procedure; passing validation does not authorize a release.
 
 ## Run checks
 
-Install Python 3.10 or later and Node.js 24.18.1 (including npm):
+Install Python 3.10 or later and select exactly Node.js 24.18.1 (including npm).
+The package engine and `.npmrc` enforce this Node version at installation;
+keep it on PATH when running the system hooks:
 
 ```sh
 npm ci --ignore-scripts
@@ -117,7 +119,9 @@ npm audit
 
 On Windows use `.venv\Scripts\python.exe` and
 `.venv\Scripts\pre-commit.exe`. Initial installation needs network access;
-required link checking is offline. Review hook fixes and rerun. Optional commit
+required link checking is offline. Retain audit output and its exit status;
+nonzero findings require the [local risk disposition](CONTRIBUTING.md#local-artifact-checks)
+at release qualification. Review hook fixes and rerun. Optional commit
 hooks use `.venv/bin/pre-commit install`; they do not replace all-files checks.
 
 The [contributor guide](CONTRIBUTING.md) explains validation ownership and its

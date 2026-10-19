@@ -117,6 +117,45 @@ in `.markdownlint-cli2.jsonc`; Python rules live in `ruff.toml`. Use the tools'
 native configuration when project requirements change. Make exclusions explicit
 and explain substantive coverage reductions in the pull request.
 
+ESLint owns JavaScript correctness and maintainability through `eslint.config.mjs`.
+Prettier owns mechanical formatting for JavaScript, JSON/JSONC, YAML, and Markdown
+through `.prettierrc.json`. Both checks run as filename-driven local/system
+pre-commit hooks: pre-commit passes selected filenames directly to the root
+npm-installed package CLIs. The `--` separators protect option-like filenames.
+At commit time, pre-commit hides unstaged edits and checks selected staged files.
+The full tracked-repository validation path remains
+`pre-commit run --all-files --show-diff-on-failure`.
+
+For focused checks, run `.venv/bin/pre-commit run lint-js --all-files` or
+`.venv/bin/pre-commit run format-check --all-files`; use `--files path/to/file.mjs`
+instead of `--all-files` to select particular files deliberately. The manual
+`npm run lint:js` and `npm run format:check` convenience check commands scan their
+configured working-tree scope, including untracked files. They do not transport
+commit-time filenames. Apply formatting deliberately with an appropriate editor
+or tool invocation, then review the diff as an ordinary change. Validation itself
+does not apply ESLint or Prettier fixes.
+
+Formatting excludes the npm-owned lockfile, digest-pinned link contract, and
+YAML parser fixture. `.prettierignore` also excludes `.venv/` for manual scans;
+the pre-commit format hook explicitly excludes the tracked fixture/lock paths.
+Markdown prose wrapping stays at Prettier's preserve default, and embedded
+examples are not reformatted. Existing syntax, Markdown, link, and workflow
+validators retain their semantic responsibilities. `tests/quality-hooks.test.mjs`
+protects the direct CLI wiring and literal-filename boundary, including the
+brace/decoy regression that rejects npm script-shell transport.
+
+Agent Workflows additionally excludes `roles/` and `handoffs/` from Prettier to
+preserve authored operational contracts. They remain covered by Markdownlint,
+link validation, canonical-artifact and live-identifier checks, and manual
+semantic review. This exclusion does not extend to all Markdown.
+
+Inline Markdownlint configuration comments, including rule exceptions, are
+intentionally disabled with `noInlineConfig: true`. This AW-local hardening
+removes the Markdown-comment configuration parsing route; it does not patch
+vulnerable packages or disable configuration-file discovery and executable
+nested options. Consumers relying on inline exceptions must deliberately adapt
+their authoring or configuration.
+
 Linkinator checks Markdown links offline, including fragments. It runs as a
 fresh process through `tools/check-links.mjs`, with exact dependencies in
 `package.json` and `package-lock.json`. A startup probe verifies that front matter
@@ -128,7 +167,10 @@ need a project-specific decision. Markdown parsing belongs to the
 maintained tools. The local `fenced-code-closed` authoring rule consumes
 markdownlint's micromark tokens to require explicit fence closure; it neither
 parses Markdown independently nor chooses a closing position automatically.
-Working symbolic links are allowed.
+Working symbolic links are allowed. Before success, requested-file attestation
+requires evidence that Linkinator scanned exactly the requested file identities.
+Unsupported or ambiguous filename selection fails closed rather than silently
+omitting a requested file or selecting a glob-expanded decoy.
 
 Directory destinations use Linkinator's native directory listings and do not
 require an `index.html`. Missing directories still fail. If an `index.html` is
@@ -140,7 +182,10 @@ When changing a check or its scope, verify both that representative defects fail
 and that representative valid files pass in an isolated Git repository. Include
 new-file selection and the full CI command where relevant. The suite includes
 `tests/markdown-rules.test.cjs`, which exercises the local rule through the
-installed CLI and actual configuration in the same isolated hook environment.
+installed CLI and actual configuration from the same root npm-installed
+`markdownlint-cli2` package as the ordinary Markdown hook. The literal-filename
+adapter preserves pre-commit selection, batching, and unstaged-change stashing;
+no separate Markdown hook environment is created.
 Keep embedded Markdown examples, container boundaries, opening-line locations,
 and no-autofix behavior covered when updating the rule or its parser dependency.
 Projects should add tests for the additional behavior they own.
@@ -157,12 +202,18 @@ Review updates using:
 Review the resulting versions and configuration compatibility, then run the
 full suite. `requirements-dev.txt` pins the runner. npm owns the link checker,
 its explicit Marked dependency, the maintained front-matter stack, and the
-Markdownlint dependency used by its regression tests. Use `npm ci --ignore-scripts`
+Markdownlint dependency used by both its ordinary hook and regression tests,
+ESLint, and Prettier. Use `npm ci --ignore-scripts`
 locally and in CI. The lock preserves the full dependency resolution;
 pre-commit `additional_dependencies` cannot provide that transitive lock.
 The startup probe is still required: correctness must not depend on hoisting.
 Update pins and lock together, then run the regression suite and ordinary checks.
-Keep the test Markdownlint version aligned with its existing pre-commit hook.
+The package engine and `.npmrc` enforce exactly Node 24.18.1 at install time;
+CI selects that runtime too. Later execution uses the system `node` on PATH,
+so select it before running checks. Install-time enforcement replaces the old
+Markdown hook's per-invocation nodeenv selection. Dependabot's forced dependency
+resolution does not qualify a candidate; required CI still installs without
+`--force` on the selected runtime.
 
 Dependabot proposes GitHub Actions, Python requirements, and npm dependency
 updates monthly. Hook revisions remain covered by `pre-commit autoupdate`.
@@ -183,6 +234,16 @@ python3 scripts/validate_local.py
 python3 -m unittest discover -s tests
 npm audit
 ```
+
+Retain the complete, unsuppressed `npm audit` output and its exit status against
+the actual installed graph. A nonzero result is not a clean audit. At release
+qualification it permits proceeding only with a current, reviewed AW-local
+bounded risk disposition covering that exact graph, applicability and exposure,
+remaining risk, and reassessment triggers. New or materially changed findings,
+an absent or expired disposition, changed trust or CI assumptions, or policy
+requiring a clean audit fail closed pending a new decision. Upstream acceptance
+is not local acceptance. Follow the [release qualification procedure](MAINTAINING.md#prepare-the-release)
+and keep residual advisory ownership in an AW issue; this is not release authority.
 
 The same two Python commands are included in pre-commit and hosted CI. Tests
 exercise missing artifacts, valid placeholders, live issue/repository/SHA values,
