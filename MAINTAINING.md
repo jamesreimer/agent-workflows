@@ -73,8 +73,9 @@ commit requires a new version and tag.
 
 The commands below use Git, the GitHub CLI, and a POSIX shell. Run them from the
 repository root. Replace placeholders with the selected version, full release
-commit SHA, and a release-notes path outside the checkout. Stop on any command
-or verification failure; do not continue to a later publication step.
+commit SHA, and a release-notes path outside the checkout. Stop on command or
+verification failure; do not continue to a later publication step. Step 4 defines the sole exception for an audit reporting known findings:
+it requires an explicit current local risk disposition, never silent success.
 
 1. Confirm `origin` is `jamesreimer/agent-workflows`, fetch current `main` and
    tags, and require a clean working tree:
@@ -184,8 +185,40 @@ or verification failure; do not continue to a later publication step.
      git diff --check &&
      python3 scripts/validate_local.py &&
      python3 -m unittest discover -s tests &&
-     npm audit &&
      test "$(git rev-parse HEAD)" = "$release_commit" &&
+     test -z "$(git status --porcelain)"
+   ```
+
+   After the checks above succeed, run the audit separately so its complete
+   output and actual exit status are retained, including a nonzero result:
+
+   ```sh
+   audit_file='<path outside the checkout for the complete audit output>'
+   if npm audit > "$audit_file" 2>&1; then
+     audit_status=0
+   else
+     audit_status=$?
+   fi
+   cat "$audit_file"
+   printf '%s\n' "$audit_status" > "$audit_file.exit-status"
+   ```
+
+   Retain both files with the qualification evidence and identify the installed
+   graph by the exact commit, lockfile, Node/npm versions, and successful
+   `npm ci --ignore-scripts`. Do not filter or suppress findings. An audit error
+   or incomplete report fails qualification. A complete nonzero audit permits
+   proceeding only when a current, reviewed AW-local bounded risk disposition
+   explicitly covers this exact graph, advisory applicability and exposure,
+   remaining risk, and reassessment triggers. Keep residual ownership in an AW
+   issue and link its reviewed disposition from the release evidence. This is
+   neither automatic acceptance inherited from another repository nor release
+   authorization. Newly introduced or materially changed findings, an absent
+   or expired disposition, changed trust or CI assumptions, or a policy requiring
+   a clean audit fail closed pending a new decision. Record that decision before
+   proceeding, then recheck the exact commit and clean working tree:
+
+   ```sh
+   test "$(git rev-parse HEAD)" = "$release_commit" &&
      test -z "$(git status --porcelain)"
    ```
 
