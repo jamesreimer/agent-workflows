@@ -156,6 +156,13 @@ vulnerable packages or disable configuration-file discovery and executable
 nested options. Consumers relying on inline exceptions must deliberately adapt
 their authoring or configuration.
 
+Markdownlint CLI2 0.24.0 / markdownlint 0.42.0 uses RE2JS for native
+`frontMatter` expressions to protect against regular-expression denial of service.
+Custom expressions using JavaScript RegExp-only features, including lookahead,
+may need compatible equivalents. Some older upstream documentation still describes
+JavaScript `RegExp`; verify custom patterns against the installed CLI. The default
+Agent Workflows configuration does not use custom `frontMatter` and is unaffected.
+
 Linkinator checks Markdown links offline, including fragments. It runs as a
 fresh process through `tools/check-links.mjs`, with exact dependencies in
 `package.json` and `package-lock.json`. A startup probe verifies that front matter
@@ -208,9 +215,9 @@ locally and in CI. The lock preserves the full dependency resolution;
 pre-commit `additional_dependencies` cannot provide that transitive lock.
 The startup probe is still required: correctness must not depend on hoisting.
 Update pins and lock together, then run the regression suite and ordinary checks.
-The package engine and `.npmrc` enforce exactly Node 24.18.1 at install time;
-CI selects that runtime too. Later execution uses the system `node` on PATH,
-so select it before running checks. Install-time enforcement replaces the old
+The package engine and `.npmrc` require Node 24.22.1 or a later Node 24 release
+at install time; CI selects exactly Node 24.22.1. Later execution uses the system
+`node` on PATH, so select it before running checks. Install-time enforcement replaces the old
 Markdown hook's per-invocation nodeenv selection. Dependabot's forced dependency
 resolution does not qualify a candidate; required CI still installs without
 `--force` on the selected runtime.
