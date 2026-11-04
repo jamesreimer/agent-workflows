@@ -134,7 +134,7 @@ use these workflow-local publication checks, informed by [PRI §§4–17](../GOV
   does not automatically change downstream state.
 - Preserve established fixed identities, including a fixed release's declared
   member artifacts and their identities according to what that release denotes.
-  Classify changes by effect rather than labels such as metadata or presentation:
+  Classify changes to what an identity denotes by effect rather than labels such as metadata or presentation:
   a change is substantive if it could lead a reasonable consumer to a materially
   different conclusion about meaning or requirements, conformance, compatibility,
   dependency or resolution behavior, installation or execution, licensing or
@@ -142,8 +142,10 @@ use these workflow-local publication checks, informed by [PRI §§4–17](../GOV
   for intended reliance (local procedure informed by PRI §10).
   Treat materially uncertain in-place changes as substantive. Substantive corrections need a distinguishable successor
   or another identity-preserving mechanism. A content-binding identity cannot retain changed
-  bytes. Accurate status/advisory updates or non-substantive corrections may occur
-  in place only when the identity's meaning remains intact. Make a material
+  bytes. Accurate status, advisory, evidence, signature, or attestation information
+  about the published state, or non-substantive corrections, may change in place
+  only when the fixed identity's meaning remains intact and is not misrepresented.
+  Make a material
   correction/supersession relationship determinable where consumers need it.
 - Before retrying, replacing, correcting, withdrawing, or claiming completion after
   failed, interrupted, or premature exposure, inspect actual observable state and
