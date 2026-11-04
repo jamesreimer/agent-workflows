@@ -23,7 +23,9 @@ or recovery, unresolved conditions, and follow-up when later action or review
 materially depends on it. Keep reporting proportionate; this is not a universal
 mandatory report format. Reporting itself does not authorize continuation.
 Stop at completion and before exceeding authority or protected boundaries
-(OEC §§8, 10–12). Preserve material architectural finding dispositions (AR §12).
+(OEC §§8, 10–12). Give material architectural findings explicit dispositions (AR §12).
+AR §12 recommends proportionate supporting evidence retention where its loss
+would materially impair later review.
 Keep work records and canonical decisions with their responsible owners
 (PRR §§5–9; OEC §17).
 
