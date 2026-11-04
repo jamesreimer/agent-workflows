@@ -8,8 +8,9 @@
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
-where actual adopted standards or project authority make it applicable, at its
-original force and scope. Selecting the workflow selects its documented local
+where actually applicable governing authority gives it force, at its original
+strength and scope. A project may explicitly incorporate a rule or adopt a source;
+merely having a local authorizer does not adopt the linked standards. Selecting the workflow selects its documented local
 mechanics, not organizational normative adoption or permission to act. Neither
 category overrides governing requirements; proportionality cannot remove required
 content or effect. The local instructions below support use without Standards
@@ -17,18 +18,11 @@ Templates adoption or access to the [README](../README.md#authority-and-source-s
 
 ## Source-derived guidance
 
-For an applicable OEC edition, assess its actual scope, not adoption status alone
-or the workflow shorthand below. The pinned OEC §2 covers material effects on
-live systems, shared services/infrastructure, runtime configuration, protected
-data, secrets/credentials, provider state, deployment/activation, backup/restore/
-migration/recovery, administration, published/externally consumed artifacts, security configuration,
-difficult-to-reverse operations, and comparable operational harm. OEC §§4–5
-require a reviewed execution contract before that consequential activity, with
-objective, authorized scope, completion boundary, validation, and protected
-boundaries whose accidental modification creates material risk (§10). Complexity
-alone must not trigger it; simple work with material consequences cannot bypass it.
-OEC §16 separately permits narrowly bounded emergency action when delay would
-create greater material harm; this workflow supplies no emergency authorization.
+For actually governed OEC work, its actual scope (§2) controls: material operational
+consequences require the §4–5 contract, including objective, scope, completion,
+validation and materially necessary protections. Complexity alone does not trigger
+it and simple consequential work cannot bypass it. OEC §16 permits only its bounded
+emergency exception; this workflow grants no emergency authority.
 
 OEC §5 recommends, where relevant, non-goals, acceptance criteria, material risks,
 recovery expectations, prerequisites, evidence, sequencing, and dependencies on
@@ -40,10 +34,10 @@ containment is recommended. Concise expectations can suffice for simple rollback
 fictional rollback is not required. Proportionality cannot remove required content
 or effect, and genuinely irrelevant concepts need no empty sections.
 
-Where architectural completion is claimed, retain a disposition for each
-material finding (AR §12): correction, bounded follow-up, explicit acceptance or
-deferral with rationale, or dismissal with rationale. Preserve who legitimately
-made the decision, evidence, remaining consequence, and follow-up where relevant.
+Where architectural completion is claimed, give each material finding an explicit
+disposition (AR §12): correction, bounded follow-up, acceptance or deferral with
+rationale, or dismissal with rationale. AR §12 recommends retaining proportionate
+supporting evidence where its loss would materially impair later review.
 A blocking/non-blocking label alone is insufficient; a disposition neither waives
 other completion conditions nor authorizes new work (AR §12; OEC §§6–11).
 
@@ -53,15 +47,19 @@ result against applicable authority, not unbinding forecasts (AR §§4–12).
 
 ## Workflow-local operational guidance
 
+Carry the finding dispositions and rationale, legitimate decision-maker, remaining
+effects, evidence, and follow-up owner/record where relevant. These are selected
+handoff record mechanics; their detail is proportionate to material consequence.
+
 Record governing standards, versions, and scope, or `Standards Templates: not
 adopted`, separately from the actual local authorizer and contract. For alternative
 standards, record accept/adapt/reject for affected mechanics, the reason, controlling
 authority, decision owner, and record location. Resolve material conflicts before
 dependent work; another policy does not automatically replace or add to every step.
 
-Before this workflow's work may materially affect protected systems, data,
+Check and report whether work that may materially affect protected systems, data,
 externally relied-upon artifacts, publication state, access, or similarly
-consequential interests, require a reviewed, explicitly authorized contract with
+consequential interests had a reviewed, explicitly authorized contract with
 objective, scope, completion boundary, validation, and materially necessary
 protected boundaries. This local threshold is informed by [OEC §§4–5](../GOVERNING-SOURCES.md#operational-execution-contract).
 `Not adopted` does not remove it. Complexity alone is not a trigger; low-consequence
@@ -72,12 +70,17 @@ Stop before actions lacking authority, including publication or live activation
 replace the workflow with recorded responsibility and appropriate protections;
 silently dropping safeguards is not unchanged use.
 
+Check/report superseded-contract reliance, unauthorized expansion, weakened defective
+protections, unjustified privileged escalation, and separately owned defects blocking
+safe execution. Report unresolved conditions to their owner; do not execute or
+authorize a correction through this check (local safeguards informed by OEC §§8–10).
+
 For a governed upstream asset, immutable input, exact copy, or required target,
 identify the legitimate source and exact revision or object-appropriate immutable
 identity; verify correspondence of the actual consumed content, accounting for
 declared transformations or adaptations. A branch, path, or label alone is not proof.
-Resolve required targets in the recipient's context and verify their identities
-and correspondence where relied upon. A producer's valid reference alone is
+Resolve required targets in the intended consumer context, including dependencies
+of those targets to the extent relied upon; verify their identities and correspondence. A producer's valid reference alone is
 insufficient: missing or inconsistent required targets leave dependent work
 incomplete. Preserve adaptations; do not claim changed bytes are exact copies.
 These workflow checks are informed by [SAP §§5–11, 15.1](../GOVERNING-SOURCES.md#shared-asset-provenance).
@@ -113,7 +116,7 @@ inapplicability; an empty placeholder supplies neither authority nor evidence.
 | --- | --- |
 | Target and review request | `<repository>`, `<issue>`, `<bounded-review-question>` |
 | Review authority and independence | `<project-review-contract-and-reviewer-eligibility>` |
-| Governing authority and implementation contract | `<governing-standards-versions-and-scope-or-Standards-Templates-not-adopted>`; `<settled-objective-scope-protections-validation-and-completion>` |
+| Governing authority and implementation contract | `<governing-standards-versions-and-scope-or-Standards-Templates-not-adopted>`; `<existing-alternative-policy-dispositions-or-record-reference-if-applicable>`; `<settled-objective-scope-protections-validation-and-completion>` |
 | Candidate and comparison base | `<commit-sha>`; `<base-commit-sha>` |
 | Content correspondence | `<clean-checkout-or-object-verification-evidence>` |
 | Actual change and affected consumers | `<change-summary-and-material-effects>` |

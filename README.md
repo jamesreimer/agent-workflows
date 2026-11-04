@@ -52,8 +52,9 @@ Workflow artifacts must neither strengthen nor weaken a governing requirement.
 Preserve its applicability and normative force: a recommendation does not become
 a universal obligation, and a mandatory element cannot become optional.
 Proportionality may reduce depth, verbosity, or ceremony, never required presence
-or effect. Source-derived guidance applies only within actual adopted or project
-authority. The workflow's own safeguards apply independently when selected. An
+or effect. Source-derived obligations bind only where actually applicable governing
+authority gives them force. A local project may explicitly incorporate a rule or
+adopt a source; having an authorizer alone does not adopt linked standards. The workflow's own safeguards apply independently when selected. An
 adopter's actual OEC edition and scope control even if a workflow cue would miss
 an action; any additional coverage from the workflow is a local requirement,
 not an attributed OEC obligation.

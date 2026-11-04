@@ -8,8 +8,9 @@
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
-where actual adopted standards or project authority make it applicable, at its
-original force and scope. Selecting the workflow selects its documented local
+where actually applicable governing authority gives it force, at its original
+strength and scope. A project may explicitly incorporate a rule or adopt a source;
+merely having a local authorizer does not adopt the linked standards. Selecting the workflow selects its documented local
 mechanics, not organizational normative adoption or permission to act. Neither
 category overrides governing requirements; proportionality cannot remove required
 content or effect. The local instructions below support use without Standards
@@ -34,9 +35,9 @@ standards, record accept/adapt/reject for affected mechanics, the reason, contro
 authority, decision owner, and record location. Resolve material conflicts before
 dependent work; another policy does not automatically replace or add to every step.
 
-Before this workflow's work may materially affect protected systems, data,
+Check and report whether work that may materially affect protected systems, data,
 externally relied-upon artifacts, publication state, access, or similarly
-consequential interests, require a reviewed, explicitly authorized contract with
+consequential interests had a reviewed, explicitly authorized contract with
 objective, scope, completion boundary, validation, and materially necessary
 protected boundaries. This local threshold is informed by [OEC §§4–5](../GOVERNING-SOURCES.md#operational-execution-contract).
 `Not adopted` does not remove it. Complexity alone is not a trigger; low-consequence
@@ -46,6 +47,11 @@ Stop before actions lacking authority, including publication or live activation
 (putting a change into operational use). Legitimate local authority may adapt or
 replace the workflow with recorded responsibility and appropriate protections;
 silently dropping safeguards is not unchanged use.
+
+Check/report superseded-contract reliance, unauthorized expansion, weakened defective
+protections, unjustified privileged escalation, and separately owned defects blocking
+safe execution. Report unresolved conditions to their owner; do not execute or
+authorize a correction through this check (local safeguards informed by OEC §§8–10).
 
 Use this handoff from any role on completion, interruption, or a decision that
 requires another owner. Fill the information needed for the next decision, refer

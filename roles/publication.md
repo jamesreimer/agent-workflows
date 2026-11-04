@@ -9,8 +9,9 @@
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
-where actual adopted standards or project authority make it applicable, at its
-original force and scope. Selecting the workflow selects its documented local
+where actually applicable governing authority gives it force, at its original
+strength and scope. A project may explicitly incorporate a rule or adopt a source;
+merely having a local authorizer does not adopt the linked standards. Selecting the workflow selects its documented local
 mechanics, not organizational normative adoption or permission to act. Neither
 category overrides governing requirements; proportionality cannot remove required
 content or effect. The local instructions below support use without Standards
@@ -69,6 +70,17 @@ Stop before actions lacking authority, including publication or live activation
 replace the workflow with recorded responsibility and appropriate protections;
 silently dropping safeguards is not unchanged use.
 
+Stop affected execution before unauthorized scope expansion, reliance on a materially
+superseded contract or model, or bypassing or weakening a defective protective
+control. Re-evaluate the contract through actual authority before resuming; preserve
+required protection while defects remain. A failed attempt or available credential
+alone never justifies a more privileged or exceptional path. Consider established
+paths and affirmative evidence of their insufficiency within the contract.
+Handle separately discovered defects under their own responsibility and authority;
+pause affected work if a defect prevents safe execution, while unrelated safe,
+authorized work may continue. These selected local safeguards are informed by
+[OEC §§8–10](../GOVERNING-SOURCES.md#operational-execution-contract).
+
 When work could create difficult-to-reverse, destructive, externally consequential,
 or operationally risky state, record recovery expectations before the affected
 action. If reversal is impractical, say so and consider containment or compensating
@@ -80,8 +92,8 @@ For a governed upstream asset, immutable input, exact copy, or required target,
 identify the legitimate source and exact revision or object-appropriate immutable
 identity; verify correspondence of the actual consumed content, accounting for
 declared transformations or adaptations. A branch, path, or label alone is not proof.
-Resolve required targets in the recipient's context and verify their identities
-and correspondence where relied upon. A producer's valid reference alone is
+Resolve required targets in the intended consumer context, including dependencies
+of those targets to the extent relied upon; verify their identities and correspondence. A producer's valid reference alone is
 insufficient: missing or inconsistent required targets leave dependent work
 incomplete. Preserve adaptations; do not claim changed bytes are exact copies.
 These workflow checks are informed by [SAP §§5–11, 15.1](../GOVERNING-SOURCES.md#shared-asset-provenance).
@@ -105,7 +117,13 @@ use these workflow-local publication checks, informed by [PRI §§4–17](../GOV
   Wait for relevant state to settle or limit the claim to what is established.
   If the result cannot reasonably be observed, report only the transfer or other
   state evidenced; do not claim verified publication from initiation alone.
-- Preserve established fixed identities. Treat materially uncertain in-place
+- Move a moving reference only within its declared meaning and verify its new
+  target. Never claim it is fixed or content-immutable or retroactively reclassify
+  an established identity. Preserve a fixed or content-binding historical identity
+  alongside it when consumers need to distinguish prior states. Moving a pointer
+  does not automatically change downstream state.
+- Preserve established fixed identities, including a fixed release's declared
+  member artifacts and their identities according to what that release denotes. Treat materially uncertain in-place
   changes as substantive. Substantive corrections need a distinguishable successor
   or another identity-preserving mechanism. A content-binding identity cannot retain changed
   bytes. Accurate status/advisory updates or non-substantive corrections may occur
