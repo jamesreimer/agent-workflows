@@ -4,7 +4,9 @@ These pinned sources define the requirement strength, applicability, terminology
 interpretation, and section references of source-derived guidance in Agent
 Workflows. Referencing a source does not adopt it for a consuming project.
 Consumers map these sources to their actual governing standards, versions, and
-scope; their project authority controls the instantiated workflow.
+scope; their project authority controls the instantiated workflow. Consumers with
+no Standards Templates adoption may record `Standards Templates: not adopted` and
+use the selected workflow-local instructions without mapping adopted editions.
 
 Each entry changes only through deliberate reviewed change that rechecks affected
 source-derived guidance and citations against the proposed source text. Entries
