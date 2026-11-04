@@ -102,7 +102,7 @@ change summary, validation evidence, and limitations for
 When the work depends on an exact approved artifact or candidate identity, verify
 before mutation that the supplied content corresponds to the declared authoritative
 state, including claimed accepted corrections. A label such as `Candidate 3` is
-not identity or correspondence evidence. Use applicable SAP semantics and retain
+not identity or correspondence evidence. Use the local provenance checks above (and SAP where actually governing) and retain
 the verification evidence; resolve a mismatch before dependent mutation.
 
 Own all required validation, including applicable local and hosted checks, through

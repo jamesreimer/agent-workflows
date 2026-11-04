@@ -144,8 +144,14 @@ use these workflow-local publication checks, informed by [PRI §§4–17](../GOV
   alongside it when consumers need to distinguish prior states. Moving a pointer
   does not automatically change downstream state.
 - Preserve established fixed identities, including a fixed release's declared
-  member artifacts and their identities according to what that release denotes. Treat materially uncertain in-place
-  changes as substantive. Substantive corrections need a distinguishable successor
+  member artifacts and their identities according to what that release denotes.
+  Classify changes by effect rather than labels such as metadata or presentation:
+  a change is substantive if it could lead a reasonable consumer to a materially
+  different conclusion about meaning or requirements, conformance, compatibility,
+  dependency or resolution behavior, installation or execution, licensing or
+  permitted use, security or safety, identified content or components, or suitability
+  for intended reliance (local procedure informed by PRI §10).
+  Treat materially uncertain in-place changes as substantive. Substantive corrections need a distinguishable successor
   or another identity-preserving mechanism. A content-binding identity cannot retain changed
   bytes. Accurate status/advisory updates or non-substantive corrections may occur
   in place only when the identity's meaning remains intact. Make a material
@@ -182,7 +188,8 @@ role. Preparing that handoff does not itself authorize the sender to execute it.
    Stop with the instantiated handoff; Planning does not implement.
 2. **Implement.** [Implementation](../roles/implementation.md) owns mechanics
    within those constraints. Before mutation, verify any supplied exact/approved
-   source against its declared authoritative state using applicable SAP semantics;
+   source against its declared authoritative state using the local provenance
+   checks above (and SAP where actually governing);
    a candidate label alone is insufficient. Own required validation through a final
    result. Only final success of all required checks for the immutable candidate
    supports [implementation → review](../handoffs/implementation-to-review.md).

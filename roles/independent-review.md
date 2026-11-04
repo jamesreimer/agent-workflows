@@ -24,7 +24,7 @@ between implementation choices and governing requirements. A forecast is binding
 only to the extent legitimate authority made it a constraint.
 
 Before architectural completion is claimed, give material findings explicit
-dispositions: correction, bounded follow-up, acceptance or deferral with rationale,
+dispositions, which may include correction, bounded follow-up, acceptance or deferral with rationale,
 or dismissal with rationale. Blocking classification alone is not a disposition,
 and non-blocking classification alone does not justify deferral (AR §12).
 Disposition does not waive another completion condition or confer execution

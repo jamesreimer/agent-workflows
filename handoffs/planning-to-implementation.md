@@ -97,8 +97,8 @@ restriction unless deliberately identified as one. Do not proceed into an
 unauthorized merge, publication, deployment, or adjacent project.
 
 Before mutation, verify supplied exact/approved inputs against the declared
-authoritative state, including claimed corrections, using applicable SAP
-semantics. A label such as `Candidate 3` is insufficient. Resolve correspondence
+authoritative state, including claimed corrections, using the local provenance
+checks above (and SAP where actually governing). A label such as `Candidate 3` is insufficient. Resolve correspondence
 gaps before dependent work; retain the evidence in the project record.
 
 Use relevant fields proportionately. A table row does not turn recommended

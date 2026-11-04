@@ -36,7 +36,7 @@ fictional rollback is not required. Proportionality cannot remove required conte
 or effect, and genuinely irrelevant concepts need no empty sections.
 
 Where architectural completion is claimed, give each material finding an explicit
-disposition (AR §12): correction, bounded follow-up, acceptance or deferral with
+disposition (AR §12), which may include correction, bounded follow-up, acceptance or deferral with
 rationale, or dismissal with rationale. AR §12 recommends retaining proportionate
 supporting evidence where its loss would materially impair later review.
 A blocking/non-blocking label alone is insufficient; a disposition neither waives
@@ -133,8 +133,14 @@ use these workflow-local publication checks, informed by [PRI §§4–17](../GOV
   alongside it when consumers need to distinguish prior states. Moving a pointer
   does not automatically change downstream state.
 - Preserve established fixed identities, including a fixed release's declared
-  member artifacts and their identities according to what that release denotes. Treat materially uncertain in-place
-  changes as substantive. Substantive corrections need a distinguishable successor
+  member artifacts and their identities according to what that release denotes.
+  Classify changes by effect rather than labels such as metadata or presentation:
+  a change is substantive if it could lead a reasonable consumer to a materially
+  different conclusion about meaning or requirements, conformance, compatibility,
+  dependency or resolution behavior, installation or execution, licensing or
+  permitted use, security or safety, identified content or components, or suitability
+  for intended reliance (local procedure informed by PRI §10).
+  Treat materially uncertain in-place changes as substantive. Substantive corrections need a distinguishable successor
   or another identity-preserving mechanism. A content-binding identity cannot retain changed
   bytes. Accurate status/advisory updates or non-substantive corrections may occur
   in place only when the identity's meaning remains intact. Make a material
@@ -151,8 +157,9 @@ use these workflow-local publication checks, informed by [PRI §§4–17](../GOV
 
 Act as the [publication role](../roles/publication.md) only for the authorized
 action below. Read the full review and all carried finding dispositions. If
-publication authority or a required condition is absent, report readiness and
-return control without performing that action.
+publication authority or a required condition is absent, report the actual readiness
+state and missing authority or required conditions, and return control without
+performing that action.
 
 Use relevant fields proportionately. A table row does not turn recommended
 context into a mandatory condition. Preserve required controls and explain material

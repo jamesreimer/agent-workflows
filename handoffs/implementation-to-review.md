@@ -35,7 +35,7 @@ fictional rollback is not required. Proportionality cannot remove required conte
 or effect, and genuinely irrelevant concepts need no empty sections.
 
 Where architectural completion is claimed, give each material finding an explicit
-disposition (AR §12): correction, bounded follow-up, acceptance or deferral with
+disposition (AR §12), which may include correction, bounded follow-up, acceptance or deferral with
 rationale, or dismissal with rationale. AR §12 recommends retaining proportionate
 supporting evidence where its loss would materially impair later review.
 A blocking/non-blocking label alone is insufficient; a disposition neither waives
