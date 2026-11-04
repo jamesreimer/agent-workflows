@@ -36,34 +36,73 @@ The [pinned governing sources](GOVERNING-SOURCES.md) define the interpretation
 of this library's source-derived guidance; referencing them does not adopt them
 for a consumer. Pins are immutable within an Agent Workflows release. Later
 Standards Templates releases do not automatically change those pins or that release.
-The Standards Adoption Model owns that distinction.
+The Standards Adoption Model is the source for that distinction; consumers do not
+need to adopt it or any other Standards Templates artifact to use this library.
 
 Every canonical artifact contains `Governing sources`. Sourced operational
 statements are grouped under `Source-derived guidance` with the relevant source
 and section. Instructions without organization-neutral authority appear under
-`Workflow-local operational guidance`. Those local mechanics apply only when
-the project deliberately selects them as implementation authority. A heading's
+`Workflow-local operational guidance`. Selecting a workflow under legitimate
+project authority selects those documented mechanics as the contract for using
+it as designed, not as organization-wide normative obligations. Selection grants
+no organizational role, execution, publication, or production permission. A heading's
 status extends to its subsections and tables; there is no unmarked third category.
 
 Workflow artifacts must neither strengthen nor weaken a governing requirement.
 Preserve its applicability and normative force: a recommendation does not become
 a universal obligation, and a mandatory element cannot become optional.
 Proportionality may reduce depth, verbosity, or ceremony, never required presence
-or effect. OEC-scoped consequential work retains its required contract content;
-outside that scope, lightweight workflow-local forms may be sufficient.
+or effect. Source-derived guidance applies only within actual adopted or project
+authority. The workflow's own safeguards apply independently when selected. An
+adopter's actual OEC edition and scope control even if a workflow cue would miss
+an action; any additional coverage from the workflow is a local requirement,
+not an attributed OEC obligation.
 
 ## Use and instantiation
 
-The following is workflow-local operational guidance for using this library:
+The following is workflow-local operational guidance for using this library.
+
+Record which consumer model applies in the existing project record:
+
+| Consumer model                  | Authority and selection record                                                                                                                                                                                                                                              |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Adopted Standards Templates     | Identify the actual adopted editions, canonical local authority, and scope. Compare the selected mechanics with those obligations; the library's source pins do not replace the adopted versions.                                                                           |
+| No Standards Templates adoption | Record `Standards Templates: not adopted` (or `none` for adopted editions), the legitimate local authorizer/contract, and the selected workflow revision. Use its local mechanics; source-derived text is traceability, not an adoption prerequisite.                       |
+| Alternative governing standards | Identify their versions, scope, and controlling authority. For affected mechanics record accept/adapt/reject, the reason, decision owner, and record location. Resolve overlap or conflicts explicitly; another policy does not automatically replace or add to every step. |
+
+For the selected workflow, work that may materially affect protected systems,
+data, externally relied-upon artifacts, publication state, access, or similarly
+consequential interests requires a reviewed, explicitly authorized execution
+contract before that activity. Include objective, scope, completion boundary,
+validation, and materially necessary protected boundaries. This local threshold
+is informed by [OEC §§4–5](GOVERNING-SOURCES.md#operational-execution-contract).
+Technical complexity alone is not a trigger. A low-consequence local edit or
+experiment may use a lighter instruction if actual governing obligations permit.
+Assess adopted OEC scope separately; the workflow threshold cannot narrow it.
+`None` for adopted editions does not remove the selected workflow's contract.
+
+Record recovery expectations for difficult-to-reverse, destructive, externally
+consequential, or operationally risky state; state when rollback is impractical
+and consider containment. Check source, immutable identity, actual content, and
+required targets when relying on governed upstream material. Apply publication
+checks when an artifact becomes observable under a durably relied-upon identity,
+including premature exposure. Each relevant artifact supplies the actions locally.
+Missing authority means stop before the affected action. Live activation means
+putting an artifact or change into operational use; publication alone does not
+authorize it. A legitimate local decision may adapt or select another workflow
+with recorded responsibility, authority, and appropriate protections. Silently
+removing safeguards cannot be represented as following the unchanged workflow.
 
 1. Select an immutable library revision and a composition appropriate to the work.
    Review the actual project authority, overlap, and conflicts before choosing
    these artifacts as implementation authority; do not treat this step as
    organizational adoption of the referenced standards.
-2. Read the role and handoff with their linked sources. Map governing-source
-   references to the project's actual governing versions and scope. Record
+2. Read the role and handoff. Use the consumer model above to record actual
+   governing versions and scope, including `not adopted` where true. Compare
+   source-derived guidance with any actually governing source text; non-adopters
+   can use the local instructions without reading Standards Templates. Record
    material adaptations and conflicts; return unresolved authority questions to
-   their legitimate owner before dependent execution.
+   their legitimate owner before dependent execution. `None` is not an authorizer.
 3. Instantiate a handoff in the consuming project's record, replacing angle-bracket
    placeholders with the actual target, authority, contract, evidence, and return
    destination. Refer to a settled contract rather than repeating its history.
