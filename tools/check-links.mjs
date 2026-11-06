@@ -49,7 +49,7 @@ async function checkLiteral(root, paths, recordPage, recordOrigin) {
             path: paths.map(
               (file) => `${origin}/${repositoryUrlPath(root, file)}`,
             ),
-            linksToSkip: (link) => new URL(link).origin !== origin,
+            linksToSkip: async (link) => new URL(link).origin !== origin,
           });
         } catch (error) {
           failure = error;
@@ -133,7 +133,9 @@ try {
       const entry = await lstat(resolve(root, identity)).catch(() => undefined);
       if (!entry?.isSymbolicLink())
         throw new Error(
-          `Requested-file attestation failed: terminal directory separator requires a file symlink: ${JSON.stringify(path)}`,
+          entry?.isFile()
+            ? `Requested-file attestation failed: ordinary file selector ends in a directory separator: ${JSON.stringify(path)}`
+            : `Requested-file attestation failed: not an existing file: ${JSON.stringify(path)}`,
         );
     }
     const info = await stat(resolve(root, identity)).catch(() => undefined);

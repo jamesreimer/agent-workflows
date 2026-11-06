@@ -8,9 +8,11 @@ import {
   rmSync,
   symlinkSync,
   linkSync,
+  existsSync,
+  statSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve, posix, win32 } from "node:path";
+import { dirname, join, resolve, posix, win32, sep } from "node:path";
 import {
   repositoryIdentity,
   pageIdentity,
@@ -525,6 +527,13 @@ for (const rootName of [
         LINK_GLOB_TRACE: trace,
       });
       assert.equal(result.status, defect ? 1 : 0, result.output);
+      assert.ok(
+        JSON.parse(result.stdout).result.links.some(
+          (link) =>
+            decodeURIComponent(link.url) === name && link.state === "OK",
+        ),
+        result.output,
+      );
       assert.deepEqual(
         readFileSync(trace, "utf8").trim().split("\n").map(JSON.parse),
         [".", "."],
@@ -545,7 +554,12 @@ for (const rootName of [
     );
     assert.notEqual(native.status, 0, native.output);
     assert.match(native.stderr, /Nonliteral glob input/);
-    assert.notEqual(JSON.parse(readFileSync(trace, "utf8").trim()), ".");
+    const rejectedPattern = JSON.parse(readFileSync(trace, "utf8").trim());
+    const actualRoot = runNode(dir, ["-p", "process.cwd()"]).stdout.trim();
+    assert.ok(actualRoot.includes(rootName));
+    assert.notEqual(rejectedPattern, ".");
+    assert.ok(rejectedPattern.includes(actualRoot.split(sep).join("/")));
+    assert.ok(rejectedPattern.includes(rootName));
   });
 }
 test(
@@ -800,7 +814,7 @@ test("raw requested file separator fails without changing directory links", (t) 
     assert.equal(result.status, 2, result.output);
     assert.match(
       result.stderr,
-      /terminal directory separator requires a file symlink/,
+      /ordinary file selector ends in a directory separator/,
     );
     assert.equal(result.stdout, "");
   }
@@ -920,7 +934,138 @@ test(
               links.some((link) => link.url.endsWith("#not-present")),
               result.output,
             );
-        } else if (expected === 2) assert.equal(result.stdout, "");
+        } else if (expected === 2) {
+          assert.equal(result.stdout, "");
+          const missing = ["broken.md/", "loop.md/", "missing.md/"].includes(
+            selector,
+          );
+          assert.match(
+            result.stderr,
+            missing
+              ? /not an existing file/
+              : /ordinary file selector ends in a directory separator/,
+          );
+        }
+      }
+    }
+  },
+);
+
+const lifecycleControl = pathToFileURL(
+  join(root, "tests/link-validation/lifecycle-control.mjs"),
+).href;
+for (const [mode, reason] of [
+  ["repeated", /Literal server bootstrap repeated/],
+  ["no-result", /Literal server bootstrap failed/],
+  ["wrong-count", /Literal server bootstrap failed/],
+  ["non-skipped", /Literal server bootstrap failed/],
+  ["not-awaited", /Literal server bootstrap failed/],
+  ["inner-failure", /Injected inner check failure/],
+]) {
+  test(`bootstrap lifecycle fails closed: ${mode}`, (t) => {
+    const dir = createFixture(t, { "probe.md": "# Body\n" });
+    const trace = join(dir, "lifecycle.jsonl");
+    writeFileSync(trace, "");
+    const result = spawnSync(
+      process.execPath,
+      ["--import", lifecycleControl, cli, "probe.md"],
+      {
+        cwd: dir,
+        encoding: "utf8",
+        timeout: 5000,
+        env: {
+          ...process.env,
+          LINK_LIFECYCLE_CONTROL: mode,
+          LINK_LIFECYCLE_TRACE: trace,
+        },
+      },
+    );
+    assert.ifError(result.error);
+    assert.equal(result.signal, null);
+    assert.equal(result.status, 2, result.stdout + result.stderr);
+    assert.equal(result.stdout, "");
+    assert.match(result.stderr, reason);
+    const events = readFileSync(trace, "utf8")
+      .trim()
+      .split("\n")
+      .map(JSON.parse);
+    assert.ok(events.includes("native-bootstrap-complete"));
+    if (mode === "not-awaited")
+      assert.ok(events.includes("pending-inner-cancelled"));
+  });
+}
+test("bootstrap lifecycle public facade preserves real positive and broken checks", (t) => {
+  const dir = createFixture(t, { "probe.md": "# Body\n" });
+  const trace = join(dir, "trace.jsonl");
+  for (const broken of [false, true]) {
+    writeFileSync(trace, "");
+    writeFileSync(
+      join(dir, "probe.md"),
+      "# Body\n" + (broken ? "\n[missing](#not-present)\n" : ""),
+    );
+    const result = runNode(
+      dir,
+      ["--import", lifecycleControl, cli, "probe.md"],
+      {
+        ...process.env,
+        LINK_LIFECYCLE_CONTROL: "passthrough",
+        LINK_LIFECYCLE_TRACE: trace,
+      },
+    );
+    assert.equal(result.status, broken ? 1 : 0, result.output);
+  }
+});
+test("non-file directory selector has accurate existence error", (t) => {
+  const dir = createFixture(t, { "docs/probe.md": "# Body\n" });
+  const result = checkLinks(dir, ["docs/"]);
+  assert.equal(result.status, 2, result.output);
+  assert.match(result.stderr, /not an existing file/);
+  assert.doesNotMatch(result.stderr, /requires a file symlink/);
+});
+test(
+  "case-variant selectors preserve actual fragments on a capable filesystem",
+  { skip: process.platform === "win32" },
+  (t) => {
+    const dir = createFixture(t, {
+      "probe.md": "# Body\n",
+      "café.md": "# Body\n",
+    });
+    if (
+      !existsSync(join(dir, "PROBE.md")) ||
+      statSync(join(dir, "probe.md")).ino !==
+        statSync(join(dir, "PROBE.md")).ino
+    ) {
+      t.skip("Case-insensitive lookup not available; no equivalence claim");
+      return;
+    }
+    symlinkSync("probe.md", join(dir, "fileAlias.md"));
+    const selectors = [
+      "probe.md",
+      "PROBE.md",
+      "fileAlias.md",
+      "FILEALIAS.md",
+      "FILEALIAS.md/",
+      "café.md",
+    ];
+    for (const form of ["CAFÉ.md", "cafe\u0301.md"])
+      if (existsSync(join(dir, form))) selectors.push(form);
+    for (const broken of [false, true]) {
+      for (const file of ["probe.md", "café.md"])
+        writeFileSync(
+          join(dir, file),
+          "# Body\n" + (broken ? "\n[missing](#not-present)\n" : ""),
+        );
+      for (const selector of selectors) {
+        const result = checkLinks(dir, [selector]);
+        assert.equal(result.status, broken ? 1 : 0, result.output);
+        if (broken)
+          assert.ok(
+            JSON.parse(result.stdout).result.links.some(
+              (link) =>
+                link.state === "BROKEN" && link.url.endsWith("#not-present"),
+            ),
+            result.output,
+          );
       }
     }
   },

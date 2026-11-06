@@ -117,8 +117,21 @@ or containment. Markdown links to directory destinations ending `/` are unchange
 
 The native macOS regression matrix exercises all 29 selectors with valid and
 broken content: 52 ordinary observations must match main; six POSIX backslash
-observations explicitly exercise literal transport instead of legacy glob
-handling. In particular a legal backslash-named file symlink with terminal slash
+observations exercise literal transport: four change exit status from legacy
+glob handling, while two retain exit2 with different error reasons. In particular a legal backslash-named file symlink with terminal slash
 may validate literally although main rejected its pattern spelling. Do not claim
 58/58 legacy equivalence. POSIX backslash data and portable Windows separator
 checks are distinct; no native Windows/UNC/junction/SMB/ReFS clearance is implied.
+
+Test-only lifecycle controls use a public LinkChecker subclass facade, not
+upstream prototype edits: repeated/uninvoked/non-awaited callbacks, corrupted
+result count/state and inner failure must fail closed. In the non-awaited
+control the native bootstrap completes, then a held test-only inner promise is
+cancelled without starting an inner URL request. Production imports none of these
+controls. Each negative process has a finite timeout.
+
+R1 also retains the inherited native server's lexical `startsWith(root)` check
+without a separator boundary: sibling-prefix routing is a source-inferred concern,
+not a newly reproduced exploit or a fix in this change. R2 retains unqualified
+Windows trailing-dot/space/ADS and UNC/junction/SMB/ReFS behavior. These notes
+create no platform restriction, security acceptance or filesystem authority.
