@@ -174,10 +174,40 @@ need a project-specific decision. Markdown parsing belongs to the
 maintained tools. The local `fenced-code-closed` authoring rule consumes
 markdownlint's micromark tokens to require explicit fence closure; it neither
 parses Markdown independently nor chooses a closing position automatically.
-Working symbolic links are allowed. Before success, requested-file attestation
-requires evidence that Linkinator scanned exactly the requested file identities.
-Unsupported or ambiguous filename selection fails closed rather than silently
-omitting a requested file or selecting a glob-expanded decoy.
+Requested-selector checks retain published main's lexical normalization and
+existing-file check. Working symlinks and lexical document-relative URL bases
+remain supported. Requested-page attestation proves the normalized URL identities
+were scanned; it does not prove raw filesystem selection or containment.
+Raw symlink/parent spellings can select a different file than the normalized URL,
+and root excursions/reentry can succeed. Windows case-folded path comparisons
+are not physical identity proof. These inherited risks remain open under #28;
+R1/R2 are Required for the separate comprehensive containment objective, not
+fixed or waived by this transport mitigation. No realpath/file-ID guard, hop
+auditor or root-alias authorization predicate is included.
+Requested files use per-segment encoded local URLs, keeping their names and the
+checkout root out of Linkinator's glob patterns. A native Linkinator server check
+uses only the fixed `.` path from its serving directory; its awaited skip callback
+holds that server open for Linkinator's URL-mode validation. The bootstrap directory
+is skipped, not scanned. Both checks must complete before success; the startup
+probe and requested-file attestation remain fail-closed. This process entry point
+temporarily changes its working directory for the startup probe and restores it
+in `finally`; it is not a concurrent in-process checker API. Legal literal names
+with glob or URL syntax are supported without selecting decoys. Only local diagnostic
+URL prefixes are removed after validation; source and link content are unchanged.
+This boundary protects this entrypoint from requested filenames and checkout-root
+spellings becoming glob patterns before attestation. It does not establish
+symlink no-excursion, physical containment, native Windows identity, indirect-link
+sandboxing, universal provider IDs or atomic TOCTOU protection. It does not patch
+installed glob/minimatch or accept residual package, custom-configuration, hostile
+PR/CI credential or consumer risk. Running checks from an untrusted checkout
+executes its code and configuration; this adapter is not a security boundary
+against that code. Release qualification still requires the exact whole-tree
+review and graph-specific risk disposition in MAINTAINING.md. The callback/server ordering is a
+Linkinator 8.1.0 compatibility assumption requiring requalification on relevant
+dependency updates; inherited cleanup can hang on unusual failures. This local
+candidate was tested natively on macOS with portable `path.win32` helper tests
+only: no native Windows/UNC/junction/SMB/ReFS validation and no hosted candidate
+CI was performed. Hosted qualification requires a separately authorized PR.
 
 Directory destinations use Linkinator's native directory listings and do not
 require an `index.html`. Missing directories still fail. If an `index.html` is
@@ -264,3 +294,33 @@ entry. Reverify external governing references when changed. Retain repo-template
 correspondence evidence in its [reconciliation PR](MAINTAINING.md#repo-template-reconciliation).
 No repository tree snapshot, generic retained fork, workflow parser, or standards-domain tooling
 belongs here. Generic defects go to their owning upstream source.
+
+For requested-file argv, retain the raw terminal-separator flag before
+normalization (`/` on POSIX; `/` or `\` under Windows path rules). Only those
+selectors receive an extra `lstat` of the main-normalized selected entry. An
+ordinary final file/hardlink rejects the separator; a final symlink proceeds
+only through the unchanged normalized `stat.isFile`, native URL check and page
+attestation. Failed metadata, broken/looping symlinks and non-files fail closed.
+This preserves tested ordinary selector compatibility, not raw physical identity
+or containment. Markdown links to directory destinations ending `/` are unchanged.
+
+The native macOS regression matrix exercises all 29 selectors with valid and
+broken content: 52 ordinary observations must match main; six POSIX backslash
+observations exercise literal transport: four change exit status from legacy
+glob handling, while two retain exit2 with different error reasons. In particular a legal backslash-named file symlink with terminal slash
+may validate literally although main rejected its pattern spelling. Do not claim
+58/58 legacy equivalence. POSIX backslash data and portable Windows separator
+checks are distinct; no native Windows/UNC/junction/SMB/ReFS clearance is implied.
+
+Test-only lifecycle controls use a public LinkChecker subclass facade, not
+upstream prototype edits: repeated/uninvoked/non-awaited callbacks, corrupted
+result count/state and inner failure must fail closed. In the non-awaited
+control the native bootstrap completes, then a held test-only inner promise is
+cancelled without starting an inner URL request. Production imports none of these
+controls. Each negative process has a finite timeout.
+
+R1 also retains the inherited native server's lexical `startsWith(root)` check
+without a separator boundary: sibling-prefix routing is a source-inferred concern,
+not a newly reproduced exploit or a fix in this change. R2 retains unqualified
+Windows trailing-dot/space/ADS and UNC/junction/SMB/ReFS behavior. These notes
+create no platform restriction, security acceptance or filesystem authority.
