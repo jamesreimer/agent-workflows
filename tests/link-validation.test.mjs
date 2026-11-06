@@ -6,12 +6,16 @@ import {
   readFileSync,
   writeFileSync,
   rmSync,
+  symlinkSync,
+  linkSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve, posix, win32 } from "node:path";
 import {
   repositoryIdentity,
   pageIdentity,
+  repositoryUrlPath,
+  hasTerminalDirectorySeparator,
 } from "../tools/requested-file-identity.mjs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
@@ -38,9 +42,11 @@ const lint = join(
   "node_modules/markdownlint-cli2",
   lintPackage.bin["markdownlint-cli2"],
 );
-function createFixture(t, files) {
-  const dir = mkdtempSync(join(tmpdir(), "link-regression-"));
-  t.after(() => rmSync(dir, { recursive: true, force: true }));
+function createFixture(t, files, rootName) {
+  const parent = mkdtempSync(join(tmpdir(), "link-regression-"));
+  const dir = rootName ? join(parent, rootName) : parent;
+  mkdirSync(dir, { recursive: true });
+  t.after(() => rmSync(parent, { recursive: true, force: true }));
   for (const [name, content] of Object.entries(files)) {
     mkdirSync(dirname(join(dir, name)), { recursive: true });
     writeFileSync(join(dir, name), content);
@@ -301,79 +307,55 @@ test("native directory control: default rejects, directory listing accepts", (t)
   }
 });
 
-// These are literal argv values, not shell patterns. Unsupported selections
-// must fail closed; successful literal-file support remains an upstream concern.
+// Literal input support includes names that formerly failed selection/attestation.
 const requestedPathCases = [
-  { name: "ordinary.md", validStatus: 0, brokenStatus: 1 },
-  { name: "nested/deeper/new.md", validStatus: 0, brokenStatus: 1 },
-  { name: "with space.md", validStatus: 0, brokenStatus: 1 },
-  { name: "!bang.md", validStatus: 0, brokenStatus: 1 },
-  {
-    name: "choice{a,b}.md",
-    decoy: "choicea.md",
-    validStatus: 2,
-    brokenStatus: 2,
-  },
-  { name: "meta[ab].md", decoy: "metaa.md", validStatus: 2, brokenStatus: 2 },
-  { name: "plus+(a).md", decoy: "plusa.md", validStatus: 2, brokenStatus: 2 },
-  { name: "#hash.md", validStatus: 2, brokenStatus: 2 },
-  { name: "percent%23.md", validStatus: 1, brokenStatus: 1 },
-  // Windows forbids these characters in filenames, not the other matrix cases.
+  "ordinary.md",
+  "--option.md",
+  "http-prefix.md",
+  "percent%2Fname.md",
+  "nested/deeper/new.md",
+  "with space.md",
+  "!bang.md",
+  "choice{a,b}.md",
+  "meta[ab].md",
+  "plus+(a).md",
+  "#hash.md",
+  "percent%23.md",
   ...(process.platform === "win32"
     ? []
-    : [
-        {
-          name: "star*.md",
-          decoy: "star-decoy.md",
-          validStatus: 2,
-          brokenStatus: 1,
-        },
-        {
-          name: "question?.md",
-          decoy: "questionx.md",
-          validStatus: 1,
-          brokenStatus: 1,
-        },
-        {
-          name: "at@(a|b).md",
-          decoy: "ata.md",
-          validStatus: 2,
-          brokenStatus: 2,
-        },
-      ]),
+    : ["star*.md", "question?.md", "at@(a|b).md", "back\\slash.md"]),
 ];
-for (const entry of requestedPathCases) {
-  test(`requested-file attestation: ${entry.name}`, (t) => {
-    const files = { [entry.name]: "# Source\n" };
-    if (entry.decoy) files[entry.decoy] = "# Decoy\n";
+for (const name of requestedPathCases) {
+  test(`requested-file attestation: ${name}`, (t) => {
+    const files = {
+      [name]: "# Source\n",
+      "choicea.md": "# Decoy\n",
+      "metaa.md": "# Decoy\n",
+      "plusa.md": "# Decoy\n",
+      "star-decoy.md": "# Decoy\n",
+      "questionx.md": "# Decoy\n",
+      "ata.md": "# Decoy\n",
+    };
     const dir = createFixture(t, files);
     for (const broken of [false, true]) {
       const content = "# Source\n" + (broken ? "\n[missing](absent.md)\n" : "");
-      writeFileSync(join(dir, entry.name), content);
-      const result = checkLinks(dir, [entry.name]);
-      assert.equal(
-        result.status,
-        broken ? entry.brokenStatus : entry.validStatus,
-        result.output,
-      );
-      if (result.status === 2) {
-        assert.match(result.stderr, /Requested-file attestation failed/);
-        assert.ok(result.stderr.includes(entry.name), result.stderr);
-        assert.equal(result.stdout, "");
-      } else if (result.status === 0) {
+      writeFileSync(join(dir, name), content);
+      const result = checkLinks(dir, [name]);
+      assert.equal(result.status, broken ? 1 : 0, result.output);
+      if (result.status === 0) {
         const report = JSON.parse(result.stdout);
         assert.deepEqual(
           report.result.links.map((link) => decodeURIComponent(link.url)),
-          [entry.name],
+          [name],
         );
       }
-      assert.equal(readFileSync(join(dir, entry.name), "utf8"), content);
+      assert.equal(readFileSync(join(dir, name), "utf8"), content);
     }
-    rmSync(join(dir, entry.name));
-    const missing = checkLinks(dir, [entry.name]);
+    rmSync(join(dir, name));
+    const missing = checkLinks(dir, [name]);
     assert.equal(missing.status, 2, missing.stdout + missing.stderr);
     assert.match(missing.stderr, /Requested-file attestation failed/);
-    assert.ok(missing.stderr.includes(entry.name), missing.stderr);
+    assert.ok(missing.stderr.includes(JSON.stringify(name)), missing.stderr);
   });
 }
 
@@ -408,9 +390,13 @@ test("requested-file attestation: batches, duplicate inputs and linked targets",
   }
   for (const name of ["choice{a,b}.md", "#hash.md"]) {
     const result = checkLinks(dir, ["second.md", name]);
-    assert.equal(result.status, 2, result.output);
-    assert.match(result.stderr, /Requested-file attestation failed/);
-    assert.ok(result.stderr.includes(name), result.stderr);
+    assert.equal(result.status, 1, result.output);
+    assert.ok(
+      JSON.parse(result.stdout).result.links.some(
+        (link) => link.url === "absent.md" && link.state === "BROKEN",
+      ),
+      result.output,
+    );
   }
 });
 
@@ -424,16 +410,22 @@ test("requested-file attestation: URL decoding cannot substitute a sibling", (t)
       [decoy]: "# Decoy\n",
     });
     const result = checkLinks(dir, [requested]);
-    assert.equal(result.status, 2, result.output);
-    assert.match(result.stderr, /Requested-file attestation failed/);
-    assert.ok(result.stderr.includes(requested), result.stderr);
-    assert.equal(result.stdout, "");
+    assert.equal(result.status, 1, result.output);
+    assert.ok(
+      JSON.parse(result.stdout).result.links.some(
+        (link) =>
+          link.url === "absent.md" &&
+          link.state === "BROKEN" &&
+          decodeURIComponent(link.parent) === requested,
+      ),
+      result.output,
+    );
   }
 });
 
 for (const [platform, paths, root] of [
-  ["POSIX", posix, "/repo"],
-  ["Windows", win32, "C:\\repo"],
+  ["POSIX", posix, "/repo{a,b}[root]"],
+  ["Windows", win32, "C:\\repo{a,b}[root]"],
 ]) {
   test(`requested-file identity normalization: ${platform}`, () => {
     const origin = "http://127.0.0.1:12345";
@@ -442,6 +434,7 @@ for (const [platform, paths, root] of [
       ["nested/#hash.md", "nested/%23hash.md"],
       ["percent%23.md", "percent%2523.md"],
     ]) {
+      assert.equal(repositoryUrlPath(root, file, paths), encoded);
       assert.equal(
         pageIdentity(root, `${origin}/${encoded}`, origin, paths),
         repositoryIdentity(root, file, paths),
@@ -474,6 +467,10 @@ for (const [platform, paths, root] of [
     );
     if (platform === "Windows") {
       assert.equal(
+        repositoryUrlPath(root, "nested\\file.md", paths),
+        "nested/file.md",
+      );
+      assert.equal(
         repositoryIdentity(root, "nested\\file.md", paths),
         repositoryIdentity(root, "nested/file.md", paths),
       );
@@ -492,3 +489,439 @@ for (const [platform, paths, root] of [
     }
   });
 }
+
+const globControl = pathToFileURL(
+  join(root, "tests/link-validation/glob-control.mjs"),
+).href;
+for (const rootName of [
+  "root{left,right}[x]",
+  "root space café !",
+  "root#percent%25",
+  ...(process.platform === "win32" ? [] : ["root*?@(a|b)"]),
+]) {
+  test(`literal boundary before glob: ${rootName}`, (t) => {
+    const name = "nested/choice{a,b}[x].md";
+    const files = {
+      [name]:
+        "# Source\n\n[body](#source)\n[target](neighbor.md#neighbor)\n[external](https://example.invalid/)\n",
+      "nested/neighbor.md": "# Neighbor\n",
+      "nested/choiceax.md": "# Decoy\n",
+      "nested/choicebx.md": "# Decoy\n",
+    };
+    const dir = createFixture(t, files, rootName);
+    for (const defect of [
+      "",
+      "[missing](absent.md)",
+      "[missing](#not-present)",
+      "[metadata](#probe-phantom)",
+    ]) {
+      const source =
+        "---\nprobe: phantom\n---\n\n" + files[name] + `\n${defect}\n`;
+      writeFileSync(join(dir, name), source);
+      const trace = join(dir, "glob-trace.jsonl");
+      writeFileSync(trace, "");
+      const result = runNode(dir, ["--import", globControl, cli, name], {
+        ...process.env,
+        LINK_GLOB_TRACE: trace,
+      });
+      assert.equal(result.status, defect ? 1 : 0, result.output);
+      assert.deepEqual(
+        readFileSync(trace, "utf8").trim().split("\n").map(JSON.parse),
+        [".", "."],
+      );
+      assert.equal(readFileSync(join(dir, name), "utf8"), source);
+    }
+    // Counterfactual uses native path mode. The guard rejects its pattern BEFORE
+    // invoking glob; no dangerous expansion or resource-amplification test runs.
+    const trace = join(dir, "native-trace.jsonl");
+    const native = runNode(
+      dir,
+      [
+        "--import",
+        globControl,
+        join(root, "tests/link-validation/native-control.mjs"),
+      ],
+      { ...process.env, LINK_GLOB_TRACE: trace },
+    );
+    assert.notEqual(native.status, 0, native.output);
+    assert.match(native.stderr, /Nonliteral glob input/);
+    assert.notEqual(JSON.parse(readFileSync(trace, "utf8").trim()), ".");
+  });
+}
+test(
+  "literal boundary: brace-generated dot segments remain file data",
+  { skip: process.platform === "win32" },
+  (t) => {
+    const file = "**/{..,safe}/body{a,b}.md";
+    const dir = createFixture(
+      t,
+      { [file]: "# Body\n\n[body](#body)\n" },
+      "root{a,b}",
+    );
+    for (const broken of [false, true]) {
+      writeFileSync(
+        join(dir, file),
+        "# Body\n\n[body](#body)\n" +
+          (broken ? "\n[missing](#not-present)\n" : ""),
+      );
+      const trace = join(dir, "trace.jsonl");
+      writeFileSync(trace, "");
+      const result = runNode(dir, ["--import", globControl, cli, file], {
+        ...process.env,
+        LINK_GLOB_TRACE: trace,
+      });
+      assert.equal(result.status, broken ? 1 : 0, result.output);
+      if (broken)
+        assert.ok(
+          JSON.parse(result.stdout).result.links.some(
+            (link) =>
+              link.state === "BROKEN" && link.url.endsWith("#not-present"),
+          ),
+        );
+      assert.deepEqual(
+        readFileSync(trace, "utf8").trim().split("\n").map(JSON.parse),
+        [".", "."],
+      );
+    }
+  },
+);
+test("literal boundary: working file and directory symlinks keep link semantics", (t) => {
+  const dir = createFixture(
+    t,
+    {
+      "docs/target.md": "# Target\n\n[neighbor](neighbor.md#neighbor)\n",
+      "docs/neighbor.md": "# Neighbor\n",
+    },
+    "root[symlinks]",
+  );
+  try {
+    symlinkSync("target.md", join(dir, "docs/alias{a,b}.md"));
+    symlinkSync(
+      "docs",
+      join(dir, "alias[dir]"),
+      process.platform === "win32" ? "junction" : "dir",
+    );
+  } catch (error) {
+    if (process.platform === "win32" && error.code === "EPERM") {
+      t.skip("File symlink creation requires platform permission");
+      return;
+    }
+    throw error;
+  }
+  const paths = ["docs/alias{a,b}.md", "alias[dir]/target.md"];
+  const positive = checkLinks(dir, paths);
+  assert.equal(positive.status, 0, positive.output);
+  writeFileSync(
+    join(dir, "docs/target.md"),
+    "# Target\n\n[missing](missing.md)\n",
+  );
+  const negative = checkLinks(dir, paths);
+  assert.equal(negative.status, 1, negative.output);
+});
+
+test("literal URL transport: separator and checkout-root rules", () => {
+  for (const windowsRoot of [
+    "C:\\repo{a,b}[x]",
+    "\\\\server\\share\\repo[dir]",
+  ]) {
+    for (const input of [
+      "nested\\choice{..,x}[a].md",
+      "nested/choice{..,x}[a].md",
+      "nested/../nested/choice{..,x}[a].md",
+    ]) {
+      assert.equal(
+        repositoryUrlPath(windowsRoot, input, win32),
+        "nested/choice%7B..%2Cx%7D%5Ba%5D.md",
+      );
+    }
+  }
+  assert.equal(
+    repositoryUrlPath("/root{a,b}", "back\\slash.md", posix),
+    "back%5Cslash.md",
+  );
+});
+
+test("literal boundary: metacharacter TMPDIR startup stays outside glob preprocessing", (t) => {
+  const dir = createFixture(t, { "source.md": "# Source\n" });
+  const tempRoot = join(dir, "tmp{a,b}[x]");
+  mkdirSync(tempRoot);
+  const trace = join(dir, "trace.jsonl");
+  for (const broken of [false, true]) {
+    writeFileSync(
+      join(dir, "source.md"),
+      "# Source\n" + (broken ? "\n[missing](#not-present)\n" : ""),
+    );
+    writeFileSync(trace, "");
+    const result = runNode(dir, ["--import", globControl, cli, "source.md"], {
+      ...process.env,
+      TMPDIR: tempRoot,
+      TMP: tempRoot,
+      TEMP: tempRoot,
+      LINK_GLOB_TRACE: trace,
+    });
+    assert.equal(result.status, broken ? 1 : 0, result.output);
+    assert.deepEqual(
+      readFileSync(trace, "utf8").trim().split("\n").map(JSON.parse),
+      [".", "."],
+    );
+  }
+});
+
+for (const mode of ["missing", "unexpected"]) {
+  test(`requested-page attestation fails closed: ${mode} event`, (t) => {
+    const dir = createFixture(t, { "probe.md": "# Probe\n" });
+    const loader = pathToFileURL(
+      join(root, "tests/link-validation/attestation-control.mjs"),
+    ).href;
+    const result = runNode(dir, ["--import", loader, cli, "probe.md"], {
+      ...process.env,
+      LINK_ATTESTATION_CONTROL: mode,
+    });
+    assert.equal(result.status, 2, result.output);
+    assert.match(result.stderr, /Requested-file attestation failed/);
+    assert.match(result.stderr, /unproven requested paths/);
+    assert.equal(result.stdout, "");
+  });
+}
+
+// These controls expose inherited limitations, not containment acceptance.
+// Native POSIX parent traversal differs from Windows; no Windows proof is implied.
+test(
+  "inherited limitation: raw symlink parent can check a different lexical file",
+  { skip: process.platform === "win32" },
+  (t) => {
+    const dir = createFixture(t, {
+      "probe.md": "# Lexical\n",
+      "actual/probe.md": "# Physical\n\n[missing](#not-present)\n",
+      "actual/nested/keep.md": "# Keep\n",
+    });
+    symlinkSync("actual/nested", join(dir, "alias"), "dir");
+    assert.match(
+      readFileSync(`${dir}/alias/../probe.md`, "utf8"),
+      /not-present/,
+    );
+    assert.equal(checkLinks(dir, ["actual/probe.md"]).status, 1);
+    assert.equal(checkLinks(dir, ["alias/../probe.md"]).status, 0);
+    writeFileSync(
+      join(dir, "probe.md"),
+      "# Lexical\n\n[missing](#not-present)\n",
+    );
+    assert.equal(checkLinks(dir, ["alias/../probe.md"]).status, 1);
+  },
+);
+test(
+  "inherited limitation: root excursions and hidden leave/reentry are not rejected",
+  { skip: process.platform === "win32" },
+  (t) => {
+    const parent = createFixture(t, { "repo/probe.md": "# Probe\n" });
+    const dir = join(parent, "repo");
+    mkdirSync(join(dir, "repo"));
+    linkSync(join(dir, "probe.md"), join(dir, "repo/probe.md"));
+    symlinkSync(".", join(dir, "rootAlias"), "dir");
+    symlinkSync("repo", join(parent, "bridge"), "dir");
+    symlinkSync("../bridge", join(dir, "hidden"), "dir");
+    for (const broken of [false, true]) {
+      writeFileSync(
+        join(dir, "probe.md"),
+        "# Probe\n" + (broken ? "\n[missing](#not-present)\n" : ""),
+      );
+      for (const selector of [
+        "../repo/probe.md",
+        "rootAlias/../repo/probe.md",
+        "hidden/probe.md",
+      ]) {
+        const result = checkLinks(dir, [selector]);
+        assert.equal(result.status, broken ? 1 : 0, result.output);
+      }
+    }
+  },
+);
+test("inherited limitation: Windows case-folded lexical identity is not physical proof", () => {
+  assert.equal(
+    repositoryIdentity("C:\\repo\\a", "..\\A\\probe.md", win32),
+    "probe.md",
+  );
+  assert.equal(
+    win32.relative("C:\\repo\\a\\probe.md", "C:\\repo\\A\\probe.md"),
+    "",
+  );
+});
+test(
+  "inherited link-relative bases stay lexical",
+  { skip: process.platform === "win32" },
+  (t) => {
+    const dir = createFixture(t, {
+      "docs/target.md": "# Target\n\n[neighbor](neighbor.md#lexical)\n",
+      "docs/neighbor.md": "# Physical\n",
+      "neighbor.md": "# Lexical\n",
+    });
+    symlinkSync("docs/target.md", join(dir, "alias.md"));
+    assert.equal(checkLinks(dir, ["alias.md"]).status, 0);
+    assert.equal(checkLinks(dir, ["docs/target.md"]).status, 1);
+    writeFileSync(join(dir, "neighbor.md"), "# Missing\n");
+    assert.equal(checkLinks(dir, ["alias.md"]).status, 1);
+  },
+);
+
+// Raw argv spelling is a compatibility check, not physical selection proof.
+test("file selector separators: portable POSIX and Windows rules", () => {
+  for (const file of ["probe.md/", "probe.md//", "alias/probe.md/"]) {
+    assert.equal(hasTerminalDirectorySeparator(file, posix), true);
+    assert.equal(hasTerminalDirectorySeparator(file, win32), true);
+  }
+  for (const file of ["probe.md\\", "alias\\probe.md\\", "probe.md/\\"]) {
+    assert.equal(hasTerminalDirectorySeparator(file, posix), false);
+    assert.equal(hasTerminalDirectorySeparator(file, win32), true);
+  }
+  for (const paths of [posix, win32])
+    for (const file of [
+      "probe.md",
+      "safe/../probe.md",
+      "alias/probe.md",
+      "choice{a,b}[x] café.md",
+    ])
+      assert.equal(hasTerminalDirectorySeparator(file, paths), false);
+});
+test("raw requested file separator fails without changing directory links", (t) => {
+  const dir = createFixture(t, {
+    "probe.md": "# Probe\n\n[directory](docs/)\n",
+    "docs/keep.md": "# Keep\n",
+  });
+  for (const file of ["probe.md", "./probe.md", "docs/../probe.md"]) {
+    const result = checkLinks(dir, [file]);
+    assert.equal(result.status, 0, result.output);
+  }
+  for (const file of [
+    "probe.md/",
+    "probe.md//",
+    ...(process.platform === "win32" ? ["probe.md\\", "probe.md/\\"] : []),
+  ]) {
+    const result = checkLinks(dir, [file]);
+    assert.equal(result.status, 2, result.output);
+    assert.match(
+      result.stderr,
+      /terminal directory separator requires a file symlink/,
+    );
+    assert.equal(result.stdout, "");
+  }
+  writeFileSync(
+    join(dir, "probe.md"),
+    "# Probe\n\n[missing](#not-present)\n[directory](docs/)\n",
+  );
+  assert.equal(checkLinks(dir, ["probe.md"]).status, 1);
+});
+test(
+  "POSIX backslash in a Markdown filename remains literal data",
+  { skip: process.platform === "win32" },
+  (t) => {
+    const file = "probe\\.md";
+    const dir = createFixture(t, { [file]: "# Probe\n" });
+    assert.equal(checkLinks(dir, [file]).status, 0);
+    writeFileSync(join(dir, file), "# Probe\n\n[missing](#not-present)\n");
+    assert.equal(checkLinks(dir, [file]).status, 1);
+  },
+);
+
+// Fixed expected statuses from Planning's 29-selector contract, not predictions.
+// POSIX symlink/parent semantics require a native POSIX host; portable Windows
+// suffix helpers above do not qualify native Windows filesystems.
+test(
+  "normalized-entry CLI matrix: 52 ordinary and six literal-name observations",
+  { skip: process.platform === "win32", timeout: 60000 },
+  (t) => {
+    const body = "# Probe\n\n[body](#probe)\n";
+    const parent = createFixture(t, {
+      "repo/probe.md": body,
+      "repo/docs/probe.md": body,
+      "repo/actual/physical.md": body,
+      "repo/actual/fileAlias.md": body,
+      "repo/actual/deep/keep.md": "# Keep\n",
+      "repo/back\\slash.md": body,
+      "repo/neighbor.md": "# Lexical\n",
+      "repo/docs/neighbor.md": "# Physical\n",
+    });
+    const dir = join(parent, "repo");
+    linkSync(join(dir, "probe.md"), join(dir, "hard.md"));
+    for (const [name, target] of [
+      ["fileAlias.md", "probe.md"],
+      ["nestedAlias.md", "fileAlias.md"],
+      ["docs/up.md", "../probe.md"],
+      ["dirAlias", "docs"],
+      ["docs/fileAlias.md", "../probe.md"],
+      ["aliasParent", "actual/deep"],
+      ["actual/probe.md", "physical.md"],
+      ["broken.md", "absent.md"],
+      ["loop.md", "loop.md"],
+      ["outsideAlias.md", "../outside.md"],
+      ["back\\alias.md", "probe.md"],
+      ["rootlink.md", "docs/target.md"],
+    ])
+      symlinkSync(target, join(dir, name));
+    const cases = [
+      ["probe.md", 0],
+      ["probe.md/", 2],
+      ["probe.md//", 2],
+      ["./probe.md/", 2],
+      ["docs/../probe.md/", 2],
+      ["hard.md/", 2],
+      ["fileAlias.md", 0],
+      ["fileAlias.md/", 0],
+      ["fileAlias.md//", 0],
+      ["nestedAlias.md/", 0],
+      ["dirAlias/probe.md/", 2],
+      ["dirAlias/fileAlias.md/", 0],
+      ["docs/up.md/", 0],
+      ["docs/../fileAlias.md/", 0],
+      ["aliasParent/../probe.md/", 2],
+      ["aliasParent/../fileAlias.md/", 0],
+      ["probe.md/../fileAlias.md/", 0],
+      ["missing/../fileAlias.md/", 0],
+      ["broken.md/", 2],
+      ["loop.md/", 2],
+      ["missing.md/", 2],
+      ["outsideAlias.md/", 0],
+      ["fileAlias.md/./", 0],
+      ["probe.md/./", 2],
+      ["rootlink.md/", 0],
+      ["docs/target.md", 1],
+      // Intentional literal support; main rejects these pattern spellings.
+      ["back\\slash.md", 0],
+      ["back\\slash.md/", 2],
+      ["back\\alias.md/", 0],
+    ];
+    for (const broken of [false, true]) {
+      const content = body + (broken ? "\n[missing](#not-present)\n" : "");
+      for (const file of [
+        "probe.md",
+        "docs/probe.md",
+        "actual/physical.md",
+        "actual/fileAlias.md",
+        "back\\slash.md",
+      ])
+        writeFileSync(join(dir, file), content);
+      writeFileSync(join(parent, "outside.md"), content);
+      writeFileSync(
+        join(dir, "docs/target.md"),
+        "# Target\n\n[neighbor](neighbor.md#lexical)\n" +
+          (broken ? "\n[missing](#not-present)\n" : ""),
+      );
+      for (const [selector, validStatus] of cases) {
+        const expected = validStatus === 0 && broken ? 1 : validStatus;
+        const result = checkLinks(dir, [selector]);
+        assert.equal(result.status, expected, `${selector}: ${result.output}`);
+        if (expected === 1) {
+          const links = JSON.parse(result.stdout).result.links;
+          assert.ok(
+            links.some((link) => link.state === "BROKEN"),
+            result.output,
+          );
+          if (broken)
+            assert.ok(
+              links.some((link) => link.url.endsWith("#not-present")),
+              result.output,
+            );
+        } else if (expected === 2) assert.equal(result.stdout, "");
+      }
+    }
+  },
+);

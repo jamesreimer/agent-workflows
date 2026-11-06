@@ -39,3 +39,17 @@ export function pageIdentity(root, page, origin, paths = nativePath) {
   // Query and fragment are URL syntax, never part of a filesystem identity.
   return repositoryIdentity(root, segments.join(paths.sep), paths);
 }
+
+// Transport encoding only: repositoryIdentity retains main's lexical semantics.
+export function repositoryUrlPath(root, file, paths = nativePath) {
+  return repositoryIdentity(root, file, paths)
+    .split(paths.sep)
+    .map(encodeURIComponent)
+    .join("/");
+}
+
+// Preserve this flag before lexical normalization erases a terminal separator.
+// It is selector syntax only, never physical selection or containment proof.
+export function hasTerminalDirectorySeparator(file, paths = nativePath) {
+  return file.endsWith("/") || (paths.sep === "\\" && file.endsWith("\\"));
+}

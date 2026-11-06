@@ -47,7 +47,78 @@ API is offered. Duplicate registration is tested only as a corruption control,
 not an endorsed execution model. Indirect targets may render twice; this is
 accepted and is not optimized.
 
-Link diagnostics retain original filenames and display text. Linkinator does
-not promise Markdown line/column positions. YAML snippets use metadata-relative
-positions; malformed files remain named as failed local results. The batch
+Link diagnostics preserve display text, but local URL segments may be
+percent-encoded and require per-segment decoding to recover filenames. The same
+physical file can have distinct raw and encoded URL cache keys and duplicate
+reports. Empty root paths display as `./`, which can differ from native Windows
+presentation. Linkinator does not promise Markdown line/column positions. YAML
+snippets use metadata-relative positions; malformed files remain named as failed local results. The batch
 regression test verifies that both original failing filenames are reported.
+
+Literal transport regressions include brace/extglob/wildcard/bracket names,
+URL delimiters and percent text, Unicode, spaces, nested paths, working symlinks,
+and checkout roots with metacharacters. Valid and broken content must be checked
+in the named file, including beside a valid decoy. Portable path tests exercise
+Windows separators, drive and UNC spelling, and POSIX literal backslashes using
+`path.win32`/`path.posix` helpers only. Native tests for this local candidate ran
+on macOS; no native Windows, UNC, junction, SMB or ReFS validation and no hosted
+candidate CI ran. Hosted qualification requires a separately authorized PR. These helper
+tests do not establish native Windows filesystem equivalence. Brace-generated
+dot-segment fixtures stay small, with both valid and broken fragments. Expansion
+decoys actually match the small brace/bracket pattern. A metacharacter `TMPDIR`
+control sets temporary-directory environment variables and traces both glob
+calls; it does not explicitly attest the startup directory location.
+
+`glob-control.mjs` is a test-only public Node loader guard at Linkinator's glob
+import. It records and permits only the constant `.` pattern, before invoking
+glob. The native path-mode counterfactual is rejected by that guard before any
+expansion. Thus the test does not execute resource-amplification payloads or patch
+production dependencies. Neither the guard nor other test controls are imported
+by the production entry point.
+
+Requested-selector semantics deliberately retain published main's lexical
+normalization and normalized-file existence check. There is no A4 final-realpath
+or file-ID guard, component/hop auditor or root-alias provenance predicate.
+The inherited-behavior controls expose, rather than clear, raw symlink/parent
+false-green and root-excursion/reentry risks. URL attestation is not physical
+selection proof. Portable Windows cases demonstrate case folding only; no native
+Windows identity, UNC, junction, SMB or ReFS qualification is claimed. R1/R2 remain
+Required for separate comprehensive containment work under #28.
+
+The transport protects filenames and checkout-root spellings from interpretation
+as glob patterns before attestation in this entrypoint. It does not globally
+patch glob/minimatch, sandbox indirect links, establish universal provider IDs or
+atomic TOCTOU protection, or accept release/security risk. Checks execute
+checkout-controlled code/configuration; CI credentials and hostile PR execution
+remain separate risks. Tests assume a stable checkout. Ordinary file/directory
+symlinks, hardlinks, safe dot/parent paths and lexical relative-link bases retain
+main's behavior, including its limitations.
+
+The adapter relies on Linkinator 8.1.0's public asynchronous skip callback being
+awaited before server shutdown. Every relevant dependency update requires
+requalification of this ordering and the literal transport. Inherited native
+server cleanup can hang on unusual failures; this boundary does not redesign it.
+
+`attestation-control.mjs` is test-only event corruption through the public
+LinkChecker interface: suppressing or substituting initial page observations
+must stop before success. Inherited-limitation controls intentionally record
+false-green and excursion/reentry behavior; their passing assertions demonstrate
+unchanged exposure, not containment clearance. A separate exact-main comparison
+is retained with qualification evidence.
+
+For requested-file argv, retain the raw terminal-separator flag before
+normalization (`/` on POSIX; `/` or `\` under Windows path rules). Only those
+selectors receive an extra `lstat` of the main-normalized selected entry. An
+ordinary final file/hardlink rejects the separator; a final symlink proceeds
+only through the unchanged normalized `stat.isFile`, native URL check and page
+attestation. Failed metadata, broken/looping symlinks and non-files fail closed.
+This preserves tested ordinary selector compatibility, not raw physical identity
+or containment. Markdown links to directory destinations ending `/` are unchanged.
+
+The native macOS regression matrix exercises all 29 selectors with valid and
+broken content: 52 ordinary observations must match main; six POSIX backslash
+observations explicitly exercise literal transport instead of legacy glob
+handling. In particular a legal backslash-named file symlink with terminal slash
+may validate literally although main rejected its pattern spelling. Do not claim
+58/58 legacy equivalence. POSIX backslash data and portable Windows separator
+checks are distinct; no native Windows/UNC/junction/SMB/ReFS clearance is implied.
