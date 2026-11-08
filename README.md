@@ -122,6 +122,29 @@ task prompts, findings, execution logs, and publication decisions remain
 project-local. Real immutable source identities in [GOVERNING-SOURCES.md](GOVERNING-SOURCES.md)
 are source records, not example task values.
 
+## Optional role coordination skill
+
+[Role orchestration](skills/role-orchestration/SKILL.md) is an opt-in coordination
+skill for mapping canonical roles to agent tools or humans, with shared account
+budgets that are advisory only. It supplies setup and validation, with no agent
+executor, automatic routing or required provider. Canonical roles and handoffs
+retain their authority and source-status model. A binding grants no permission;
+structural reviewer separation does not prove independence.
+
+Select and retain an immutable skill revision, then manually copy the entire
+`skills/role-orchestration` folder into your product's supported **user-level**
+skill location. This repository does not install it into `.agents/skills` or
+`.claude/skills`. Where filesystem discovery is unavailable, use its instructions
+and canonical handoffs as files or pasted text. Read the skill's pinned canonical
+inputs and reconcile any different consumer revision explicitly.
+
+With Python 3.10+, run `scripts/configure.py` from the copied skill directory,
+or edit its example manually. Keep the config private and outside checkouts;
+validate it with `scripts/validate_config.py /absolute/private/path/roles.json`.
+See [configuration and limits](skills/role-orchestration/references/config.md).
+No capacity is assumed, subscription fees are not credits, and required review
+constrained by budget returns a blocked report for human decision.
+
 ## Versioning
 
 Repository-local release guidance: use pre-1.0 versions while the operational
