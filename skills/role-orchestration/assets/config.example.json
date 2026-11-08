@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "accounts": [
+    {
+      "id": "operator",
+      "provider": "manual",
+      "mode": "human",
+      "usage": "unknown",
+      "quota": "unknown"
+    },
+    {
+      "id": "reviewer",
+      "provider": "manual",
+      "mode": "human",
+      "usage": "unknown",
+      "quota": "unknown"
+    }
+  ],
+  "bindings": {
+    "planning": {
+      "account": "operator",
+      "agent": "human",
+      "invocation": "ask_first"
+    },
+    "implementation": {
+      "account": "operator",
+      "agent": "human",
+      "invocation": "ask_first"
+    },
+    "independent-review": {
+      "account": "reviewer",
+      "agent": "human",
+      "invocation": "ask_first"
+    },
+    "publication": {
+      "account": "operator",
+      "agent": "human",
+      "invocation": "ask_first"
+    }
+  }
+}
