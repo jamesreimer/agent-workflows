@@ -261,8 +261,39 @@ The durable link regression contract and test controls are documented in
 
 ## Local artifact checks
 
+The optional skill's generated bundle is checked by the always-run
+`agent-workflows-bundle` pre-commit hook, including hosted `Repository validation`.
+With Python 3.10+, regenerate during development, then check before freezing a
+candidate:
+
+```sh
+python3 scripts/bundle_skill.py
+python3 scripts/bundle_skill.py --check
+python3 -m unittest discover -s tests -p 'test_bundle_skill.py'
+```
+
+The closed list contains the ten contracts plus an unchanged supporting
+`GOVERNING-SOURCES.md` copy. A generated README navigation adapter resolves their
+context links without copying repository procedures or changing contract bytes.
+The manifest separately lists canonical and supporting source paths and SHA-256
+digests; it contains no containing-commit field. The read-only check compares
+exact sources, copies and deterministic manifest bytes, including serialization,
+and rejects missing/unexpected paths, empty extra directories and symlinks.
+The generator refuses unexpected entries rather than deleting them. Its CLI has
+no source/destination override and writes only the fixed bundle in its own tree.
+Use a trusted checkout without concurrent filesystem mutation; this is an integrity
+check, not an atomic filesystem sandbox. Existing file modes are preserved.
+
+Review generated output alongside its sources. Never edit the delivery copies or
+regenerate new unreviewed bytes at release. Only generated files are marked
+`linguist-generated`. Existing roles/handoffs formatting exclusions also match
+their mirrored directories; semantic Markdown and link checks remain enabled.
+Deterministic tests verify correspondence and fixture consistency, not fresh-agent
+behavior. Follow the [separate evaluation protocol](tests/fixtures/agent-workflows/README.md)
+only with authorized runtime access and budget.
+
 Generic mechanics remain owned by repo-template. This repository's only local
-validator checks the required canonical artifact paths and obvious live task
+canonical-artifact validator checks the required paths and obvious live task
 identifiers in roles, handoffs, and workflows. It intentionally does not parse
 workflow semantics or reimplement Markdown, links, syntax, or generic policy.
 
