@@ -122,6 +122,34 @@ task prompts, findings, execution logs, and publication decisions remain
 project-local. Real immutable source identities in [GOVERNING-SOURCES.md](GOVERNING-SOURCES.md)
 are source records, not example task values.
 
+## Optional workflow delivery skill
+
+[Agent Workflows](skills/agent-workflows/SKILL.md) is an opt-in **Working prototype**
+that delivers the ten canonical contracts as byte-identical local references.
+Discovery selects no workflow or role. An authorized instruction or handoff can
+select both; the adapter loads only relevant contracts. It supplies no runtime,
+installer, execution authority or consumer adoption.
+
+For separately authorized manual installation, select and retain an immutable
+repository revision, verify its bundle, and copy the entire `skills/agent-workflows`
+folder unchanged to the product's supported user-level skill location. Record the
+source commit/tree, manifest digest and actual destination/copy verification in
+the consuming project's existing record. Content digests identify bytes; they
+do not establish commit identity or installation provenance. Do not regenerate
+new package bytes during release or installation. Updates are deliberate whole
+folder replacements from a newly selected, verified revision, preserving local
+adaptations for reconciliation. This prototype authorizes no installation.
+
+In Codex CLI 0.167.0, explicit `policy.allow_implicit_invocation: true` in
+`agents/openai.yaml` allows the project skill to appear in the native catalog;
+`false` omits it. Native project-skill discovery was also tested in Claude Code
+CLI 2.1.299. Discovery and loading do not select a workflow or role, supply
+execution authority, or grant publication permission. Selection still requires
+an authorized instruction or handoff. Verify discovery behavior on future tool
+upgrades. Where discovery is unavailable, supply the entrypoint and relevant
+references as files or pasted text. No native installer is provided. Independent
+fresh-agent behavior evaluation remains a [separate gate](tests/fixtures/agent-workflows/README.md).
+
 ## Optional role coordination skill
 
 [Role orchestration](skills/role-orchestration/SKILL.md) is an opt-in coordination
@@ -135,8 +163,11 @@ Select and retain an immutable skill revision, then manually copy the entire
 `skills/role-orchestration` folder into your product's supported **user-level**
 skill location. This repository does not install it into `.agents/skills` or
 `.claude/skills`. Where filesystem discovery is unavailable, use its instructions
-and canonical handoffs as files or pasted text. Read the skill's pinned canonical
-inputs and reconcile any different consumer revision explicitly.
+and canonical handoffs as files or pasted text. When Agent Workflows is explicitly
+selected too, use its matching bundled canonical revision as the artifact source.
+Standalone coordination retains its explicit older fixed fallback; reconcile and
+obtain project consent before a handoff crosses revisions. See the skill's
+[source routing](skills/role-orchestration/SKILL.md#canonical-inputs-at-one-immutable-revision).
 
 With Python 3.10+, run `scripts/configure.py` from the copied skill directory,
 or edit its example manually. Keep the config private and outside checkouts;

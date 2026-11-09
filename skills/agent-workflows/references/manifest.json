@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "canonical_sources": {
+    "handoffs/implementation-to-review.md": "3a89e63524825c63fb9e97b8ce57c2e29180d04562765964eb3d15ccc9d2278d",
+    "handoffs/planning-to-implementation.md": "9921536255708403ef7a4f8fbb9b4df4520d5b2eda58aa4a044fc2771b957835",
+    "handoffs/return-of-control.md": "4e0510f3873007a508ee41c581e4699e63c0b2d10824bdac6e275f7395754a50",
+    "handoffs/review-to-correction.md": "ee75bf3fb9bb43d918d03e92779b7bd047b75df2d002c1a7b16f5cb8fc3eeba0",
+    "handoffs/review-to-publication.md": "1647952ad731e15ebac38dba66f5a2fa9456fa4e99a9fdbca94e51faa56cb78f",
+    "roles/implementation.md": "918c846960aec5774063ca05b19237e9a581801e28c7a90ce33b06ee2e6b5a25",
+    "roles/independent-review.md": "65007de40680ab7343e3685cef8165148d12e7a0f9a958f3ad4c0b4478133e94",
+    "roles/planning.md": "7c6b5dde8f5d9ec3ccbfc3e8b5a7a6469dbf4c297eaca9a4807a8b574a9426aa",
+    "roles/publication.md": "6983b6cf5e089a5522cd18d912746a0034c17aeed270d739a9d51e28e344060e",
+    "workflows/reviewed-change.md": "9aadfd64c8de3193165b89115477ef2f679ce63657a0319d912dc0e71a779dbd"
+  },
+  "support_sources": {
+    "GOVERNING-SOURCES.md": "8eef4305cc81a8c6652d670e525b0ef0aaa0be047471c2d3a2f4a7a90f9b0765"
+  }
+}

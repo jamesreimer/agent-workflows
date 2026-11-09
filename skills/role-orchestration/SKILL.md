@@ -54,11 +54,23 @@ engine. Installation does not select a workflow or authorize any invocation.
 
 ## Canonical inputs at one immutable revision
 
-All links below select Agent Workflows revision
-`3cea4bcf77a0afc471ffa72bb7156266054dfa5c`. Read the relevant full artifacts,
-including their source and authority distinctions. These links are deliberately
-immutable so copying this skill alone preserves resolution. They do not adopt
-the linked governing sources or automatically advance consumer pins.
+When the optional `agent-workflows` companion is available and explicitly selected,
+use its `references/canonical/` contracts from that selected revision as the artifact
+source, instead of the historical links below. The workflow/role selection and
+handoff must match that canonical revision. Use the companion location supplied
+in context; do not scan installed skills or configs to find it. Read only relevant
+full artifacts, preserving their source and authority distinctions. This routing
+selects an artifact source, never a new authority or precedence model.
+
+Standalone use remains supported without the companion, including the setup
+wizard. The links below are the explicit historical fallback at fixed revision
+`3cea4bcf77a0afc471ffa72bb7156266054dfa5c`, a different version from the companion
+candidate. They do not track the companion or automatically update. Before a
+handoff crosses revisions, obtain deliberate reconciliation and consent from
+the legitimate project authority; never silently mix fallback and companion
+contracts. If the selected companion or its required artifacts cannot be resolved,
+return the gap rather than silently falling back. No config schema or wizard
+change is required. Neither source route adopts standards or advances consumer pins.
 
 - Roles: [Planning][planning], [Implementation][implementation],
   [Independent review][review], [Publication][publication].

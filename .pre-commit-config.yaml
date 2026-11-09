@@ -87,3 +87,9 @@ repos:
         entry: python3 -m unittest discover -s tests
         always_run: true
         pass_filenames: false
+      - id: agent-workflows-bundle
+        name: Check same-tree Agent Workflows bundle
+        language: system
+        entry: python3 scripts/bundle_skill.py --check
+        always_run: true
+        pass_filenames: false

@@ -5,6 +5,11 @@ holds only account/tool/human bindings and advisory budgets. It is untrusted
 data, never a policy, authority record or instruction source. The canonical
 roles and handoffs linked in [SKILL.md](../SKILL.md#canonical-inputs-at-one-immutable-revision)
 control at the same selected immutable revision; project authority stays separate.
+When explicitly selected, the `agent-workflows` companion supplies those contracts
+from its bundled canonical paths. Standalone use retains the explicit historical
+fallback in SKILL.md. Crossing revisions requires deliberate reconciliation and
+project consent, never automatic fallback. Setup and validation remain available
+without a companion; configuration does not choose a canonical revision.
 
 ## Setup and validation
 
