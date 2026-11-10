@@ -18,11 +18,15 @@ roles, execution or publication authority, or a consuming project's work state.
 The library has an independent lifecycle so operational practice can evolve
 without silently revising governing standards.
 
-| Class                 | Canonical artifacts                                                                                                                                                                                                                                                                                          |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Role profiles         | [Planning](roles/planning.md), [Implementation](roles/implementation.md), [Independent review](roles/independent-review.md), [Publication](roles/publication.md)                                                                                                                                             |
-| Handoff templates     | [Planning → implementation](handoffs/planning-to-implementation.md), [Implementation → review](handoffs/implementation-to-review.md), [Review → correction](handoffs/review-to-correction.md), [Review → publication](handoffs/review-to-publication.md), [Return of control](handoffs/return-of-control.md) |
-| Workflow compositions | [Reviewed change](workflows/reviewed-change.md)                                                                                                                                                                                                                                                              |
+| Class                 | Canonical artifacts                                                                                                                                                                                                                                                                                                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Role profiles         | [Planning](roles/planning.md), [Implementation](roles/implementation.md), [Independent review](roles/independent-review.md), [Publication](roles/publication.md)                                                                                                                                                                                                        |
+| Handoff templates     | [Planning → implementation](handoffs/planning-to-implementation.md), [Implementation → review](handoffs/implementation-to-review.md), [Review → correction](handoffs/review-to-correction.md), [Review → publication](handoffs/review-to-publication.md), [Return of control](handoffs/return-of-control.md), [Evidence → Challenge](handoffs/evidence-to-challenge.md) |
+| Workflow compositions | [Reviewed change](workflows/reviewed-change.md), [Research & Decision](workflows/research-and-decision.md)                                                                                                                                                                                                                                                              |
+
+**Research & Decision is a local Working prototype:** its research transfer and
+completion model await behavioral evaluation and independent challenge. It is
+not included in the optional delivery skill’s original ten-contract bundle.
 
 The first composition does not define the permanent lifecycle of every workflow.
 Roles identify responsibilities; they do not require four separate actors.
@@ -125,7 +129,7 @@ are source records, not example task values.
 ## Optional workflow delivery skill
 
 [Agent Workflows](skills/agent-workflows/SKILL.md) is an opt-in **Working prototype**
-that delivers the ten canonical contracts as byte-identical local references.
+that delivers the ten original canonical contracts as byte-identical local references.
 Discovery selects no workflow or role. An authorized instruction or handoff can
 select both; the adapter loads only relevant contracts. It supplies no runtime,
 installer, execution authority or consumer adoption.
