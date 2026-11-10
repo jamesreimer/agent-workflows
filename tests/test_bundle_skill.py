@@ -3,6 +3,7 @@
 import hashlib
 import json
 import os
+import stat
 import subprocess
 import sys
 import tempfile
@@ -195,9 +196,35 @@ class BundleTests(unittest.TestCase):
     def test_existing_mode_preserved_on_regeneration(self):
         path = self.bundle / "canonical" / CANONICAL[0]
         path.chmod(0o640)
+        before_mode = path.stat().st_mode & 0o777
+        if os.name == "posix":
+            self.assertEqual(before_mode, 0o640)
         (self.root / CANONICAL[0]).write_bytes(b"new bytes")
         generate(self.root)
-        self.assertEqual(path.stat().st_mode & 0o777, 0o640)
+        self.assertEqual(path.stat().st_mode & 0o777, before_mode)
+        self.assertEqual(path.read_bytes(), b"new bytes")
+        self.assertEqual(check(self.root), [])
+
+    @unittest.skipUnless(os.name == "nt", "Windows read-only file attribute semantics")
+    def test_windows_readonly_preserved_and_changed_output_refused(self):
+        path = self.bundle / "canonical" / CANONICAL[0]
+        original = path.read_bytes()
+        # Windows chmod controls the read-only attribute, not POSIX permission bits.
+        # https://docs.python.org/3/library/os.html#os.chmod
+        # https://learn.microsoft.com/en-us/windows/win32/fileio/file-attribute-constants
+        self.addCleanup(path.chmod, stat.S_IWRITE)
+        path.chmod(stat.S_IREAD)
+        self.assertTrue(path.stat().st_file_attributes & stat.FILE_ATTRIBUTE_READONLY)
+        generate(self.root)
+        self.assertTrue(path.stat().st_file_attributes & stat.FILE_ATTRIBUTE_READONLY)
+        self.assertEqual(path.read_bytes(), original)
+        self.assertEqual(check(self.root), [])
+
+        (self.root / CANONICAL[0]).write_bytes(b"new bytes")
+        with self.assertRaises(PermissionError):
+            generate(self.root)
+        self.assertTrue(path.stat().st_file_attributes & stat.FILE_ATTRIBUTE_READONLY)
+        self.assertEqual(path.read_bytes(), original)
 
     def test_candidate_and_cli_readonly_check(self):
         self.assertEqual(check(REPO), [])

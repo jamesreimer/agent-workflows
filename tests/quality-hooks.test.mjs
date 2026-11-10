@@ -10,7 +10,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import path, { dirname, join, resolve } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
@@ -43,6 +43,50 @@ const names = [
 ];
 const decoys = ["metaa.mjs", "metab.mjs", "choicea.mjs", "choiceb.mjs"];
 const valid = 'console.log("ok");\n';
+
+function assertSelectedFilenameReported(output, name, paths = path) {
+  // Keep the complete literal name; only its native separator spelling may vary.
+  assert.ok(
+    output.includes(name) || output.includes(paths.normalize(name)),
+    `Selected filename ${JSON.stringify(name)} was not reported in output:\n${output}`,
+  );
+}
+
+for (const paths of [path.posix, path.win32]) {
+  test(`selected filename diagnostics preserve literal names with ${paths.sep} separators`, () => {
+    for (const name of names) {
+      for (const spelling of [name, paths.normalize(name)]) {
+        assertSelectedFilenameReported(`\n${spelling}\n`, name, paths);
+        assertSelectedFilenameReported(
+          `\n${paths.join("checkout", spelling)}\n`,
+          name,
+          paths,
+        );
+      }
+    }
+    for (const [name, output] of [
+      ["nested/example.mjs", ""],
+      ["nested/example.mjs", "example.mjs"],
+      ["nested/example.mjs", paths.normalize("other/example.mjs")],
+      ["meta[ab].mjs", "metaa.mjs\nmetab.mjs"],
+      ["choice{a,b}.mjs", "choicea.mjs\nchoiceb.mjs"],
+      ["nested/example.mjs", paths.normalize("nested/exampleXmjs")],
+      ["file with spaces.mjs", "filewithspaces.mjs"],
+      ["!bang.mjs", "bang.mjs"],
+      ["--option.mjs", "option.mjs"],
+    ]) {
+      assert.throws(
+        () => assertSelectedFilenameReported(output, name, paths),
+        (error) => {
+          assert.equal(error.code, "ERR_ASSERTION");
+          assert.ok(error.message.includes(JSON.stringify(name)));
+          assert.ok(error.message.endsWith(`output:\n${output}`));
+          return true;
+        },
+      );
+    }
+  });
+}
 
 // A shell-backed npm entry can expand braces before either tool sees argv.
 // Keep this wiring assertion alongside actual CLI path/decoy behavior.
@@ -152,7 +196,7 @@ for (const tool of tools) {
       // Valid decoys must not hide an invalid selected filename.
       for (const decoy of decoys) writeFileSync(join(dir, decoy), valid);
       writeFileSync(join(dir, name), tool.invalid);
-      assert.ok(check([name], 1).includes(name));
+      assertSelectedFilenameReported(check([name], 1), name);
       assert.equal(readFileSync(join(dir, name), "utf8"), tool.invalid);
       writeFileSync(join(dir, name), valid);
     }
@@ -161,7 +205,7 @@ for (const tool of tools) {
     for (const decoy of decoys) writeFileSync(join(dir, decoy), valid);
     writeFileSync(join(dir, "choice{a,b}.mjs"), tool.invalid);
     for (const selected of [names, [...names].reverse()]) {
-      assert.ok(check(selected, 1).includes("choice{a,b}.mjs"));
+      assertSelectedFilenameReported(check(selected, 1), "choice{a,b}.mjs");
     }
   });
 }
