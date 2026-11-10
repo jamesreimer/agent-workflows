@@ -5,6 +5,9 @@ work. Read [README.md](README.md) for the responsibility and source-status model
 and [GOVERNING-SOURCES.md](GOVERNING-SOURCES.md) for pinned interpretive
 dependencies. These contributor instructions are repository-local implementation guidance, not external policy.
 
+Keep the reusable core portable and vendor-neutral, with tool-specific adapters
+and environment assumptions explicit at their boundaries.
+
 Do not strengthen or weaken governing requirements, introduce organization-neutral
 review governance, or put live task instances into canonical artifacts. Evaluate
 changed handoff semantics against the actual governing source and consuming
@@ -26,6 +29,11 @@ issues or PRs, and settled reusable behavior in canonical files.
 Follow the actual project contract and required review gates. Release
 authorization is separate. Validation never
 confers merge, release, or deployment authority.
+
+Consider this question during review:
+
+- Does this change introduce vendor, OS, path, or tool assumptions that need
+  explanation or validation proportionate to its scope?
 
 Follow the [setup instructions](README.md#run-checks), stage intended new files,
 and run:
