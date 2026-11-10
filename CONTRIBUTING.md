@@ -30,6 +30,8 @@ Follow the actual project contract and required review gates. Release
 authorization is separate. Validation never
 confers merge, release, or deployment authority.
 
+Consider this question during review:
+
 - Does this change introduce vendor, OS, path, or tool assumptions that need
   explanation or validation proportionate to its scope?
 

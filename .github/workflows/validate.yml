@@ -40,7 +40,7 @@ jobs:
 
   portability:
     # Optional coverage; keep this job out of required checks.
-    name: Portability validation
+    name: Portability validation (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     strategy:
