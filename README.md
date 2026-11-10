@@ -24,11 +24,13 @@ without silently revising governing standards.
 | Handoff templates     | [Planning → implementation](handoffs/planning-to-implementation.md), [Implementation → review](handoffs/implementation-to-review.md), [Review → correction](handoffs/review-to-correction.md), [Review → publication](handoffs/review-to-publication.md), [Return of control](handoffs/return-of-control.md), [Evidence → Challenge](handoffs/evidence-to-challenge.md) |
 | Workflow compositions | [Reviewed change](workflows/reviewed-change.md), [Research & Decision](workflows/research-and-decision.md)                                                                                                                                                                                                                                                              |
 
-**Research & Decision is a local Working prototype:** its research transfer and
-completion model await behavioral evaluation and independent challenge. It is
-not included in the optional delivery skill’s original ten-contract bundle.
+**Research & Decision and Evidence → Challenge are Working prototypes:** their
+research transfer and completion model await behavioral evaluation and independent
+challenge. Their listing above identifies the source artifacts, not completed
+qualification. Neither is included in the optional delivery skill's original
+ten-contract bundle.
 
-The first composition does not define the permanent lifecycle of every workflow.
+Reviewed Change does not define the permanent lifecycle of every workflow.
 Roles identify responsibilities; they do not require four separate actors.
 Independent review, when required, cannot be replaced by an implementor's own
 checks. The consuming authority determines permitted role occupancy.
@@ -83,7 +85,8 @@ validation, and materially necessary protected boundaries. This local threshold
 is informed by [OEC §§4–5](GOVERNING-SOURCES.md#operational-execution-contract).
 Technical complexity alone is not a trigger. A low-consequence local edit or
 experiment may use a lighter instruction if actual governing obligations permit.
-Assess adopted OEC scope separately; the workflow threshold cannot narrow it.
+Assess actually applicable OEC scope separately, not adoption status alone; the
+workflow threshold cannot narrow it. A pinned OEC link does not make OEC applicable.
 `None` for adopted editions does not remove the selected workflow's contract.
 
 Record recovery expectations for difficult-to-reverse, destructive, externally
