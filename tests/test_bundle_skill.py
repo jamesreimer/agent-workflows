@@ -55,7 +55,7 @@ class BundleTests(unittest.TestCase):
 
     def test_closed_canonical_list_matches_repository_contract(self):
         self.assertEqual(set(CANONICAL), set(REQUIRED))
-        self.assertEqual(len(CANONICAL), 10)
+        self.assertEqual(len(CANONICAL), 12)
 
     def test_exact_bytes_digests_repeat_generation_and_readonly_check(self):
         manifest = json.loads(self.manifest.read_bytes())

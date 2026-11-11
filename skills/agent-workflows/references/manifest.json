@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "canonical_sources": {
+    "handoffs/evidence-to-challenge.md": "f3011fb984f98b086d7d5dd824b56046c8cd9e2752fb827e76ef09230929d175",
     "handoffs/implementation-to-review.md": "3a89e63524825c63fb9e97b8ce57c2e29180d04562765964eb3d15ccc9d2278d",
     "handoffs/planning-to-implementation.md": "9921536255708403ef7a4f8fbb9b4df4520d5b2eda58aa4a044fc2771b957835",
     "handoffs/return-of-control.md": "4e0510f3873007a508ee41c581e4699e63c0b2d10824bdac6e275f7395754a50",
@@ -10,6 +11,7 @@
     "roles/independent-review.md": "65007de40680ab7343e3685cef8165148d12e7a0f9a958f3ad4c0b4478133e94",
     "roles/planning.md": "7c6b5dde8f5d9ec3ccbfc3e8b5a7a6469dbf4c297eaca9a4807a8b574a9426aa",
     "roles/publication.md": "6983b6cf5e089a5522cd18d912746a0034c17aeed270d739a9d51e28e344060e",
+    "workflows/research-and-decision.md": "27a67f2a29b5671dd02934e7e7bd17a2d748a49cc5cbebc59a18d0e0b79554a9",
     "workflows/reviewed-change.md": "9aadfd64c8de3193165b89115477ef2f679ce63657a0319d912dc0e71a779dbd"
   },
   "support_sources": {
