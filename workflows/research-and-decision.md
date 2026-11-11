@@ -190,9 +190,9 @@ or any unresolved decision as well as at completion.
    return control on missing or mismatched correspondence. Inspect source support,
    contradictory evidence, alternatives, criteria coverage, uncertainty and authority.
    Attempt to falsify the recommendation and identify what would change it.
-   Record a supported conclusion. This composition locally requires explicit
-   dispositions for all material research findings, with evidence, rationale,
-   decision authority and remaining effects, whether or not AR governs. Do not edit
+   Record a supported conclusion, propose explicit dispositions for all material
+   research findings, and name the authority that must decide them, with evidence,
+   rationale and remaining effects, whether or not AR governs. Do not edit
    the packet or execute a proposed remedy. Missing independence or required evidence
    prevents a completed-challenge claim; return the limitation to the owner.
 6. **Return the decision.** Independent review uses return of control to deliver

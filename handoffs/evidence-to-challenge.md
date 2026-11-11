@@ -81,7 +81,7 @@ Missing required information is a gap, not an empty placeholder or assumed appro
 | Target, question and owner | `<project-and-canonical-record>`; `<bounded-research-question>`; `<responsible-decision-owner>` |
 | Research authority and contract | `<authorizer-objective-permitted-methods-scope-protections-validation-and-completion>`; `<selected-workflow-revision-and-explicit-transfer-adaptation>` |
 | Governing applicability | `<standards-versions-and-scope-or-Standards-Templates-not-adopted>`; `<alternative-policy-dispositions-or-explained-inapplicability>` |
-| Challenge authority and independence | `<review-contract-and-permitted-access>`; `<recipient-eligibility-and-evidence-of-nonparticipation>` |
+| Challenge authority and independence | `<review-contract-and-permitted-access>`; `<eligibility-criteria-and-designated-recipient-if-known>` |
 | Decision criteria and alternatives | `<enumerated-criteria-current-position-and-alternatives-including-retain-and-contract-permitted-defer>` |
 | Frozen recommendation and evidence | `<packet-source-location-and-object-appropriate-immutable-identity>`; `<sender-content-and-export-or-object-verification-evidence>` |
 | Sources and claim support | `<claim-to-source-map-identities-observation-dates-methods-and-required-target-verification>` |
@@ -103,12 +103,9 @@ prior dispositions are inputs, not a substitute for the challenger's findings.
 Use [return of control](return-of-control.md) for both final challenge and interruption.
 The composition's [outbound routing](../workflows/research-and-decision.md#roles-and-transfers)
 replaces the change-oriented correction and publication edges with owner return.
-If correction is specified and already authorized, include the ready-to-use bounded
-Implementation instruction required there in **Next-role instruction**. If correction
-lacks authority, return the proposed outcomes and missing authority for the owner's
-decision, with `none` and the reason in that field. If no correction is needed,
-record `none` with that reason. Carry all material dispositions; do not correct
-the packet or invoke publication. A changed packet needs a new identity and
-proportionate challenge before relying on it. Documented owner return
-ends this transfer; the owner controls any later decision or separately authorized
-action. Keep the filled handoff and challenge evidence with the consuming project.
+The reviewer establishes and records their own eligibility and nonparticipation;
+the sender's criteria or proposed recipient are not proof of independence.
+Follow the composition's correction and authority routing without creating an
+automatic loop. Documented owner return ends this transfer; the owner controls any
+later decision or separately authorized action. Keep the filled handoff and
+challenge evidence with the consuming project.
