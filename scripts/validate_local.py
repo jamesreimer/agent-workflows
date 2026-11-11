@@ -14,7 +14,9 @@ REQUIRED = (
     "handoffs/review-to-correction.md",
     "handoffs/review-to-publication.md",
     "handoffs/return-of-control.md",
+    "handoffs/evidence-to-challenge.md",
     "workflows/reviewed-change.md",
+    "workflows/research-and-decision.md",
 )
 # Source identities live in GOVERNING-SOURCES.md; canonical instructions link there.
 LIVE_VALUE = re.compile(

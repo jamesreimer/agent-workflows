@@ -17,7 +17,9 @@ Preserve their source-derived versus workflow-local status and requirement force
 Selection grants no execution, merge, release, standards adoption or repository
 authority. Do not infer a role transfer from “continue” or from a prepared handoff.
 
-- Composition, only when selected: [Reviewed Change](references/canonical/workflows/reviewed-change.md).
+- Composition, only when selected: [Reviewed Change](references/canonical/workflows/reviewed-change.md)
+  or [Research & Decision](references/canonical/workflows/research-and-decision.md)
+  (**Working, behavioral qualification incomplete**).
 - Roles, load the selected one: [Planning](references/canonical/roles/planning.md),
   [Implementation](references/canonical/roles/implementation.md),
   [Independent Review](references/canonical/roles/independent-review.md),
@@ -27,7 +29,9 @@ authority. Do not infer a role transfer from “continue” or from a prepared h
   [Implementation → Review](references/canonical/handoffs/implementation-to-review.md),
   [Review → Correction](references/canonical/handoffs/review-to-correction.md),
   [Review → Publication](references/canonical/handoffs/review-to-publication.md),
-  [Return of Control](references/canonical/handoffs/return-of-control.md).
+  [Return of Control](references/canonical/handoffs/return-of-control.md),
+  [Evidence → Challenge](references/canonical/handoffs/evidence-to-challenge.md)
+  (Research & Decision only; **Working**).
 
 Resolve required local dependencies as needed; do not load all references by default.
 The [source pins](references/canonical/GOVERNING-SOURCES.md) provide traceability,

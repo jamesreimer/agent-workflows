@@ -17,7 +17,9 @@ CANONICAL = (
     "handoffs/review-to-correction.md",
     "handoffs/review-to-publication.md",
     "handoffs/return-of-control.md",
+    "handoffs/evidence-to-challenge.md",
     "workflows/reviewed-change.md",
+    "workflows/research-and-decision.md",
 )
 SUPPORT = ("GOVERNING-SOURCES.md",)
 BUNDLE = Path("skills/agent-workflows/references")

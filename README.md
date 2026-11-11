@@ -27,8 +27,9 @@ without silently revising governing standards.
 **Research & Decision and Evidence → Challenge are Working prototypes:** their
 research transfer and completion model await behavioral evaluation and independent
 challenge. Their listing above identifies the source artifacts, not completed
-qualification. Neither is included in the optional delivery skill's original
-ten-contract bundle.
+qualification. Both are present in the optional Working delivery skill as
+unchanged same-tree contract copies, but their inclusion does not complete
+behavioral qualification or authorize consumer installation.
 
 Reviewed Change does not define the permanent lifecycle of every workflow.
 Roles identify responsibilities; they do not require four separate actors.
@@ -132,7 +133,9 @@ are source records, not example task values.
 ## Optional workflow delivery skill
 
 [Agent Workflows](skills/agent-workflows/SKILL.md) is an opt-in **Working prototype**
-that delivers the ten original canonical contracts as byte-identical local references.
+that delivers twelve canonical contracts as byte-identical local references.
+The Research & Decision composition and Evidence → Challenge handoff are still
+Working prototypes and have not passed full behavioral qualification.
 Discovery selects no workflow or role. An authorized instruction or handoff can
 select both; the adapter loads only relevant contracts. It supplies no runtime,
 installer, execution authority or consumer adoption.
