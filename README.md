@@ -207,8 +207,8 @@ procedure; passing validation does not authorize a release.
 
 ## Run checks
 
-Install Python 3.10 or later and Node.js 24.22.1 or a later Node 24 release
-(including npm). CI selects exactly Node 24.22.1.
+Install Python 3.10 or later and Node.js 24.22.3 or a later Node 24 release
+(including npm). CI selects exactly Node 24.22.3.
 The package engine and `.npmrc` enforce this Node 24 minimum at installation;
 keep it on PATH when running the system hooks:
 

@@ -253,8 +253,8 @@ locally and in CI. The lock preserves the full dependency resolution;
 pre-commit `additional_dependencies` cannot provide that transitive lock.
 The startup probe is still required: correctness must not depend on hoisting.
 Update pins and lock together, then run the regression suite and ordinary checks.
-The package engine and `.npmrc` require Node 24.22.1 or a later Node 24 release
-at install time; CI selects exactly Node 24.22.1. Later execution uses the system
+The package engine and `.npmrc` require Node 24.22.3 or a later Node 24 release
+at install time; CI selects exactly Node 24.22.3. Later execution uses the system
 `node` on PATH, so select it before running checks. Install-time enforcement replaces the old
 Markdown hook's per-invocation nodeenv selection. Dependabot's forced dependency
 resolution does not qualify a candidate; required CI still installs without
