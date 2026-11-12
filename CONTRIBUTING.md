@@ -164,7 +164,7 @@ vulnerable packages or disable configuration-file discovery and executable
 nested options. Consumers relying on inline exceptions must deliberately adapt
 their authoring or configuration.
 
-Markdownlint CLI2 0.24.0 / markdownlint 0.42.0 uses RE2JS for native
+Markdownlint CLI2 0.24.1 / markdownlint 0.42.1 uses RE2JS for native
 `frontMatter` expressions to protect against regular-expression denial of service.
 Custom expressions using JavaScript RegExp-only features, including lookahead,
 may need compatible equivalents. Some older upstream documentation still describes
