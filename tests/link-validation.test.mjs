@@ -698,10 +698,10 @@ for (const mode of ["missing", "unexpected"]) {
   });
 }
 
-// These controls expose inherited limitations, not containment acceptance.
+// These controls distinguish a corrected ambiguity from retained limitations.
 // Native POSIX parent traversal differs from Windows; no Windows proof is implied.
 test(
-  "inherited limitation: raw symlink parent can check a different lexical file",
+  "raw symlink parent traversal fails closed instead of checking a lexical file",
   { skip: process.platform === "win32" },
   (t) => {
     const dir = createFixture(t, {
@@ -715,16 +715,21 @@ test(
       /not-present/,
     );
     assert.equal(checkLinks(dir, ["actual/probe.md"]).status, 1);
-    assert.equal(checkLinks(dir, ["alias/../probe.md"]).status, 0);
-    writeFileSync(
-      join(dir, "probe.md"),
-      "# Lexical\n\n[missing](#not-present)\n",
-    );
-    assert.equal(checkLinks(dir, ["alias/../probe.md"]).status, 1);
+    for (const broken of [false, true]) {
+      if (broken)
+        writeFileSync(
+          join(dir, "probe.md"),
+          "# Lexical\n\n[missing](#not-present)\n",
+        );
+      const result = checkLinks(dir, ["alias/../probe.md"]);
+      assert.equal(result.status, 2, result.output);
+      assert.equal(result.stdout, "");
+      assert.match(result.stderr, /ambiguous parent traversal through symlink/);
+    }
   },
 );
 test(
-  "inherited limitation: root excursions and hidden leave/reentry are not rejected",
+  "root excursions remain accepted while symlink-parent traversals reject",
   { skip: process.platform === "win32" },
   (t) => {
     const parent = createFixture(t, { "repo/probe.md": "# Probe\n" });
@@ -739,13 +744,20 @@ test(
         join(dir, "probe.md"),
         "# Probe\n" + (broken ? "\n[missing](#not-present)\n" : ""),
       );
-      for (const selector of [
-        "../repo/probe.md",
-        "rootAlias/../repo/probe.md",
-        "hidden/probe.md",
-      ]) {
+      for (const selector of ["../repo/probe.md", "hidden/probe.md"]) {
         const result = checkLinks(dir, [selector]);
         assert.equal(result.status, broken ? 1 : 0, result.output);
+      }
+      for (const selector of [
+        "rootAlias/../repo/probe.md",
+        "../repo/rootAlias/../repo/probe.md",
+      ]) {
+        const ambiguous = checkLinks(dir, [selector]);
+        assert.equal(ambiguous.status, 2, ambiguous.output);
+        assert.match(
+          ambiguous.stderr,
+          /ambiguous parent traversal through symlink/,
+        );
       }
     }
   },
@@ -887,7 +899,7 @@ test(
       ["docs/up.md/", 0],
       ["docs/../fileAlias.md/", 0],
       ["aliasParent/../probe.md/", 2],
-      ["aliasParent/../fileAlias.md/", 0],
+      ["aliasParent/../fileAlias.md/", 2],
       ["probe.md/../fileAlias.md/", 0],
       ["missing/../fileAlias.md/", 0],
       ["broken.md/", 2],
@@ -939,11 +951,14 @@ test(
           const missing = ["broken.md/", "loop.md/", "missing.md/"].includes(
             selector,
           );
+          const ambiguous = selector.startsWith("aliasParent/../");
           assert.match(
             result.stderr,
-            missing
-              ? /not an existing file/
-              : /ordinary file selector ends in a directory separator/,
+            ambiguous
+              ? /ambiguous parent traversal through symlink/
+              : missing
+                ? /not an existing file/
+                : /ordinary file selector ends in a directory separator/,
           );
         }
       }

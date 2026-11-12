@@ -2,7 +2,7 @@
 import { LinkChecker } from "linkinator";
 import { mkdtemp, writeFile, rm, stat, lstat } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { isAbsolute, join, resolve } from "node:path";
+import { isAbsolute, join, resolve, sep } from "node:path";
 import {
   repositoryIdentity,
   pageIdentity,
@@ -10,6 +10,41 @@ import {
   hasTerminalDirectorySeparator,
 } from "./requested-file-identity.mjs";
 import { observations } from "./link-frontmatter.mjs";
+
+// Raw parent traversal after a symlink can resolve a different physical file
+// from the lexical identity sent to Linkinator. Reject that ambiguity only;
+// this does not establish general filesystem containment or prevent TOCTOU.
+async function rejectSymlinkParentTraversal(root, path) {
+  if (!path.split(sep).includes("..")) return;
+  let prefix = root;
+  let traversedSymlink = false;
+  for (const segment of path.split(sep)) {
+    if (!segment || segment === ".") continue;
+    if (segment === "..") {
+      if (traversedSymlink)
+        throw new Error(
+          `Requested-file attestation failed: ambiguous parent traversal through symlink: ${JSON.stringify(path)}`,
+        );
+      prefix = resolve(prefix, "..");
+      // Keep inspection scoped to in-repository components, including paths
+      // that leave and re-enter the root. Other excursions remain R1 work.
+      continue;
+    }
+    prefix = join(prefix, segment);
+    // Never probe outside the lexical root or descend into a known symlink.
+    // Excursions outside the root are still not physically contained.
+    if (
+      traversedSymlink ||
+      (prefix !== root && !prefix.startsWith(`${root}${sep}`))
+    )
+      continue;
+    const entry = await lstat(prefix).catch((error) => {
+      if (error.code === "ENOENT" || error.code === "ENOTDIR") return undefined;
+      throw error;
+    });
+    if (entry?.isSymbolicLink()) traversedSymlink = true;
+  }
+}
 
 // Use Linkinator's native server without sending user paths through its glob.
 // The awaited skip callback keeps that server alive for the URL-mode check.
@@ -128,6 +163,7 @@ try {
     // Preserve published main's lexical selector/existence semantics.
     // This transport boundary is not a physical containment check.
     const identity = repositoryIdentity(root, path);
+    await rejectSymlinkParentTraversal(root, path);
     if (terminalSeparator) {
       // Match main's normalized final-entry distinction, not raw OS traversal.
       const entry = await lstat(resolve(root, identity)).catch(() => undefined);
