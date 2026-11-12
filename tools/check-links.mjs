@@ -1,8 +1,15 @@
 // Process entry point only: every invocation owns its Marked configuration.
 import { LinkChecker } from "linkinator";
-import { mkdtemp, writeFile, rm, stat, lstat } from "node:fs/promises";
+import {
+  mkdtemp,
+  writeFile,
+  rm,
+  stat,
+  lstat,
+  realpath,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { isAbsolute, join, resolve, sep } from "node:path";
+import { isAbsolute, join, resolve, sep, dirname, relative } from "node:path";
 import {
   repositoryIdentity,
   pageIdentity,
@@ -46,6 +53,52 @@ async function rejectSymlinkParentTraversal(root, path) {
   }
 }
 
+// Check the local URL's actual file (or nearest existing parent) before the
+// native static server is asked to serve it. This narrows symlink escapes, not
+// unrelated loopback requests, races or Windows provider identity.
+async function requireLocalUrlWithinRoot(root, physicalRoot, url) {
+  const pathname = new URL(url).pathname;
+  const segments = pathname.split("/").filter(Boolean).map(decodeURIComponent);
+  if (
+    segments.some(
+      (segment) =>
+        segment === "." ||
+        segment === ".." ||
+        segment.includes("/") ||
+        segment.includes("\0") ||
+        (sep === "\\" && segment.includes("\\")),
+    )
+  )
+    throw new Error("ambiguous decoded URL path");
+  // Linkinator's native server appends index.html to directory URLs before
+  // reading a file. Verify that final path, not only the visible directory.
+  let candidate = resolve(
+    root,
+    ...segments,
+    ...(pathname.endsWith("/") ? ["index.html"] : []),
+  );
+  const inside = (base, path) => {
+    const rel = relative(base, path);
+    return (
+      rel === "" ||
+      (rel !== ".." && !rel.startsWith(`..${sep}`) && !isAbsolute(rel))
+    );
+  };
+  if (!inside(root, candidate)) throw new Error("lexical checkout escape");
+  while (true) {
+    try {
+      const physical = await realpath(candidate);
+      if (!inside(physicalRoot, physical))
+        throw new Error("physical target outside checkout");
+      return;
+    } catch (error) {
+      if (error.code !== "ENOENT" && error.code !== "ENOTDIR") throw error;
+      if (candidate === root) throw error;
+      candidate = dirname(candidate);
+    }
+  }
+}
+
 // Use Linkinator's native server without sending user paths through its glob.
 // The awaited skip callback keeps that server alive for the URL-mode check.
 async function checkLiteral(root, paths, recordPage, recordOrigin) {
@@ -64,6 +117,8 @@ async function checkLiteral(root, paths, recordPage, recordOrigin) {
   };
   try {
     process.chdir(root);
+    const physicalRoot = await realpath(root);
+    const rejectedLocalUrls = new Map();
     const bootstrap = await new LinkChecker().check({
       ...options,
       path: ".",
@@ -84,7 +139,24 @@ async function checkLiteral(root, paths, recordPage, recordOrigin) {
             path: paths.map(
               (file) => `${origin}/${repositoryUrlPath(root, file)}`,
             ),
-            linksToSkip: async (link) => new URL(link).origin !== origin,
+            linksToSkip: async (link) => {
+              let localPath = "<unparseable URL>";
+              try {
+                const url = new URL(link);
+                if (url.origin !== origin) return true;
+                localPath = url.pathname;
+                await requireLocalUrlWithinRoot(root, physicalRoot, link);
+                return false;
+              } catch (error) {
+                // Linkinator may swallow callback exceptions. Record the
+                // reason and fail the entire run after it stops checking.
+                rejectedLocalUrls.set(
+                  localPath,
+                  error.code || error.message || "unverified",
+                );
+                return true;
+              }
+            },
           });
         } catch (error) {
           failure = error;
@@ -94,6 +166,10 @@ async function checkLiteral(root, paths, recordPage, recordOrigin) {
       },
     });
     if (failure) throw failure;
+    if (rejectedLocalUrls.size)
+      throw new Error(
+        `Requested-file attestation failed: unsafe or unverified local URL: ${JSON.stringify([...rejectedLocalUrls].map(([url, reason]) => ({ url, reason })))}; selected inputs: ${JSON.stringify(paths)}`,
+      );
     if (
       !result ||
       !bootstrap.passed ||
