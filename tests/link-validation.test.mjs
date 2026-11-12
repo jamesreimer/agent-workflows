@@ -273,16 +273,24 @@ test("directory contract: outside-root directory cannot be served", (t) => {
   mkdirSync(dir);
   // WHATWG URL resolution clamps literal .. at the URL root. Encoded slashes
   // exercise Linkinator's server containment check after percent decoding.
-  for (const target of ["../outside/", "..%2Foutside/"]) {
+  for (const [target, expected] of [
+    ["../outside/", 1],
+    ["..%2Foutside/", 2],
+  ]) {
     const source = `# Source\n\n[outside](${target})\n`;
     writeFileSync(join(dir, "source.md"), source);
     const result = checkLinks(dir, ["source.md"]);
-    assert.equal(result.status, 1, result.output);
-    assert.ok(
-      JSON.parse(result.stdout).result.links.some(
-        (link) => link.state === "BROKEN",
-      ),
-    );
+    assert.equal(result.status, expected, result.output);
+    if (expected === 2) {
+      assert.equal(result.stdout, "");
+      assert.match(result.stderr, /unsafe or unverified local URL/);
+    } else {
+      assert.ok(
+        JSON.parse(result.stdout).result.links.some(
+          (link) => link.state === "BROKEN",
+        ),
+      );
+    }
     assert.equal(readFileSync(join(dir, "source.md"), "utf8"), source);
     assert.equal(
       readFileSync(join(parent, "outside/index.html"), "utf8"),
@@ -290,6 +298,107 @@ test("directory contract: outside-root directory cannot be served", (t) => {
     );
   }
 });
+test("outside-root symlink targets fail closed before local fragment checks", (t) => {
+  const parent = createFixture(t, {
+    "repo/source.md": "# Source\n",
+    "repo/docs/inside.md": "# Inside\n",
+    "outside/secret.md": "# Outside\n\n## Marker\n",
+  });
+  const dir = join(parent, "repo");
+  try {
+    symlinkSync(
+      "../outside",
+      join(dir, "outsideAlias"),
+      process.platform === "win32" ? "junction" : "dir",
+    );
+    symlinkSync(
+      "docs",
+      join(dir, "insideAlias"),
+      process.platform === "win32" ? "junction" : "dir",
+    );
+  } catch (error) {
+    if (process.platform === "win32" && error.code === "EPERM") {
+      t.skip("Junction creation requires permission");
+      return;
+    }
+    throw error;
+  }
+  for (const fragment of ["marker", "not-present"]) {
+    writeFileSync(
+      join(dir, "source.md"),
+      `# Source\n\n[outside](outsideAlias/secret.md#${fragment})\n`,
+    );
+    const result = checkLinks(dir, ["source.md"]);
+    assert.equal(result.status, 2, result.output);
+    assert.equal(result.stdout, "");
+    assert.match(result.stderr, /unsafe or unverified local URL/);
+    assert.match(result.stderr, /physical target outside checkout/);
+    assert.match(result.stderr, /selected inputs:.*source.md/);
+  }
+  const selected = checkLinks(dir, ["outsideAlias/secret.md"]);
+  assert.equal(selected.status, 2, selected.output);
+  assert.match(selected.stderr, /unsafe or unverified local URL/);
+  writeFileSync(
+    join(dir, "source.md"),
+    "# Source\n\n[inside](insideAlias/inside.md#inside)\n",
+  );
+  const inside = checkLinks(dir, ["source.md"]);
+  assert.equal(inside.status, 0, inside.output);
+});
+
+test("outside-root symlinked directory index fails closed", (t) => {
+  const parent = createFixture(t, {
+    "repo/source.md": "# Source\n",
+    "repo/docs/keep.md": "# Keep\n",
+    "outside/secret.html": '<h2 id="outside-marker">Synthetic only</h2>\n',
+  });
+  const dir = join(parent, "repo");
+  mkdirSync(join(dir, "docs/local"));
+  try {
+    symlinkSync(
+      join(parent, "outside/secret.html"),
+      join(dir, "docs/index.html"),
+    );
+  } catch (error) {
+    if (process.platform === "win32" && error.code === "EPERM") {
+      t.skip("File symlink creation requires permission");
+      return;
+    }
+    throw error;
+  }
+  for (const target of [
+    "docs/#outside-marker",
+    "docs/#not-present",
+    "docs#outside-marker",
+  ]) {
+    writeFileSync(join(dir, "source.md"), `# Source\n\n[x](${target})\n`);
+    const result = checkLinks(dir, ["source.md"]);
+    assert.equal(result.status, 2, result.output);
+    assert.equal(result.stdout, "");
+    assert.match(result.stderr, /unsafe or unverified local URL/);
+  }
+});
+
+test("symlink loops remain fail-closed in local links", (t) => {
+  const dir = createFixture(t, {
+    "source.md": "# Source\n\n[loop](loop.md)\n",
+  });
+  try {
+    symlinkSync("loop.md", join(dir, "loop.md"));
+  } catch (error) {
+    if (process.platform === "win32" && error.code === "EPERM") {
+      t.skip("File symlink creation requires permission");
+      return;
+    }
+    throw error;
+  }
+  const result = checkLinks(dir, ["source.md"]);
+  assert.equal(result.status, 2, result.output);
+  assert.equal(result.stdout, "");
+  assert.match(result.stderr, /unsafe or unverified local URL/);
+  if (process.platform !== "win32") assert.match(result.stderr, /ELOOP/);
+});
+
 test("native directory control: default rejects, directory listing accepts", (t) => {
   const dir = createFixture(t, {
     "source.md": "[docs](docs)\n",
@@ -905,7 +1014,8 @@ test(
       ["broken.md/", 2],
       ["loop.md/", 2],
       ["missing.md/", 2],
-      ["outsideAlias.md/", 0],
+      // An outside-root symlink is no longer an accepted validator target.
+      ["outsideAlias.md/", 2],
       ["fileAlias.md/./", 0],
       ["probe.md/./", 2],
       ["rootlink.md/", 0],
@@ -952,13 +1062,16 @@ test(
             selector,
           );
           const ambiguous = selector.startsWith("aliasParent/../");
+          const outside = selector === "outsideAlias.md/";
           assert.match(
             result.stderr,
-            ambiguous
-              ? /ambiguous parent traversal through symlink/
-              : missing
-                ? /not an existing file/
-                : /ordinary file selector ends in a directory separator/,
+            outside
+              ? /unsafe or unverified local URL/
+              : ambiguous
+                ? /ambiguous parent traversal through symlink/
+                : missing
+                  ? /not an existing file/
+                  : /ordinary file selector ends in a directory separator/,
           );
         }
       }
