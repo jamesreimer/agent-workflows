@@ -20,7 +20,7 @@
     "format:check": "prettier --check \"**/*.{js,mjs,cjs,json,jsonc,yml,yaml,md}\""
   },
   "engines": {
-    "node": ">=24.22.1 <25"
+    "node": ">=24.22.3 <25"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
