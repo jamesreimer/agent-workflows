@@ -288,7 +288,7 @@ python3 scripts/bundle_skill.py --check
 python3 -m unittest discover -s tests -p 'test_bundle_skill.py'
 ```
 
-The closed list contains the ten contracts plus an unchanged supporting
+The closed list contains twelve canonical contracts plus an unchanged supporting
 `GOVERNING-SOURCES.md` copy. A generated README navigation adapter resolves their
 context links without copying repository procedures or changing contract bytes.
 The manifest separately lists canonical and supporting source paths and SHA-256

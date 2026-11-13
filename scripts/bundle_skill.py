@@ -23,7 +23,7 @@ CANONICAL = (
 )
 SUPPORT = ("GOVERNING-SOURCES.md",)
 BUNDLE = Path("skills/agent-workflows/references")
-# Navigation adapter, not a copy or a second authored authority model. The ten
+# Navigation adapter, not a copy or a second authored authority model. The twelve
 # contracts' README links target this anchor; their operational text is self-contained.
 NAVIGATION = b"""# Bundled library context
 

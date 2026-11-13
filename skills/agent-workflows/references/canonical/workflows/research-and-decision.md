@@ -52,7 +52,8 @@ authority (SAM §§3–8).
 
 **Working prototype.** This composition is a design candidate. Local validation
 does not establish successful research behavior or independent challenge. It is
-not included in the optional delivery skill's original ten-contract bundle.
+included in the optional delivery skill's twelve-contract bundle; this does not
+establish behavioral qualification or grant execution authority.
 
 Use this composition for a bounded question whose supported result can recommend
 change, retain the current position (no action), or defer a conclusion. Retain/no
