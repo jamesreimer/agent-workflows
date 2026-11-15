@@ -3,9 +3,10 @@
 ## Governing sources
 
 - [Publication and Release Integrity (PRI)](../GOVERNING-SOURCES.md#publication-release-integrity), §§4–17.
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 10, 13, 16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -36,11 +37,11 @@ fictional rollback is not required. Proportionality cannot remove required conte
 or effect, and genuinely irrelevant concepts need no empty sections.
 
 Where architectural completion is claimed, give each material finding an explicit
-disposition (AR §12), which may include correction, bounded follow-up, acceptance or deferral with
-rationale, or dismissal with rationale. AR §12 recommends retaining proportionate
+disposition (AR §13), which may include correction, bounded follow-up, acceptance or deferral with
+rationale, or dismissal with rationale. AR §13 recommends retaining proportionate
 supporting evidence where its loss would materially impair later review.
 A blocking/non-blocking label alone is insufficient; a disposition neither waives
-other completion conditions nor authorizes new work (AR §12; OEC §§6–11).
+other completion conditions nor authorizes new work (AR §13; OEC §§6–11).
 
 Publication requires its actual execution authority; review success alone does
 not supply it (OEC §§6–7, 14). Verify the consumed object and required targets,
@@ -54,6 +55,13 @@ exposure from a failed, interrupted, or premature publication, before replacing,
 retrying, withdrawing, correcting, or claiming completion (§§4, 13).
 Publication claims remain limited by evidence and independent downstream authority
 (§§14–17); this handoff supplies no alternative provenance or authorization model.
+
+Where later reliance on a review is not already governed by more-specific PRI
+requirements, do not omit material findings affecting that reliance unless they
+are accurately disclosed in the claim or validly disposed under applicable authority
+(RI §10). Do not carry a prior conclusion over materially changed state without
+evidence of its continued applicability (RI §13). RI §§2.2 and 16 preserve PRI's
+publication claims and verification rules; this adds no duplicate publication gate.
 
 ## Workflow-local operational guidance
 

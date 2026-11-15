@@ -2,9 +2,10 @@
 
 ## Governing sources
 
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 4–13, 15–16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -35,15 +36,42 @@ fictional rollback is not required. Proportionality cannot remove required conte
 or effect, and genuinely irrelevant concepts need no empty sections.
 
 Where architectural completion is claimed, give each material finding an explicit
-disposition (AR §12), which may include correction, bounded follow-up, acceptance or deferral with
-rationale, or dismissal with rationale. AR §12 recommends retaining proportionate
+disposition (AR §13), which may include correction, bounded follow-up, acceptance or deferral with
+rationale, or dismissal with rationale. AR §13 recommends retaining proportionate
 supporting evidence where its loss would materially impair later review.
 A blocking/non-blocking label alone is insufficient; a disposition neither waives
-other completion conditions nor authorizes new work (AR §12; OEC §§6–11).
+other completion conditions nor authorizes new work (AR §13; OEC §§6–11).
 
 Verify that consumed content corresponds to the declared immutable candidate;
 working changes cannot masquerade as that state (SAP §§5–8). Evaluate the actual
-result against applicable authority, not unbinding forecasts (AR §§4–12).
+result against applicable authority, not unbinding forecasts (AR §§4–13).
+
+Architectural review must distinguish material assumptions from facts, examine
+known contrary evidence, credible competing explanations and foreseeable failures,
+and account for limitations by qualifying the conclusion or preserving an acceptable
+architecture or practicable response (AR §12). Depth and further disconfirming
+evidence should be proportionate; architectural completion under §13 requires
+sufficient §12 support, not only passing implementation checks.
+
+For consequential execution introducing or materially changing an interaction
+material to its objective, validation must address relevant agreed interface
+expectations. Actual representative exchanges, including relevant adverse responses,
+are recommended where feasible and proportionate (OEC §§2, 11). Component/fixture
+checks alone must not be described as verified real interoperability. Explicitly
+retain unavailable evidence; do not claim completion if the unresolved exchange
+could defeat required acceptance or safety. Assessing both sides and their agreement
+before attributing a material integration failure is recommended (OEC §11).
+
+Readiness and review conclusions must identify actual scope and state, preserve
+material evidence/inference/conflict/method-limit distinctions, and not turn missing
+evidence into a pass or a defect attribution (RI §§4–9). Report material findings
+and their effects; distinguish reviewer recommendations from authority-owned
+dispositions. Later reliance must disclose affecting findings or retain their valid
+dispositions (RI §10). Narrow or leave unsupported conclusions unresolved; examine
+material dependencies or narrow reliance, and establish prior review applicability
+to changed state (RI §§11–13). Results should retain proportionate later-reliance
+support (RI §15). These general claim rules do not duplicate AR, OEC, SAP or PRI
+requirements for the same matter (RI §§2.2, 16).
 
 ## Workflow-local operational guidance
 
@@ -120,13 +148,16 @@ inapplicability; an empty placeholder supplies neither authority nor evidence.
 | Candidate and comparison base | `<commit-sha>`; `<base-commit-sha>` |
 | Content correspondence | `<clean-checkout-or-object-verification-evidence>` |
 | Actual change and affected consumers | `<change-summary-and-material-effects>` |
-| Validation | `<required-checks-commands-final-success-results-evidence-and-exact-tested-state>` |
+| Validation | `<required-checks-commands-final-success-results-evidence-and-exact-tested-state-with-real-exchange-versus-component-or-fixture-coverage-where-applicable>` |
 | Provenance and required targets | `<source-identity-correspondence-and-resolution-evidence>` |
 | Deviations, findings, and limitations | `<rationale-existing-dispositions-and-unresolved-conditions>` |
 | Review completion and return | `<review-deliverable-and-return-destination>` |
 
 Return a supported conclusion tied to the inspected state, findings with their
-material effects and dispositions, evidence gaps, and authorized next steps.
+material effects, valid dispositions or requested authority decisions, evidence
+gaps, and authorized next steps. Distinguish an implementor readiness statement
+from independent review; neither a check result nor a bounded review proves more
+than its inspected scope.
 Use [review → correction](review-to-correction.md),
 [review → publication](review-to-publication.md), or
 [return of control](return-of-control.md) as the result warrants. Publication

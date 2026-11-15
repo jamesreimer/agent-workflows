@@ -5,7 +5,8 @@
 - [Publication and Release Integrity (PRI)](../GOVERNING-SOURCES.md#publication-release-integrity), §§4–17.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1, 20.
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §13.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 10, 13, 16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -28,7 +29,7 @@ capability, or successful intermediate state do not themselves supply missing
 authority (OEC §§6–7, 11, 14–15).
 Verify the actual input's correspondence to its immutable identity and all
 required shared targets where authoritative consumption applies (SAP §§5–8,
-15.1). Dispositions cannot hide unmet completion conditions (AR §12).
+15.1). Dispositions cannot hide unmet completion conditions (AR §13).
 
 Stay within protected boundaries and stop if authority or required validation is
 missing (OEC §§8, 10–12). Define recovery expectations where §13 applies. Neither
@@ -48,6 +49,13 @@ publication, before replacing, retrying, withdrawing, correcting, or claiming
 completion (PRI §§4, 13). Use SAP for
 applicable provenance semantics, and preserve separate downstream authority
 (PRI §§15–16). Apply proportionality without waiving required integrity (PRI §17).
+
+Where later reliance on a review is not already governed by more-specific PRI
+requirements, do not omit material findings affecting that reliance unless they
+are accurately disclosed in the claim or validly disposed under applicable authority
+(RI §10). Do not carry a prior conclusion over materially changed state without
+evidence of its continued applicability (RI §13). RI §§2.2 and 16 preserve PRI's
+publication claims and verification rules; this adds no duplicate publication gate.
 
 ## Workflow-local operational guidance
 

@@ -2,9 +2,10 @@
 
 ## Governing sources
 
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§5, 8, 11–12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§5, 8–9, 11–13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 9–13, 16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -35,15 +36,29 @@ fictional rollback is not required. Proportionality cannot remove required conte
 or effect, and genuinely irrelevant concepts need no empty sections.
 
 Where architectural completion is claimed, give each material finding an explicit
-disposition (AR §12), which may include correction, bounded follow-up, acceptance or deferral with
-rationale, or dismissal with rationale. AR §12 recommends retaining proportionate
+disposition (AR §13), which may include correction, bounded follow-up, acceptance or deferral with
+rationale, or dismissal with rationale. AR §13 recommends retaining proportionate
 supporting evidence where its loss would materially impair later review.
 A blocking/non-blocking label alone is insufficient; a disposition neither waives
-other completion conditions nor authorizes new work (AR §12; OEC §§6–11).
+other completion conditions nor authorizes new work (AR §13; OEC §§6–11).
 
 Distinguish correction already within scope from separately discovered defects
 requiring new authority (OEC §§8–9; AR §§5, 11). A review finding alone grants no
 mutation authority. Preserve immutable-state correspondence (SAP §§5–8).
+
+When a correction exposes a materially questioned target, re-evaluate it against
+current requirements (AR §9); stop execution relying on a superseded model until
+the appropriate authority re-evaluates the contract (OEC §8). Architectural
+conclusions need material assumptions, contrary explanations and failure cases
+examined, with limitations accounted for rather than merely listed (AR §12).
+
+Attribute findings only as evidence supports, distinguish review limitations from
+candidate defects, and separate recommendations from valid authority-owned
+dispositions (RI §§9–10). Retain limitations and examine material dependent evidence
+or narrow the claim (RI §§11–12). Earlier review conclusions require applicability
+evidence for changed state; reassessment depth should scale with the change (RI §13).
+These rules preserve AR's architectural disposition and OEC/SAP subject ownership
+without duplication (RI §§2.2, 16).
 
 ## Workflow-local operational guidance
 
@@ -102,8 +117,9 @@ record; provenance does not grant authority.
 
 Act as the [implementation role](../roles/implementation.md) for the authorized
 corrections below. Read the complete review and carry forward all material finding
-dispositions, including findings not selected for correction. The reviewer returns
-this instantiated handoff without mutating the candidate. The receiving
+dispositions and requested authority decisions, including findings not selected
+for correction. A reviewer recommendation alone is not acceptance or deferral.
+The reviewer returns this instantiated handoff without mutating the candidate. The receiving
 implementor verifies the supplied reviewed state before mutation and owns required
 validation through final success before returning a review-ready new candidate;
 see the [implementation role](../roles/implementation.md).
