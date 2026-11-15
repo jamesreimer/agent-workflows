@@ -2,11 +2,12 @@
 
 ## Governing sources
 
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–13, 15.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
 - [Project Repository Responsibility (PRR)](../GOVERNING-SOURCES.md#project-repository-model), §§5–9.
 - [Standards Adoption Model (SAM)](../GOVERNING-SOURCES.md#standards-adoption-model), §§3–8.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 4–16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -26,7 +27,7 @@ from current validity and context-specific failure from system capability (AR §
 Compare proportionate alternatives and affected dependencies (AR §§8–11). Before
 architectural completion is claimed, material review findings require explicit
 dispositions; a settled design is distinct from an implemented and verified final
-state (AR §12). These architectural conditions are not a general AR requirement
+state (AR §13). These architectural conditions are not a general AR requirement
 for every nonarchitectural research decision.
 
 Where OEC applies, its actual scope (§2) controls. Consequential work requires its
@@ -47,6 +48,29 @@ Keep consequential decisions and work records with their proper owners, with
 proportionate durable retention (PRR §§5–9).
 Using this library does not adopt its sources or automatically update consumer
 authority (SAM §§3–8).
+
+For architectural conclusions, revisit a target undermined by changed assumptions
+or evidence against current requirements (AR §9). Distinguish material assumptions
+from established facts and examine known contrary evidence, credible competing
+explanations and foreseeable failure cases (AR §12). Before treating the conclusion
+as settled, limitations must qualify the conclusion or leave the architecture
+acceptable or with a practicable response if realized. Validation depth, additional disconfirming evidence and retained reviewability
+should be proportionate; no new artifact or experiment is prescribed (AR §12).
+
+For evaluative recommendation and challenge claims, identify subject, purpose,
+coverage and actual state, retaining material evidence/inference/conflict/method-limit
+distinctions (RI §§4–6). Depth should be proportionate (RI §7). Do not overclaim
+authority or attribute a review limitation as a subject defect (RI §§8–9).
+Report material findings and effects; recommendations are not valid dispositions
+without the applicable authority. Later reliance must disclose affecting findings
+or retain their valid dispositions (RI §10). Bound unsupported conclusions, examine
+material dependencies or narrow reliance, and establish applicability before reusing
+prior conclusions for changed state (RI §§11–13). An independent conclusion cannot
+rest solely on the producer's assurance; trustworthy evidence may be reused (RI §14).
+Review may complete with findings or unresolved results; results should retain
+proportionate support for later reliance (RI §15). These general rules preserve
+AR architectural reasoning/disposition, OEC execution and SAP provenance ownership
+without duplication (RI §§2.2, 16).
 
 ## Workflow-local operational guidance
 
@@ -89,8 +113,8 @@ change-oriented [Review → Correction](../handoffs/review-to-correction.md) and
 [Review → Publication](../handoffs/review-to-publication.md) routing for this
 composition. Those unchanged edges do not run: this assignment returns a research
 recommendation rather than a change candidate for implementation or publication,
-and Publication has no activity here. Return all material finding dispositions,
-including accepted, deferred and dismissed findings, with rationale, decision
+and Publication has no activity here. Return all material findings and their effects,
+valid dispositions or requested owner decisions, including accepted, deferred and dismissed findings, with rationale, decision
 authority, remaining effects and retained follow-up.
 
 This routing preserves the duty to prepare a correction handoff when correction is
@@ -198,8 +222,8 @@ or any unresolved decision as well as at completion.
    prevents a completed-challenge claim; return the limitation to the owner.
 6. **Return the decision.** Independent review uses return of control to deliver
    the identified recommendation, challenge record, supported conclusion, all material
-   dispositions, unresolved conditions and requested owner decision. Retained work
-   has a responsible owner, durable record and reassessment trigger. Unsupported
+   findings and effects, valid dispositions, unresolved conditions and requested owner
+   decision. Retained work has a responsible owner, durable record and reassessment trigger. Unsupported
    subject conclusions remain deferred; describe incomplete research as incomplete.
    A completed recommendation does not mean the subject is ready, safe, accepted or
    implemented. Further research or correction returns to the owner with the
@@ -207,8 +231,8 @@ or any unresolved decision as well as at completion.
    authority is missing, as specified above. Changed evidence or conclusions receive
    a new identity and challenge proportionate to the change before reliance.
    No automatic correction or publication loop follows. Stop when the documented,
-   independently challenged result and its
-   dispositions have been returned, without claiming an owner decision not yet made.
+   independently challenged result and its findings, valid dispositions and requested decisions have been returned, without
+   claiming an owner decision not yet made.
 
 Keep instantiated handoffs, evidence, challenge records and consequential decisions
 in the consuming project's appropriate records. Selection requires no particular

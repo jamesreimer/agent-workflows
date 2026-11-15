@@ -2,9 +2,10 @@
 
 ## Governing sources
 
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–13, 15.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 4–16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -20,13 +21,36 @@ Templates adoption or access to the [README](../README.md#authority-and-source-s
 
 Assess the actual result against applicable authority, responsibility, alternatives
 and evidence; do not treat historical success or one context's failure as a current
-universal conclusion (AR §§4–12). Give material findings explicit dispositions before
+universal conclusion (AR §§4–13). Give material findings explicit dispositions before
 claiming architectural completion, retaining the distinction between a settled
-design and an implemented final state (AR §12). Dispositions and validation do not
+design and an implemented final state (AR §13). Dispositions and validation do not
 grant further execution authority or waive completion conditions (OEC §§6–12).
 Verify actual consumed content against its source and object-appropriate immutable
 identity where authoritative consumption applies, including required targets in
 the intended consumer context (SAP §§5–8, 15.1).
+
+For architectural conclusions, revisit a target undermined by changed assumptions
+or evidence against current requirements (AR §9). Distinguish material assumptions
+from established facts and examine known contrary evidence, credible competing
+explanations and foreseeable failure cases (AR §12). Before treating the conclusion
+as settled, limitations must qualify the conclusion or leave the architecture
+acceptable or with a practicable response if realized. Validation depth, additional disconfirming evidence and retained reviewability
+should be proportionate; no new artifact or experiment is prescribed (AR §12).
+
+For evaluative recommendation and challenge claims, identify subject, purpose,
+coverage and actual state, retaining material evidence/inference/conflict/method-limit
+distinctions (RI §§4–6). Depth should be proportionate (RI §7). Do not overclaim
+authority or attribute a review limitation as a subject defect (RI §§8–9).
+Report material findings and effects; recommendations are not valid dispositions
+without the applicable authority. Later reliance must disclose affecting findings
+or retain their valid dispositions (RI §10). Bound unsupported conclusions, examine
+material dependencies or narrow reliance, and establish applicability before reusing
+prior conclusions for changed state (RI §§11–13). An independent conclusion cannot
+rest solely on the producer's assurance; trustworthy evidence may be reused (RI §14).
+Review may complete with findings or unresolved results; results should retain
+proportionate support for later reliance (RI §15). These general rules preserve
+AR architectural reasoning/disposition, OEC execution and SAP provenance ownership
+without duplication (RI §§2.2, 16).
 
 ## Workflow-local operational guidance
 
@@ -98,8 +122,9 @@ Neither outcome excuses an incomplete required research check.
 
 Return a supported conclusion tied to the inspected packet, including the recipient's
 actual received-content verification method and outcome, material findings and
-dispositions, disagreements, gaps, evidence limits and retained work. The sender's
-prior dispositions are inputs, not a substitute for the challenger's findings.
+valid dispositions or requested owner decisions, disagreements, gaps, evidence
+limits and retained work. Recommendations do not imply authority to accept or defer.
+The sender's prior dispositions are inputs, not a substitute for the challenger's findings.
 Use [return of control](return-of-control.md) for both final challenge and interruption.
 The composition's [outbound routing](../workflows/research-and-decision.md#roles-and-transfers)
 replaces the change-oriented correction and publication edges with owner return.

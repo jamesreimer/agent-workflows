@@ -2,7 +2,7 @@
 
 ## Governing sources
 
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
 
@@ -38,6 +38,25 @@ Use settled authority and responsibility boundaries to distinguish constraints
 from implementation expectations (AR §§4–8). Govern shared-source identity and
 required inputs under SAP §§5–8, 15.1. Stop affected execution before material
 scope expansion or reliance on a superseded model (OEC §8).
+
+For a materially architectural result, the responsible Planning or architectural
+authority must reassess a target called into question by changed assumptions or
+evidence against current requirements (AR §9). Implementation stops affected execution
+relying on a superseded model and returns to that authority for contract re-evaluation
+before resuming (OEC §8). Identify material assumptions and examine known contrary
+evidence, credible competing explanations and foreseeable failures; before treating
+the conclusion as settled, limitations must qualify the conclusion or leave an
+acceptable design or practicable response if realized (AR §12). Reasoning
+depth and additional disconfirming evidence should be proportionate; no new artifact
+or experiment is prescribed. Completion requires this support and material finding
+dispositions, distinct from implementation verification (AR §13).
+
+For consequential work introducing or materially changing an interaction material
+to its objective, validation must cover relevant agreed interface expectations
+(OEC §§2, 11). Actual representative producer-consumer exchange and adverse-response
+checks are recommended where feasible and proportionate. Unavailable evidence must
+remain explicit; unresolved exchange that could defeat required acceptance or safety
+prevents completion. This supplies no additional access authority.
 
 ## Workflow-local operational guidance
 
@@ -108,12 +127,12 @@ inapplicability; an empty placeholder supplies neither authority nor evidence.
 | Input | Project-local value |
 | --- | --- |
 | Target and source of truth | `<repository>`, `<issue>`, `<canonical-records>` |
-| Objective and accepted architectural result | `<outcome-and-settled-design>` |
+| Objective and accepted architectural result | `<outcome-and-settled-design-with-material-assumptions-and-accounted-for-limitations>` |
 | Authority and scope | `<authorizer-and-reviewed-contract>`; `<permitted-actions-and-consequences>` |
 | Governing sources and applicability | `<governing-standards-versions-and-scope-or-Standards-Templates-not-adopted>`; `<existing-alternative-policy-dispositions-or-record-reference-if-applicable>`; `<workflow-consequence-and-adopted-scope-assessments>` |
 | Protected interests | `<protected-boundaries-and-effects>` |
 | Completion boundary | `<condition-at-which-to-stop>` |
-| Validation and acceptance evidence | `<required-checks-and-evidence>` |
+| Validation and acceptance evidence | `<required-checks-and-evidence-including-material-interface-expectations-authorized-exchanges-and-unavailable-evidence-where-applicable>` |
 | Recovery, risks, prerequisites, dependencies | `<applicable-expectations-or-explained-inapplicability>` |
 | Required source inputs and delivered-asset targets | `<source-inputs-and-delivered-assets-required-targets-with-identities-and-correspondence-evidence>` |
 | Controlling implementation constraints | `<justified-boundaries-including-any-deliberate-exact-change-restriction>` |

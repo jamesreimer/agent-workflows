@@ -3,11 +3,12 @@
 ## Governing sources
 
 - [Publication and Release Integrity (PRI)](../GOVERNING-SOURCES.md#publication-release-integrity), §§4–17.
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
 - [Project Repository Responsibility (PRR)](../GOVERNING-SOURCES.md#project-repository-model), §§5–9.
 - [Standards Adoption Model (SAM)](../GOVERNING-SOURCES.md#standards-adoption-model), §§3–8.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 4–16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -24,7 +25,7 @@ Templates adoption or access to the [README](../README.md#authority-and-source-s
 Applicable adopted/project authority governs throughout; merely selecting this
 composition does not adopt its governing sources (SAM §§3–8). Establish the
 responsibility, authority, proportional architecture, and affected dependencies
-before treating the model as settled (AR §§4–12).
+before treating the model as settled (AR §§4–13).
 
 For an applicable OEC edition, assess its actual scope, not adoption status alone
 or the workflow shorthand below. The pinned OEC §2 covers material effects on
@@ -57,7 +58,7 @@ permission (OEC §§6–12, 14–15).
 
 Architectural completion requires supported conclusions and explicit material
 finding dispositions, including retained follow-up, accepted or deferred findings
-with rationale, and dismissals with rationale (AR §12). No disposition waives
+with rationale, and dismissals with rationale (AR §13). No disposition waives
 another completion condition. Verify shared-source identities, correspondence,
 and required targets where SAP §§5–8 and 15.1 apply. Keep project decisions and
 work state in their appropriate records (PRR §§5–9). OEC §12.1 recommends
@@ -69,6 +70,40 @@ and resulting-state verification requirements (§§4–9, 14), including its rul
 identity stability, corrections, withdrawal, and partial exposure (§§10–13).
 Use applicable SAP provenance semantics rather than a separate correspondence
 model (PRI §15); preserve downstream authority and proportionality (§§16–17).
+
+Material changes calling the architectural target into question require re-evaluation
+against current requirements, not justification from prior implementation/review effort alone
+(AR §9). For architectural conclusions, distinguish material assumptions from facts
+and examine known contrary evidence, credible competing explanations and foreseeable
+failure cases (AR §12). Before treating the conclusion as settled, explicit
+limitations must qualify the conclusion or leave the architecture acceptable or
+with a practicable response if realized. Depth,
+further disconfirming evidence and retained reviewability should be proportionate;
+no new artifact or fixed experiment is required (AR §12).
+
+For consequential execution introducing or materially changing an interaction material
+to its objective, validation must address relevant agreed interface expectations.
+Representative actual exchanges, including adverse responses, are recommended where
+feasible and proportionate; component/fixture success alone must not be represented
+as real interoperability. Keep unavailable evidence explicit and do not claim
+completion when unresolved exchange could defeat required acceptance or safety
+(OEC §§2, 11). Examining producer, consumer and agreement before attributing a
+material integration failure is recommended (OEC §11).
+
+Evaluative claims must identify actual purpose, scope/coverage and reviewed state,
+distinguish material evidence, inference and limits, and resolve material contrary
+evidence or keep its effect visible (RI §§4–6). Depth should be proportionate (RI §7).
+Claims and attribution must stay within evidence and authority; a review limitation
+is not itself a candidate defect (RI §§8–9). Report material findings and effects,
+distinguish recommendations from valid dispositions, and preserve findings affecting
+later reliance through accurate disclosure or valid disposition (RI §10). Narrow
+unsupported claims, examine material dependencies or narrow reliance, and establish
+earlier conclusions' applicability to changed state (RI §§11–13). Independent
+conclusions cannot rest solely on producer assurances (RI §14). Review completion
+may be bounded or unresolved and is not work readiness; results should retain
+proportionate later-reliance support (RI §15). RI §§2.2 and 16 preserve the more-specific
+AR, OEC, SAP, PRI and SAM rules without adding duplicate requirements for their matters;
+SAM retains organizational adoption, authority and adopted-material lifecycle ownership.
 
 ## Workflow-local operational guidance
 
@@ -186,7 +221,9 @@ role. Preparing that handoff does not itself authorize the sender to execute it.
 1. **Plan.** [Planning](../roles/planning.md) supplies
    [planning → implementation](../handoffs/planning-to-implementation.md).
    Set outcome, authority, ownership, protected behavior, and evidence expectations.
-   Distinguish controlling constraints from predicted files and techniques.
+   Distinguish controlling constraints from predicted files and techniques. Account
+   for material architectural assumptions and contrary cases; use existing evidence
+   fields for consequential material interface expectations and unavailable evidence.
    Stop with the instantiated handoff; Planning does not implement.
 2. **Implement.** [Implementation](../roles/implementation.md) owns mechanics
    within those constraints. Before mutation, verify any supplied exact/approved
@@ -200,16 +237,20 @@ role. Preparing that handoff does not itself authorize the sender to execute it.
    Correct and revalidate within existing authority or return incomplete state.
 3. **Review.** [Independent review](../roles/independent-review.md) evaluates
    actual candidate state against authorized intent and evidence, rather than
-   conformity to a nonbinding forecast. Carry every material finding's disposition
-   and rationale; approval versus correction is not a complete findings record.
+   conformity to a nonbinding forecast. Report scope, evidence limits and every
+   material finding's effect, with valid dispositions or requested owner decisions;
+   a recommendation is not an authority-owned disposition. Check architectural
+   assumptions, contrary cases and exchange claims where material. Approval versus
+   correction is not a complete findings record.
    Do not mutate the candidate; return the appropriate instantiated handoff.
 4. **Correct when authorized.** Use
    [review → correction](../handoffs/review-to-correction.md) for bounded outcomes.
    Carry accepted, deferred, dismissed, and follow-up findings alongside corrections.
    Changes receive re-review proportionate to their effects and dependencies;
    record the new candidate identity and which prior conclusions remain supported.
-   This re-review rule is workflow-local operational guidance, not a general
-   Review Standard. Missing authority or unresolved conditions return to their owner.
+   This re-review mechanic is workflow-local; RI §13 separately governs truthful
+   changed-state applicability where adopted/applicable. Missing authority or
+   unresolved conditions return to their owner.
 5. **Publish only when authorized.**
    [Review → publication](../handoffs/review-to-publication.md) carries the reviewed
    identity, dispositions, checks, and actual publication authority to

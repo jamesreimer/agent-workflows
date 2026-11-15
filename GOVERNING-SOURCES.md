@@ -16,15 +16,30 @@ Past pins belong in Git and PR history.
 
 ## architectural-reasoning
 
-Architectural Reasoning Standard. Template edition: `1.0`.
+Architectural Reasoning Standard. Template edition: `3.0`.
 
-[Source standard](https://github.com/jamesreimer/standards-templates/blob/df73ad31cdbb15210ad9670d669d3c567a79a1d3/templates/architectural-reasoning/standard.md).
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/384304d7328394a654b121f47022b3eefb7cb712/templates/architectural-reasoning/standard.md).
 
 ## operational-execution-contract
 
-Operational Execution Contract Standard. Template edition: `1.0`.
+Operational Execution Contract Standard. Template edition: `2.0`.
 
-[Source standard](https://github.com/jamesreimer/standards-templates/blob/df73ad31cdbb15210ad9670d669d3c567a79a1d3/templates/operational-execution-contract/standard.md).
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/384304d7328394a654b121f47022b3eefb7cb712/templates/operational-execution-contract/standard.md).
+
+## review-integrity
+
+Review Integrity Standard. Template edition: `1.0`.
+
+[Source standard](https://github.com/jamesreimer/standards-templates/blob/384304d7328394a654b121f47022b3eefb7cb712/templates/review-integrity/standard.md).
+
+RI governs evaluative claims and later reliance, not a new role or universal
+review gate. Under §§2.2 and 16, more-specific applicable requirements retain
+their subjects: AR owns architectural conclusion validation and finding disposition;
+OEC owns execution authority, validation and completion; SAP owns provenance;
+PRI owns publication claims and verification; SAM owns organizational adoption,
+authority and the independent lifecycle of adopted normative material. RI does not
+weaken, reinterpret, supplement or duplicate those requirements for the same matter.
+Its remaining requirements still apply within their actual governing scope.
 
 ## shared-asset-provenance
 

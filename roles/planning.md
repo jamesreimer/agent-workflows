@@ -2,7 +2,7 @@
 
 ## Governing sources
 
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§3–12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§3–13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
 - [Project Repository Responsibility (PRR)](../GOVERNING-SOURCES.md#project-repository-model), §§5–9.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
@@ -54,7 +54,52 @@ or effect, and genuinely irrelevant concepts need no empty sections.
 Keep canonical decisions and work tracking with their proper owners (PRR §§5–9).
 A workflow selection is not automatic standards adoption (SAM §§3–8).
 
+When material changes in requirements, assumptions, constraints or evidence call
+the target architecture into question, re-evaluate the intended durable model
+against current governing requirements (AR §9). Existing implementation and prior
+review effort alone must not justify an obsolete target; legitimate compatibility,
+continuity and migration constraints remain relevant.
+
+For architectural conclusions, distinguish material assumptions, inferences,
+estimates and unverified claims from established facts. Examine known material
+contrary evidence, credible competing explanations and foreseeable failure cases;
+nominal success alone cannot settle a conclusion while these remain unexamined
+(AR §12). Validation depth should match consequence and uncertainty; reasoning should seek further
+disconfirming evidence where feasible and proportionate, and should retain proportionate
+reviewability in existing records when more than brief reasoning is warranted.
+Additional evidence should not be gathered merely for volume when it is unlikely
+to change the conclusion. No particular method, experiment or new artifact is required.
+Before treating the conclusion as settled, every material case must be supported
+or resolved to that proportionate depth, or explicitly accounted for: qualify the
+conclusion so the limitation cannot
+defeat its claim, or establish that the architecture remains acceptable or preserves
+a practicable response if the limitation occurs. Merely listing an uncertainty,
+including evidence unavailable within authority, does not settle it (AR §12).
+Architectural completion requires this support and explicit material finding
+dispositions; a settled design is not an implemented, verified state (AR §13).
+
+For consequential execution introducing or materially changing an interaction
+material to its objective, required validation must address the agreed interface's
+relevant values and meaning, required or absent states, compatibility and errors
+(OEC §§2, 11). Representative actual producer output through the intended consumer,
+including material adverse responses, is recommended where feasible and proportionate.
+Unavailable authorized exchange evidence must remain explicit; an unresolved exchange
+that could defeat required acceptance or safety prevents a completion claim.
+Planning these checks grants no provider access or additional execution authority.
+
 ## Workflow-local operational guidance
+
+For a materially architectural decision, revisit the intended target when changed
+assumptions or evidence undermine it. In the existing design/decision record, separate
+facts from material assumptions, examine contrary explanations and failure cases,
+and qualify any conclusion that unresolved limitations could defeat unless an
+acceptable design or practicable response accounts for them. Scale the reasoning
+to consequence and uncertainty; routine unchanged work needs no fresh assessment.
+In the planning handoff's **Validation and acceptance evidence**, identify material
+producer-consumer expectations for consequential work under the protected interests
+threshold below, authorized representative exchange checks where feasible, and
+evidence unavailable within scope. These local
+mechanics supply neither experimental access nor permission to redesign or execute.
 
 Record governing standards, versions, and scope, or `Standards Templates: not
 adopted`, separately from the actual local authorizer and contract. For alternative

@@ -3,8 +3,9 @@
 ## Governing sources
 
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
-- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §12.
+- [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §13.
 - [Project Repository Responsibility (PRR)](../GOVERNING-SOURCES.md#project-repository-model), §§5–9.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 4–11, 13, 15–16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -24,11 +25,24 @@ materially depends on it. Keep reporting proportionate; this is not a universal
 mandatory report format. Reporting itself does not authorize continuation.
 Stop at completion and before exceeding authority or protected boundaries
 (OEC §§8, 10–12). Before architectural completion is claimed, give material
-architectural findings explicit dispositions (AR §12).
-AR §12 recommends proportionate supporting evidence retention where its loss
+architectural findings explicit dispositions (AR §13).
+AR §13 recommends proportionate supporting evidence retention where its loss
 would materially impair later review.
 Keep work records and canonical decisions with their responsible owners
 (PRR §§5–9; OEC §17).
+
+When the return conveys an evaluative conclusion, identify its subject, purpose,
+scope and actual state; preserve material evidence, inference, conflict and method
+limitations (RI §§4–6). Depth should be proportionate (RI §7). Claims and attribution
+must stay within evidence and authority; inability to assess is not itself a subject
+defect (RI §§8–9). Report material findings and effects, distinguishing recommendations
+from valid dispositions; later reliance must disclose affecting findings or retain
+their valid dispositions (RI §10). Narrow or leave unsupported conclusions unresolved
+and do not silently carry prior conclusions over changed state (RI §§11, 13).
+Review completion can be bounded or unresolved and does not imply work readiness;
+retain proportionate support for later reliance (RI §15 recommendation).
+RI does not duplicate AR architectural completion or OEC execution reporting for
+the same matter (RI §§2.2, 16).
 
 ## Workflow-local operational guidance
 
@@ -75,7 +89,7 @@ instantiated handoff under the actual authority.
 | Material resulting state | `<actual-state-and-immutable-identity-where-needed>` |
 | Validation and recovery | `<checks-results-limitations-and-recovery-performed>` |
 | Protected state and partial effects | `<preserved-interests-and-any-incomplete-effects>` |
-| Findings and unresolved conditions | `<material-dispositions-rationale-and-remaining-consequence>` |
+| Findings and unresolved conditions | `<material-findings-effects-valid-dispositions-or-requested-decisions-rationale-authority-and-remaining-consequence>` |
 | Next-role instruction | `<instantiated-handoff-or-none-with-reason>` |
 | Follow-up | `<necessary-action-owner-and-trigger-or-none>` |
 | Return destination and requested decision | `<responsible-owner-project-record-and-bounded-question>` |

@@ -33,7 +33,35 @@ For authoritative shared-source consumption, verify source, immutable consumed
 identity, actual bytes, and required targets (SAP §§5–11, 15.1). Available source
 content or successful checks confer no further authority.
 
+Materially changed assumptions, requirements, constraints or evidence that call
+the architectural target into question require target re-evaluation against current
+requirements, not justification by prior implementation/review effort alone (AR §9).
+If the contract's model is materially superseded, stop affected execution and return
+through the appropriate authority path before resuming (OEC §8); this is not permission
+for unilateral rearchitecture.
+
+When consequential execution introduces or materially changes an interaction material
+to its objective, validation must address relevant agreed values and meaning,
+required or absent states, compatibility and error behavior (OEC §§2, 11).
+Where feasible and proportionate, it should exercise representative actual producer
+output through the intended consumer, including relevant adverse responses.
+Component tests or invented fixtures alone must not be claimed as real interoperability.
+If authorized real-exchange evidence is unavailable, keep that limitation explicit;
+do not claim completion if the unresolved exchange could defeat required acceptance
+or safety. On a material integration failure, examine producer, consumer and their
+agreement before assigning fault, as recommended by OEC §11. None of these checks
+authorizes otherwise protected access.
+
 ## Workflow-local operational guidance
+
+Return a materially questioned architectural target to Planning or its responsible
+authority, stopping execution that depends on a superseded model. For material
+exchanges in consequential work under the protected interests threshold below,
+carry the agreed interface expectations and actual exchange coverage into validation
+evidence; distinguish component/fixture results from real
+producer-consumer observations. Use representative real exchanges where feasible
+and authorized, retain unverified behavior, and leave acceptance/safety-dependent
+completion blocked when that behavior remains unresolved.
 
 Record governing standards, versions, and scope, or `Standards Templates: not
 adopted`, separately from the actual local authorizer and contract. For alternative
