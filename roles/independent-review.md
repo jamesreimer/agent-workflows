@@ -38,8 +38,9 @@ Challenge architectural targets called into question by material changes against
 requirements; prior implementation or review effort alone is not justification
 (AR §9). For architectural conclusions, examine whether material assumptions are
 distinguished from facts and known contrary evidence, credible competing explanations
-and foreseeable failures have been examined (AR §12). A carried limitation must
-qualify the conclusion or leave the architecture acceptable or with a practicable
+and foreseeable failures have been examined (AR §12). Before treating a conclusion
+as settled, a carried limitation must qualify the conclusion or leave the architecture
+acceptable or with a practicable
 response if realized. Validation depth and further disconfirming evidence should
 be proportionate; no fixed experiment or new artifact is required (AR §12).
 
@@ -63,12 +64,14 @@ Narrow, qualify or leave unresolved any conclusion defeated by a material limita
 examine enough adjacent/dependent evidence to support reliance or narrow the claim
 (RI §§11–12). Earlier conclusions need applicability evidence for materially changed
 state; reassessment depth should scale with the change (RI §13).
-An independent claim cannot rest solely on the producer's conclusions or evidence
-summary; trustworthy evidence may be reused, without reproducing every check
-(RI §14). Review may finish with findings or a bounded/unresolved result; this is
+An independent claim cannot rest solely on the producer's conclusions, evidence
+summary or assertion that required checks passed; trustworthy evidence may be reused
+without reproducing every check (RI §14). Review may finish with findings or a
+bounded/unresolved result; this is
 not work readiness or authority. Results should retain proportionate support for
 later reliance (RI §15). RI §§2.2 and 16 preserve AR's architectural conclusion and
-disposition rules, OEC execution, SAP provenance and PRI publication ownership;
+disposition rules, OEC execution, SAP provenance, PRI publication and SAM organizational
+adoption, authority and adopted-material lifecycle ownership;
 RI neither duplicates nor changes those specific requirements.
 
 ## Workflow-local operational guidance

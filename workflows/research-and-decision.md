@@ -52,9 +52,9 @@ authority (SAM §§3–8).
 For architectural conclusions, revisit a target undermined by changed assumptions
 or evidence against current requirements (AR §9). Distinguish material assumptions
 from established facts and examine known contrary evidence, credible competing
-explanations and foreseeable failure cases (AR §12). Limitations must qualify the
-conclusion or leave the architecture acceptable or with a practicable response if
-realized. Validation depth, additional disconfirming evidence and retained reviewability
+explanations and foreseeable failure cases (AR §12). Before treating the conclusion
+as settled, limitations must qualify the conclusion or leave the architecture
+acceptable or with a practicable response if realized. Validation depth, additional disconfirming evidence and retained reviewability
 should be proportionate; no new artifact or experiment is prescribed (AR §12).
 
 For evaluative recommendation and challenge claims, identify subject, purpose,

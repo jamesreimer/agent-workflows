@@ -180,7 +180,7 @@ inapplicability; an empty placeholder supplies neither authority nor evidence.
 | Target and destination | `<repository>`; `<publication-target>` |
 | Reviewed immutable state | `<commit-sha-or-object-digest>` |
 | Review record and conclusion | `<review-record-tied-to-that-state>` |
-| All material finding dispositions | `<finding-disposition-rationale-authority-evidence-and-remaining-effect>` |
+| All material findings: dispositions, requested decisions or accurate disclosure | `<finding-valid-disposition-or-reviewer-recommendation-and-requested-decision-or-accurate-disclosure-rationale-authority-evidence-and-remaining-effect>` |
 | Bounded follow-up | `<owner-record-and-trigger-for-retained-work-or-none>` |
 | Publication authority and contract | `<authorizer-and-permitted-action>`; `<objective-scope-protections-validation-completion-and-applicable-recovery>` |
 | Governing source applicability | `<governing-standards-versions-and-scope-or-Standards-Templates-not-adopted>`; `<existing-alternative-policy-dispositions-or-record-reference-if-applicable>` |

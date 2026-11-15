@@ -5,7 +5,7 @@
 - [Architectural Reasoning (AR)](../GOVERNING-SOURCES.md#architectural-reasoning), §§4–13.
 - [Operational Execution Contract (OEC)](../GOVERNING-SOURCES.md#operational-execution-contract), §§2, 4–17.
 - [Shared Asset Provenance (SAP)](../GOVERNING-SOURCES.md#shared-asset-provenance), §§5–11, 15.1.
-- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 4–13, 15–16.
+- [Review Integrity (RI)](../GOVERNING-SOURCES.md#review-integrity), §§2.2, 4–16.
 
 These references trace source-derived guidance and the origins of local mechanics;
 they do not adopt standards for the consumer. Source-derived guidance applies only
@@ -47,9 +47,10 @@ working changes cannot masquerade as that state (SAP §§5–8). Evaluate the ac
 result against applicable authority, not unbinding forecasts (AR §§4–13).
 
 Architectural review must distinguish material assumptions from facts, examine
-known contrary evidence, credible competing explanations and foreseeable failures,
-and account for limitations by qualifying the conclusion or preserving an acceptable
-architecture or practicable response (AR §12). Depth and further disconfirming
+known contrary evidence, credible competing explanations and foreseeable failures.
+Before treating a conclusion as settled, it must account for limitations by qualifying
+the conclusion or preserving an acceptable architecture or practicable response
+(AR §12). Depth and further disconfirming
 evidence should be proportionate; architectural completion under §13 requires
 sufficient §12 support, not only passing implementation checks.
 
@@ -69,8 +70,11 @@ and their effects; distinguish reviewer recommendations from authority-owned
 dispositions. Later reliance must disclose affecting findings or retain their valid
 dispositions (RI §10). Narrow or leave unsupported conclusions unresolved; examine
 material dependencies or narrow reliance, and establish prior review applicability
-to changed state (RI §§11–13). Results should retain proportionate later-reliance
-support (RI §15). These general claim rules do not duplicate AR, OEC, SAP or PRI
+to changed state (RI §§11–13). An independent conclusion must not rest solely on the
+producer's conclusion, evidence summary or assertion that required checks passed;
+trustworthy evidence may be reused without reproducing every check (RI §14).
+Results should retain proportionate later-reliance support (RI §15). These general
+claim rules do not duplicate AR, OEC, SAP, PRI or SAM
 requirements for the same matter (RI §§2.2, 16).
 
 ## Workflow-local operational guidance

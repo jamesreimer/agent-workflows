@@ -75,8 +75,9 @@ Material changes calling the architectural target into question require re-evalu
 against current requirements, not justification from prior implementation/review effort alone
 (AR §9). For architectural conclusions, distinguish material assumptions from facts
 and examine known contrary evidence, credible competing explanations and foreseeable
-failure cases (AR §12). Explicit limitations must qualify the conclusion or leave
-the architecture acceptable or with a practicable response if realized. Depth,
+failure cases (AR §12). Before treating the conclusion as settled, explicit
+limitations must qualify the conclusion or leave the architecture acceptable or
+with a practicable response if realized. Depth,
 further disconfirming evidence and retained reviewability should be proportionate;
 no new artifact or fixed experiment is required (AR §12).
 
@@ -101,7 +102,8 @@ earlier conclusions' applicability to changed state (RI §§11–13). Independen
 conclusions cannot rest solely on producer assurances (RI §14). Review completion
 may be bounded or unresolved and is not work readiness; results should retain
 proportionate later-reliance support (RI §15). RI §§2.2 and 16 preserve the more-specific
-AR, OEC, SAP and PRI rules without adding duplicate requirements for their matters.
+AR, OEC, SAP, PRI and SAM rules without adding duplicate requirements for their matters;
+SAM retains organizational adoption, authority and adopted-material lifecycle ownership.
 
 ## Workflow-local operational guidance
 

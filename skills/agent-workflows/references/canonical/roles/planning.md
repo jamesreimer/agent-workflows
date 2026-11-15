@@ -69,8 +69,9 @@ disconfirming evidence where feasible and proportionate, and should retain propo
 reviewability in existing records when more than brief reasoning is warranted.
 Additional evidence should not be gathered merely for volume when it is unlikely
 to change the conclusion. No particular method, experiment or new artifact is required.
-Every material case must be supported or resolved to that proportionate depth,
-or explicitly accounted for: qualify the conclusion so the limitation cannot
+Before treating the conclusion as settled, every material case must be supported
+or resolved to that proportionate depth, or explicitly accounted for: qualify the
+conclusion so the limitation cannot
 defeat its claim, or establish that the architecture remains acceptable or preserves
 a practicable response if the limitation occurs. Merely listing an uncertainty,
 including evidence unavailable within authority, does not settle it (AR §12).
@@ -95,8 +96,9 @@ and qualify any conclusion that unresolved limitations could defeat unless an
 acceptable design or practicable response accounts for them. Scale the reasoning
 to consequence and uncertainty; routine unchanged work needs no fresh assessment.
 In the planning handoff's **Validation and acceptance evidence**, identify material
-producer-consumer expectations for consequential work, authorized representative
-exchange checks where feasible, and evidence unavailable within scope. These local
+producer-consumer expectations for consequential work under the protected interests
+threshold below, authorized representative exchange checks where feasible, and
+evidence unavailable within scope. These local
 mechanics supply neither experimental access nor permission to redesign or execute.
 
 Record governing standards, versions, and scope, or `Standards Templates: not

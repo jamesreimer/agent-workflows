@@ -46,11 +46,13 @@ Distinguish correction already within scope from separately discovered defects
 requiring new authority (OEC §§8–9; AR §§5, 11). A review finding alone grants no
 mutation authority. Preserve immutable-state correspondence (SAP §§5–8).
 
-When a correction exposes a materially questioned target, re-evaluate it against
-current requirements (AR §9); stop execution relying on a superseded model until
-the appropriate authority re-evaluates the contract (OEC §8). Architectural
+When a correction exposes a materially questioned target, the responsible Planning
+or architectural authority must re-evaluate it against current requirements (AR §9).
+Implementation stops affected execution relying on a superseded model and returns
+to that authority for contract re-evaluation before resuming (OEC §8). Architectural
 conclusions need material assumptions, contrary explanations and failure cases
-examined, with limitations accounted for rather than merely listed (AR §12).
+examined; before a conclusion is treated as settled, limitations must be accounted
+for rather than merely listed (AR §12).
 
 Attribute findings only as evidence supports, distinguish review limitations from
 candidate defects, and separate recommendations from valid authority-owned
@@ -135,7 +137,7 @@ inapplicability; an empty placeholder supplies neither authority nor evidence.
 | Correction authority and contract | `<authorizer-and-contract>`; `<objective-scope-protections-validation-completion-and-applicable-recovery>` |
 | Applicable source authority | `<governing-standards-versions-and-scope-or-Standards-Templates-not-adopted>`; `<existing-alternative-policy-dispositions-or-record-reference-if-applicable>` |
 | Authorized corrections | `<findings-and-required-outcomes>` |
-| All material finding dispositions | `<finding-disposition-rationale-authority-evidence-and-remaining-effect>` |
+| All material findings: dispositions or requested decisions | `<finding-valid-disposition-or-reviewer-recommendation-and-requested-decision-rationale-authority-evidence-and-remaining-effect>` |
 | Bounded follow-up | `<owner-record-and-trigger-for-retained-work-or-none>` |
 | Re-review scope | `<changed-effects-and-evidence-to-reassess>` |
 | Return destination | `<reviewer-or-decision-owner-and-project-record>` |

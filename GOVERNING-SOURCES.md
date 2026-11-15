@@ -36,9 +36,10 @@ RI governs evaluative claims and later reliance, not a new role or universal
 review gate. Under §§2.2 and 16, more-specific applicable requirements retain
 their subjects: AR owns architectural conclusion validation and finding disposition;
 OEC owns execution authority, validation and completion; SAP owns provenance;
-PRI owns publication claims and verification. RI does not weaken, reinterpret,
-supplement or duplicate those requirements for the same matter. Its remaining
-requirements still apply within their actual governing scope.
+PRI owns publication claims and verification; SAM owns organizational adoption,
+authority and the independent lifecycle of adopted normative material. RI does not
+weaken, reinterpret, supplement or duplicate those requirements for the same matter.
+Its remaining requirements still apply within their actual governing scope.
 
 ## shared-asset-provenance
 

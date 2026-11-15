@@ -39,11 +39,14 @@ from implementation expectations (AR §§4–8). Govern shared-source identity a
 required inputs under SAP §§5–8, 15.1. Stop affected execution before material
 scope expansion or reliance on a superseded model (OEC §8).
 
-For a materially architectural result, reassess a target called into question by
-changed assumptions or evidence against current requirements (AR §9). Identify
-material assumptions and examine known contrary evidence, credible competing
-explanations and foreseeable failures; limitations must qualify the conclusion or
-leave an acceptable design or practicable response if realized (AR §12). Reasoning
+For a materially architectural result, the responsible Planning or architectural
+authority must reassess a target called into question by changed assumptions or
+evidence against current requirements (AR §9). Implementation stops affected execution
+relying on a superseded model and returns to that authority for contract re-evaluation
+before resuming (OEC §8). Identify material assumptions and examine known contrary
+evidence, credible competing explanations and foreseeable failures; before treating
+the conclusion as settled, limitations must qualify the conclusion or leave an
+acceptable design or practicable response if realized (AR §12). Reasoning
 depth and additional disconfirming evidence should be proportionate; no new artifact
 or experiment is prescribed. Completion requires this support and material finding
 dispositions, distinct from implementation verification (AR §13).

@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
   "canonical_sources": {
-    "handoffs/evidence-to-challenge.md": "5376debaa964fd051ba14ac60c46a4cead03320f2a506d1ab7c27b9041dcaee9",
-    "handoffs/implementation-to-review.md": "06f4872a2670fd856ade04b239ae6bb6d983d107aa9b0d03b3e28b65a2c60144",
-    "handoffs/planning-to-implementation.md": "af21f340574edeaefef0718faac69c29db8151adfb9eda75aa8d4282c6ea0c16",
+    "handoffs/evidence-to-challenge.md": "04d4f86a3950a0ebc21d3e8710c57bd0d070dfc3eb844843a652f62fd4163fda",
+    "handoffs/implementation-to-review.md": "54cac6ea765d6bacf2d0bfdc7befdd0b68eb21583fb45c67788b7e2ec24180f3",
+    "handoffs/planning-to-implementation.md": "afdbac4664a30e897cb912566b7d77c38cc578e9028207dfaf753ebf42a94a58",
     "handoffs/return-of-control.md": "7e9dbc2a76601fdc83e78667ad51239c9e5f21ddb849f1724f3d880240e5f876",
-    "handoffs/review-to-correction.md": "21505e7209ff7fdd0d4fa63da045a956749edc55120128d8b55e8ea2ecba8167",
-    "handoffs/review-to-publication.md": "b6a44bac885ae6144757d9a991c3eb6103a81f101201fe2b6f3cdda3379d6fc0",
-    "roles/implementation.md": "98de07f6f13ecad1e02bf48987df5d947e65ee7e855efa4c0c465f244e07da0e",
-    "roles/independent-review.md": "5ac5cfa5310c58bf6a3709f3b33760f2719ad4cc76ea7d717c9a55b1efa62f1c",
-    "roles/planning.md": "dfe5fa0362116cbc717993105bebb2bdb2090fbab8965957dbaa7b2d790a9305",
+    "handoffs/review-to-correction.md": "102854cef1c3c0edff5df9dfcd8a9caa5a7d7f0450efa1bbe6b0bdf1b75b1105",
+    "handoffs/review-to-publication.md": "dfc140217357bc821e15a141d82d4e9ba45f61e35e9564cb66b4c8f8a9c28fb9",
+    "roles/implementation.md": "a8df813044e42b114aa56ba7d191fadad6e9c2ff0c14533442b0cae5973b8d4d",
+    "roles/independent-review.md": "2b2a7db1611e276174c8247b066febc33f837b80206e770b34136babe68083d1",
+    "roles/planning.md": "2253acee22856551d194fb93556f65bef5d903aaba965d4c0a686d00f45b293f",
     "roles/publication.md": "378b92748beba54f37ea167faaba0019906a21de2502ebaa7dd4bcc0e04ce11b",
-    "workflows/research-and-decision.md": "42e573c4f80b245930d95a852b5f10f65b0df3bf7dbbd900ac3ed1095cba71da",
-    "workflows/reviewed-change.md": "2efa251ad73b3094faaee3a3a2aa2ea20dce7c678dedf7061efc0d7aa333cbf4"
+    "workflows/research-and-decision.md": "938a86f61b7cd209cad27a19e094d8e3b9dc385fc900ab918dfdf0b8e40c8690",
+    "workflows/reviewed-change.md": "b7274b529a227b334390c76b2ffddbb250b768da211d60ebef7e6b1cb32090ac"
   },
   "support_sources": {
-    "GOVERNING-SOURCES.md": "c6e1b0cdc153f1b5238f43f742150cd2f18c190550b56f8a173ec2bf2c163f82"
+    "GOVERNING-SOURCES.md": "b8eacc211286e0c8864eab53102355be016b8d377ed9c57225ac42129c427e35"
   }
 }

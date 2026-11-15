@@ -55,9 +55,10 @@ authorizes otherwise protected access.
 ## Workflow-local operational guidance
 
 Return a materially questioned architectural target to Planning or its responsible
-authority, stopping execution that depends on a superseded model. For consequential
-material exchanges, carry the agreed interface expectations and actual exchange
-coverage into validation evidence; distinguish component/fixture results from real
+authority, stopping execution that depends on a superseded model. For material
+exchanges in consequential work under the protected interests threshold below,
+carry the agreed interface expectations and actual exchange coverage into validation
+evidence; distinguish component/fixture results from real
 producer-consumer observations. Use representative real exchanges where feasible
 and authorized, retain unverified behavior, and leave acceptance/safety-dependent
 completion blocked when that behavior remains unresolved.
