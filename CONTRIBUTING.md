@@ -269,7 +269,7 @@ resolution does not qualify a candidate; required CI still installs without
 `--force` on the selected runtime.
 
 Dependabot proposes GitHub Actions, Python requirements, and npm dependency
-updates monthly. Hook revisions remain covered by `pre-commit autoupdate`.
+updates weekly. Hook revisions remain covered by `pre-commit autoupdate`.
 Actions are pinned by commit as well; review version inputs when updating them.
 
 The durable link regression contract and test controls are documented in
